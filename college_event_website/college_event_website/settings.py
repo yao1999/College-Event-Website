@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'User.User'
+AUTH_USER_MODEL = 'Users.User'
 
 
 # Application definition
@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'User.apps.UserConfig',
-    'University.apps.UniversityConfig'
+    'rest_framework',
+    'Users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
