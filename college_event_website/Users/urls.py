@@ -6,9 +6,9 @@ from django.urls import path
 #   AdminSignUpView,
 #   SuperAdminSignUpView
 # )
-from .views import UserView
-# from . import views   # '.' = current directory
+from . import views   # '.' = current directory
+
 
 urlpatterns = [
-   path('', UserView.as_view(), name='register')
+   path('', views.user_register, name='user_register')
 ]

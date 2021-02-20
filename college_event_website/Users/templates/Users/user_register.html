@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Register page</title>
+    </head>
+
+
+    <body>
+        <div id="content" class="content">
+            <form method="post" action="/register/">
+                {% csrf_token %}
+                {{user_register_form.as_p}}
+                <button type="submit", name="save">Register</button>
+            </form>
+        </div>
+    </body>
+</html>

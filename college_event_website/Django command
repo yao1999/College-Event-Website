@@ -1,0 +1,27 @@
+install Django:
+1. I assume you have python install and have pip install too.
+2. pip install django
+3. pip install djangorestframework? <-- you don't have to do this, I did it
+
+
+-------------------------------------------------------------------------
+Django part (backend):
+make a folder: Django-admin startapp [folder name]
+
+-------------------------------------------------------------------------
+
+make sure you cd to the right folder (the one that has manage.py)
+
+run the server(compile the code): python manage.py reunserver
+
+make migration for model: python manage.py makemigrations [model name]
+magrate the changes to DB: python manage.py migrate
+
+-------------------------------------------------------------------------
+
+Database:
+1. install extension SQLite (author: alexcvzz)
+2. ctrl+shift+p, then enter "SQLite: Open Database" and click "db.sqlite3" to open the database 
+    (you don't have to do it everytime, just in case you want to see what is in database)
+3. ctrl+shift+p, then enter "SQLite: Close Database" to open the database 
+
