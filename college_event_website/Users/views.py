@@ -4,21 +4,16 @@ from .models import User
 from django.http import HttpResponseRedirect
 # from .forms import RegisterUser
 
-def check_input(inputs):
-  for input in inputs:
-    if len(input) <= 0:
-      return False
-  
-  return True
-
 def user_register(response):
   if response.method == "POST":
     if response.POST.get("UserRegisterButton") or response.POST.get("SuperUserRegisterButton"):
+
       first_name = response.POST.get("UserFirstName")
       last_name = response.POST.get("UserLastName") 
       email = response.POST.get("UserEmail")
       username = response.POST.get("UserUsername")
       password = response.POST.get("UserPassword")
+      
       is_super_admin = False
       if response.POST.get("SuperUserRegisterButton"):
         is_super_admin = True

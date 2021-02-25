@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'Users.apps.UsersConfig',
     'Home.apps.HomeConfig',
+    'Events.apps.EventsConfig',
 ]
 
 MIDDLEWARE = [
