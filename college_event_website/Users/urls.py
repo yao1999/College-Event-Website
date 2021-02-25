@@ -10,5 +10,6 @@ from . import views   # '.' = current directory
 
 
 urlpatterns = [
-   path('', views.user_register, name='user_register')
+   path('register/', views.user_register, name='user_register'),
+   path('login/', views.user_login, name='user_login'),
 ]
