@@ -25,3 +25,10 @@ Database:
     (you don't have to do it everytime, just in case you want to see what is in database)
 3. ctrl+shift+p, then enter "SQLite: Close Database" to open the database 
 
+-------------------------------------------------------------------------
+To delete row from a table in Database:
+1. python manage.py shell
+2. from xx.models import yy
+3. list = yy.objects.all()
+4. list.delete()
+5. list <- make sure it is empty
