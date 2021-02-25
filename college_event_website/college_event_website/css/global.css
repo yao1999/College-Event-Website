@@ -1,0 +1,272 @@
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.navbar {
+    background: #971b21;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .1rem .75rem #050505;
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background: #373737;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+}
+
+.footer {
+    position: absolute;
+    border: 0;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    background: #971b21;
+    color: white;
+}
+
+
+/* Index Page Styles
+-------------------------------------------------- */
+hr {
+    display: block;
+    height: 2px;
+    width: 35%;
+    background: black;
+    margin-top: 12px;
+}
+
+.hline-text {
+    width: 15%;
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
+}
+
+.text-sm {
+    font-size: 14px;
+}
+
+.text-lg {
+    font-size: 48px;
+}
+
+.text-md {
+    font-size: 2rem;
+}
+
+.text-orng, .text-orng:hover {
+    color: #d8272f;
+}
+
+.text-light-orng, .text-light-orng:hover {
+    color: #e7c2bf;
+}
+
+.text-dark-orng, .text-dark-orng:hover {
+    color: #971b21;
+}
+
+.text-blk, .text-blk:hover {
+    color: #000000;
+}
+
+.gradient-orange {
+    background: linear-gradient(to top right, #c37773 0%, #92080e 100%);
+}
+
+.gradient-black {
+    background: linear-gradient(to top right, #1f1616 0%, #5b5255 100%);
+    color: white;
+}
+
+input.form-control ,
+textarea.form-control  {
+    background-color: transparent !important;
+    padding: 10px;
+    border: none;
+    border-bottom: 3px solid #101010;
+    margin: 2px 1px;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.form-control::placeholder,
+.form-control::-moz-placeholder,
+.form-control::-webkit-input-placeholder
+.form-control::-ms-input-placeholder {
+    color: white !important;
+}
+
+input:focus.form-control,
+textarea:focus.form-control {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: 10px 10px black;
+    border-bottom: 3px solid white;
+    color: white;
+}
+
+.login-btn:hover {
+    background: linear-gradient(to top right, #323131 0%, #5f5d5d 100%);
+}
+
+.shadow-thick {
+    box-shadow: 0 .75rem 1.2rem black;
+}
+
+.shadow-med {
+    box-shadow: 0 .2rem .4rem black;
+}
+
+.text-shadow {
+    text-shadow: 3px 3px #040404;
+}
+
+.h-max {
+    height: 100vh;
+}
+
+.event-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.event-scroll .event-row {
+    display: block;
+}
+
+.event-scroll .event-card {
+    display: inline-block;
+    margin: 10px;
+    float: none;
+}
+
+.register-forms, .register-intro .nav-tabs, .register-intro .nav-item, .register-intro .nav-link, .login-forms, .login-forms .nav-tabs {
+    background-color: transparent;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-color: transparent;
+}
+
+.register-image {
+    background-color: transparent;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-color: transparent;
+}
+
+.register-intro .nav-tabs, .login-forms .nav-tabs {
+    background: white;
+    border-radius: 1rem;
+    height: 2rem;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.register-intro .nav-item .active, .register-intro .nav-link:hover.active {
+    border-color: #d8272f;
+    background: linear-gradient(to top right, #e9c6c4 0%, #d8272f 100%);
+    color: black;
+    font-weight: bold;
+}
+
+.register-intro .nav-link:hover {
+    border-color: #d8272f;
+    background: linear-gradient(to top right, #ede4e4 0%, #d68386 100%);
+    color: black;
+    font-weight: bold;
+}
+
+.login-forms .nav-item .active, .login-forms .nav-link:hover.active {
+    border-color: black;
+    background: linear-gradient(to top right, #1f1616 0%, #5b5255 100%);
+    color: white;
+    font-weight: bold;
+    border-radius: 1rem;
+    height: 2rem;
+}
+
+.login-forms .nav-link:hover {
+    border-color: black;
+    background: linear-gradient(to top right, #6d6d6d 0%, #c8c8c8 100%);
+    color: white;
+    font-weight: bold;
+    border-radius: 1rem;
+    height: 2rem;
+}
+
+.register-intro .nav-item, .register-intro .nav-link,
+.login-forms .nav-item, .login-forms .nav-link {
+    color: black;
+    font-weight: bold;
+}
+
+.register-intro {
+    background-color: #5e5353;
+    color: white;
+    font-weight: bold;
+}
+
+.register-intro {
+    border-top-right-radius: 10% 30%;
+    border-bottom-right-radius: 10% 30%;
+}
