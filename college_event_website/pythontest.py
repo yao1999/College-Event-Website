@@ -18,3 +18,9 @@ if check_input([result1, result2, result3]) is True:
     print("1")
 else:
     print("2") 
+  
+# {% if user.is_authenticated %}
+# <div></div>
+# {% else %}
+#     <meta http-equiv="refresh" content="0; URL=../../Users/login" />
+# {% endif %}

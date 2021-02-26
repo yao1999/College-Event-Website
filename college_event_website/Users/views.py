@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from rest_framework import generics
 from .models import User
 from django.http import HttpResponseRedirect
+# from django.contrib.auth import authenticate
+from django.contrib.auth import login
 # from .forms import RegisterUser
 
 def user_register(response):
@@ -49,8 +51,8 @@ def user_login(response):
         current_user = User.objects.get(username = username, is_super_admin = True)
       
       if current_user.password == password:
-        return redirect('home')
-
+        login(response, current_user)
+        return HttpResponseRedirect('../../Events/')
       else:
         return HttpResponseRedirect('../../Users/register')
 
