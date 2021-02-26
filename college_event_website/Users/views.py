@@ -17,7 +17,6 @@ def user_register(response):
         username = response.POST.get("UserUsername")
         password = response.POST.get("UserPassword")
         
-        is_super_admin = False
         if response.POST.get("SuperUserRegisterButton"):
           is_super_admin = True
 
