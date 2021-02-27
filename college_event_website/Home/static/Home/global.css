@@ -135,6 +135,26 @@ hr {
     color: white;
 }
 
+.bg-black {
+    background-color: #161616;
+    /* color: white; */
+}
+
+.bg-gray {
+    background-color: #585858;
+    /* color: white; */
+}
+
+.btn-white {
+    background: linear-gradient(to top right, #ffffff 0%, #8b8b8b 100%);
+    color: black;
+}
+
+.btn-white:hover {
+    background: linear-gradient(to top right, #c5c5c5 0%, #616161 100%);
+    color: black;
+}
+
 input.form-control ,
 textarea.form-control  {
     background-color: transparent !important;

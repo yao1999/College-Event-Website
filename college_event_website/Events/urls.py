@@ -1,13 +1,7 @@
 from django.urls import path
-# from .views import (
-#   ChooseSignUpView,
-#   UserSignUpView,
-#   AdminSignUpView,
-#   SuperAdminSignUpView
-# )
-from . import views   # '.' = current directory
+from . import views
 
 
 urlpatterns = [
-   path('', views.event, name='event'),
+   path('create', views.add_event, name='add_event'),
 ]

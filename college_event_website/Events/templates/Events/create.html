@@ -1,0 +1,51 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Add title  -->
+    <title>Login</title>
+
+    <!-- vendor css  -->
+    <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- custom css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Home/global.css' %}">
+</head>
+
+<body class="d-flex align-items-center align-content-center align-self-center">
+<div class="d-flex container" >
+    <div class="text-center mt-5 mb-5">
+        <!-- outer background -->
+        <div class="card card0 border-0 bg-gray d-flex align-items-center align-content-center align-self-center">
+            <div class="card card0 border-0 shadow-thick bg-black d-flex align-items-center align-content-center align-self-center">
+                <div class="row d-flex align-items-center align-content-center align-self-center m-4">
+                    <!-- create event form -->
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="form-group">
+                                {{ form|crispy }}
+                            </div>
+                            <button class="btn btn-white" type="submit">Save</button>
+                        </form>
+                    </div>
+                    <!-- /.create event form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- JS -->
+<!-- vendor JS -->
+<script src="{% static 'Home/vendor/jquery/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'Home/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>
