@@ -4,8 +4,8 @@ from .models import Event
 class CreateEventForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Event Name'}))
     date = forms.DateField(widget=forms.SelectDateWidget())
-    start_time = forms.TimeField(widget=forms.TimeField())
-    end_time = forms.TimeField(widget=forms.TimeField())
+    start_time = forms.TimeField(widget=forms.TimeInput())
+    end_time = forms.TimeField(widget=forms.TimeInput())
     location = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '99.0, 100.1'}))
     university_event = forms.CheckboxInput()
     rso_event = forms.CheckboxInput()
