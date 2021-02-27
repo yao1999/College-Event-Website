@@ -5,7 +5,7 @@ import traceback
 
 def event(response):
   try:
-    return render(response, 'Events/base.html')
+    return render(response, "Events/base.html")
   except: 
     # printing stack trace 
     traceback.print_exc()
