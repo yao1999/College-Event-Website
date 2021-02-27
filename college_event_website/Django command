@@ -14,7 +14,7 @@ make sure you cd to the right folder (the one that has manage.py)
 
 run the server(compile the code): python manage.py reunserver
 
-make migration for model: python manage.py makemigrations [folder name, ex: Events]
+make migration for model: python manage.py makemigrations
 magrate the changes to DB: python manage.py migrate
 
 -------------------------------------------------------------------------

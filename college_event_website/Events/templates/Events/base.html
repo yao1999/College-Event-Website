@@ -2,7 +2,8 @@
 
 
 <!-- fist check if the current user is logined, then check if the user is super admin -->
-{% if user.is_authenticated and user.is_super_admin %} 
+<!-- user.is_super_admin -->
+{% if user.is_authenticated %} 
     <p>this is event base.html</p>
 {% else %}
     <meta http-equiv="refresh" content="0; URL=../../Users/register" />

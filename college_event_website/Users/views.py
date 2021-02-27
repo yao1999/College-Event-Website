@@ -48,16 +48,21 @@ def user_login(response):
         username = response.POST.get("UserUsername")
         password = response.POST.get("UserPassword")
 
-        if response.POST.get("UserLoginButton"):
-          current_user = User.objects.get(username = username, is_super_admin = False)
-        else:
-          current_user = User.objects.get(username = username, is_super_admin = True)
+        current_user = ""
+        try:
+          if response.POST.get("UserLoginButton"):
+            current_user = User.objects.get(username = username, is_super_admin = False)
+          else:
+            current_user = User.objects.get(username = username, is_super_admin = True)
+        except:
+          pass
         
-        if current_user.password == password:
-          login(response, current_user)
-          return HttpResponseRedirect('../../Events/')
-        else:
-          return HttpResponseRedirect('../../Users/register')
+        if current_user != "":
+          if current_user.password == password:
+            login(response, current_user)
+            return HttpResponseRedirect('../../Events/')
+          else:
+            return HttpResponseRedirect('../../Users/register')
 
       else:
         return HttpResponseRedirect('../../Users/login')
