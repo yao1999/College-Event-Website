@@ -6,9 +6,8 @@ from phone_field import PhoneField
 # from address.models import AddressField
 from Users.models import User
 
-# DEFAULT_DATE = date(2000, 1, 1)
-# DEFAULT_START_TIME = time(12, 0)
-# DEFAULT_END_TIME = time(13, 0)
+# date(year, month, day) 
+# time(min, sec)
 
 # Create your models here.
 class Event(models.Model):
@@ -18,7 +17,7 @@ class Event(models.Model):
   date = models.DateField(default=date.today, null=False)
   start_time = models.TimeField(null=False)
   end_time = models.TimeField(null=False)
-  location = PlainLocationField(based_fields=['city'], zoom=7, null=False)
+  location = PlainLocationField(based_fields=['city'], zoom=7)
   phone = PhoneField(blank=True, help_text='Contact phone number', null=False)
   email = models.CharField(max_length = 254, null=False)
   is_approved = models.BooleanField(default=False)

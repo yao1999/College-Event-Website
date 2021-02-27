@@ -2,3 +2,4 @@ django
 django-location-field
 django-ratings
 django-phone-field
+Pillow

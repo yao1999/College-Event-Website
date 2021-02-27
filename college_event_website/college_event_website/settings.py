@@ -41,11 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'location_field.apps.DefaultConfig',
     'crispy_forms',
     'rest_framework',
     'Users.apps.UsersConfig',
     'Home.apps.HomeConfig',
     'Events.apps.EventsConfig',
+    'Universities.apps.UniversitiesConfig',
+    'RSO.apps.RsoConfig'
 ]
 
 MIDDLEWARE = [
@@ -86,7 +89,6 @@ WSGI_APPLICATION = 'college_event_website.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
