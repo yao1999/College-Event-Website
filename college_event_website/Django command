@@ -1,21 +1,26 @@
 install Django:
 1. I assume you have python install and have pip install too.
 2. pip install django
-3. pip install djangorestframework? <-- you don't have to do this, I did it
+3. pip install djangorestframework <-- you don't have to do this, I did it
 
 
 -------------------------------------------------------------------------
+Only for first making server (Yao):
 Django part (backend):
 make a folder: Django-admin startapp [folder name]
 
 -------------------------------------------------------------------------
+1. install django-crispy-forms
+2. install django-location-field
+3. install django-phone-field
+4. install database (see below)
 
 make sure you cd to the right folder (the one that has manage.py)
 
-run the server(compile the code): python manage.py reunserver
-
-make migration for model: python manage.py makemigrations [model name]
+make migration for model: python manage.py makemigrations
 magrate the changes to DB: python manage.py migrate
+
+run the server(compile the code): python manage.py reunserver
 
 -------------------------------------------------------------------------
 

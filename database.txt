@@ -1,0 +1,49 @@
+student:
+user ID,
+password,
+email,
+RSO_name (nullable)
+
+admin:
+user ID,
+password,
+email,
+RSO_name (not nullable)
+
+superadmin:
+user ID,
+password,
+email
+university(email domin)
+
+events: (public, private, RSO)
+name, 
+event category, 
+description, 
+time, 
+date, 
+location, 
+contact
+phone, 
+contact email address,
+RSO (nullable),
+comments,
+stars (1~5)
+
+location:
+name, 
+latitude, 
+longitude
+
+university:
+name, 
+location, 
+description, 
+number of students, 
+pictures,
+email domin
+
+RSO:
+students (>5)
+email domin
+admin (>1)

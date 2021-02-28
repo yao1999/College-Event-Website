@@ -86,8 +86,8 @@ body {
 hr {
     display: block;
     height: 2px;
-    width: 35%;
-    background: black;
+    width: 90%;
+    background: #d8272f;
     margin-top: 12px;
 }
 
@@ -107,7 +107,7 @@ hr {
 }
 
 .text-md {
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 .text-orng, .text-orng:hover {
@@ -160,7 +160,7 @@ textarea.form-control  {
     background-color: transparent !important;
     padding: 10px;
     border: none;
-    border-bottom: 3px solid #101010;
+    border-bottom: 3px solid white;
     margin: 2px 1px;
     width: 100%;
     color: #ffffff;
@@ -179,40 +179,8 @@ textarea:focus.form-control {
     -moz-box-shadow: none !important;
     -webkit-box-shadow: none !important;
     box-shadow: 10px 10px black;
-    border-bottom: 3px solid white;
+    border-bottom: 3px solid #d8272f;
     color: white;
-}
-
-#id_name input.form-control,
-textarea.form-control .event {
-    background-color: transparent !important;
-    padding: 10px;
-    border: none;
-    border-bottom: 3px solid #b82e2e !important;
-    margin: 2px 1px;
-    width: 100%;
-    color: #ffffff;
-    font-size: 16px;
-}
-
-.form-control.event::placeholder,
-.form-control.event::-moz-placeholder,
-.form-control.event::-webkit-input-placeholder
-.form-control.event::-ms-input-placeholder {
-    color: white !important;
-}
-
-input:focus.form-control.event,
-textarea:focus.form-control.event {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: 10px 10px black;
-    border-bottom: 3px solid white;
-    color: white;
-}
-
-.login-btn:hover {
-    background: linear-gradient(to top right, #323131 0%, #5f5d5d 100%);
 }
 
 .shadow-thick {
@@ -245,76 +213,4 @@ textarea:focus.form-control.event {
     display: inline-block;
     margin: 10px;
     float: none;
-}
-
-.register-forms, .register-intro .nav-tabs, .register-intro .nav-item, .register-intro .nav-link, .login-forms, .login-forms .nav-tabs {
-    background-color: transparent;
-    border-top-right-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    border-color: transparent;
-}
-
-.register-image {
-    background-color: transparent;
-    border-top-right-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-    border-color: transparent;
-}
-
-.register-intro .nav-tabs, .login-forms .nav-tabs {
-    background: white;
-    border-radius: 1rem;
-    height: 2rem;
-    font-size: 12px;
-    margin: 0;
-    padding: 0;
-}
-
-.register-intro .nav-item .active, .register-intro .nav-link:hover.active {
-    border-color: #d8272f;
-    background: linear-gradient(to top right, #e9c6c4 0%, #d8272f 100%);
-    color: black;
-    font-weight: bold;
-}
-
-.register-intro .nav-link:hover {
-    border-color: #d8272f;
-    background: linear-gradient(to top right, #ede4e4 0%, #d68386 100%);
-    color: black;
-    font-weight: bold;
-}
-
-.login-forms .nav-item .active, .login-forms .nav-link:hover.active {
-    border-color: black;
-    background: linear-gradient(to top right, #1f1616 0%, #5b5255 100%);
-    color: white;
-    font-weight: bold;
-    border-radius: 1rem;
-    height: 2rem;
-}
-
-.login-forms .nav-link:hover {
-    border-color: black;
-    background: linear-gradient(to top right, #6d6d6d 0%, #c8c8c8 100%);
-    color: white;
-    font-weight: bold;
-    border-radius: 1rem;
-    height: 2rem;
-}
-
-.register-intro .nav-item, .register-intro .nav-link,
-.login-forms .nav-item, .login-forms .nav-link {
-    color: black;
-    font-weight: bold;
-}
-
-.register-intro {
-    background-color: #5e5353;
-    color: white;
-    font-weight: bold;
-}
-
-.register-intro {
-    border-top-right-radius: 10% 30%;
-    border-bottom-right-radius: 10% 30%;
 }
