@@ -4,7 +4,6 @@ from .models import User
 from django.http import HttpResponseRedirect
 import traceback 
 from django.contrib.auth import login
-# from .forms import RegisterUser
 
 def user_register(response):
   try:
