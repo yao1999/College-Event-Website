@@ -8,30 +8,201 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Add title  -->
-    <title>Login</title>
+    <title>Create Event</title>
 
     <!-- vendor css  -->
     <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- custom css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'Home/global.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Events/main.css' %}">
 </head>
 
-<body class="d-flex align-items-center align-content-center align-self-center">
+<body class="d-flex align-items-center align-content-center align-self-center gradient-black">
 <div class="d-flex container" >
-    <div class="text-center mt-5 mb-5">
+    <div class="text-center mt-5 mb-5 w-100">
         <!-- outer background -->
-        <div class="card card0 border-0 bg-gray d-flex align-items-center align-content-center align-self-center">
-            <div class="card card0 border-0 shadow-thick bg-black d-flex align-items-center align-content-center align-self-center">
-                <div class="row d-flex align-items-center align-content-center align-self-center m-4">
+        <div class="card card0 border-0 d-flex align-items-center align-content-center align-self-center w-100">
+            <!-- create event title -->
+            <div class="row w-100 gradient-orange rounded-top">
+                <div class="col-md-12">
+                    <h2 class="font-weight-bold text-blk text-lg">Create Event</h2>
+                </div>                             
+            </div>
+            <!-- create event form card-->
+            <div class="row card card0 border-0 shadow-thick bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
+                <div class="row d-flex align-items-center align-content-center align-self-center m-4 w-100">
                     <!-- create event form -->
-                        <form method="POST">
+                        <form method="POST" class="w-100 m-2">
                             {% csrf_token %}
-
-                            <div class="form-group">
-                                {{ form|crispy }}
+                            <!-- event details section text -->
+                            <div class="row mb-3">                                
+                                <div class="col-md-12">
+                                    <div class="d-flex w-100 justify-content-center">
+                                        <div class="text-white font-weight-bold text-md text-left ">
+                                            Event Details
+                                        </div>
+                                    </div>
+                               </div>
                             </div>
-                            <button class="btn btn-white" type="submit">Save</button>
+                            <!-- event name  -->
+                            <div class="row justify-content-center">
+                                <div class="col-md-12 justify-content-center">
+                                    <div class="d-flex w-100 justify-content-center">
+                                        <div class="w-75">
+                                            <label class="sr-only" for="event_name">Event Name</label>
+                                            {{ form.name|as_crispy_field }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- event description -->
+                            <div class="row justify-content-center">
+                                <div class="col-md-12 justify-content-center">
+                                    <div class="d-flex w-100 justify-content-center">
+                                        <div class="w-75">
+                                            <label class="sr-only" for="event_description">Event Description</label>
+                                            {{ form.description|as_crispy_field }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- event location -->
+                            <div class="row justify-content-center">
+                                <div class="col-md-12 justify-content-center">
+                                    <div class="row justify-items-end">
+                                        <div class="col-md-4">
+                                            <div class="text-white text-right mt-3">
+                                                Location
+                                            </div>  
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="d-flex w-100 justify-content-start">
+                                                <div class="w-75 mb-4">
+                                                    <label class="sr-only" for="event_location">Event Location</label>
+                                                    {{ form.location|as_crispy_field }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <!-- event checkboxes for RSO / University -->
+                            <div class="row justify-content-center">
+                                <div class="col-md-12 justify-content-center">
+                                    <div class="row justify-items-center">
+                                        <div class="col-md-6">
+                                            <div class="d-flex w-100 justify-content-end">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="universityEvent" name="universityEvent">
+                                                    <label class="form-check-label" for="universityEvent">University Event</label>
+                                                </div>  
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="d-flex w-100 justify-content-start">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="rsoEvent">
+                                                    <label class="form-check-label" for="rsoEvent">RSO Event</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- section separator -->
+                            <hr />
+
+                            <!-- event sechdule section text -->
+                            <div class="row mb-3">                                
+                                <div class="col-md-12">
+                                    <div class="d-flex w-100 justify-content-center">
+                                        <div class="text-white font-weight-bold text-md text-left ">
+                                            Event Schedule
+                                        </div>
+                                    </div>
+                               </div>
+                            </div>
+                            <!-- event start, end, and location -->
+                            <div class="row justify-content-start">
+                                <div class="col-md-6 justify-items-start">
+                                    <!-- start time -->
+                                    <div class="row justify-items-end">
+                                        <div class="col-md-6">
+                                            <div class="text-white text-right mt-3">
+                                                Start
+                                            </div>  
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="w-100 mb-4">
+                                                <label class="sr-only" for="event_start">Event Start Time</label>
+                                                {{ form.start_time|as_crispy_field }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end time-->
+                                    <div class="row justify-items-end">
+                                        <div class="col-md-6">
+                                            <div class="text-white text-right mt-3">
+                                                End
+                                            </div>  
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="w-100 mb-4">
+                                                <label class="sr-only" for="event_end">Event End Time</label>
+                                                {{ form.end_time|as_crispy_field }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- event date -->
+                                <div class="col-md-6">
+                                    <div class="w-75">
+                                        <label class="sr-only" for="event_date">Event Date</label>
+                                        {{ form.date|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- section separator -->
+                            <hr />
+
+                            <!-- contact info section text -->
+                            <div class="row mb-3">                                
+                                <div class="col-md-12">
+                                    <div class="d-flex w-100 justify-content-center">
+                                        <div class="text-white font-weight-bold text-md text-left ">
+                                            Contact Info
+                                        </div>
+                                    </div>
+                               </div>
+                            </div>
+
+                            <!-- phone and email input -->
+                             <div class="row justify-content-center">
+                                <div class="col-md-12 justify-content-center">
+                                    <div class="row justify-items-center">
+                                        <div class="col-md-6">
+                                            <div class="d-flex w-100 justify-content-end">
+                                                <div class="w-75">
+                                                    <label class="sr-only" for="event_phone">Event Contact Phone Number</label>
+                                                    {{ form.phone|as_crispy_field }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="d-flex w-100 justify-content-start">
+                                                <div class="w-75 mb-4">
+                                                    <label class="sr-only" for="event_email">Event Contact Email</label>
+                                                    {{ form.email|as_crispy_field }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- submit button -->
+                            <button class="btn btn-white float-right mt-3 mr-2" type="submit" name="create-event-btn">Create</button>
                         </form>
                     </div>
                     <!-- /.create event form -->
