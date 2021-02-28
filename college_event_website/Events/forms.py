@@ -1,7 +1,6 @@
 from django import forms
 from .models import Event
 
-
 class CreateEventForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Event Name', 'class': 'text-center text-white', 'id': 'event_name'}), label="")
     date = forms.DateField(widget=forms.SelectDateWidget(attrs={'class': 'bg-transparent', 'id': 'event_date'}), label="")
