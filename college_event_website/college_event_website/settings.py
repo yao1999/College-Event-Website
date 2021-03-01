@@ -137,6 +137,8 @@ STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 # LOGIN_REDIRECT_URL = 'events-home'
 # LOGIN_URL = 'login'
 

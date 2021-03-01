@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from crispy_forms.helper import FormHelper
 from .forms import CreateEventForm
-# from django.contrib.auth.decorators import login_required
 import traceback 
+from django.http import HttpResponseRedirect, HttpResponse
+from .models import Event
+
 # Create your views here.
 
 def event(response):
@@ -15,20 +17,26 @@ def event(response):
 
 def add_event(response):
   try:
-    eventform = CreateEventForm(response.POST or None)
-
-    if response.method == "POST" and eventform.is_valid():
-      eventform.save()
-      return render(response, 'Events/create.html', {
-        'form' : eventform
-        })
+    # model = Event
+    if response.method == "POST":
+      if response.POST.get("create-event-btn"):
+        event_form = CreateEventForm(response.POST)
+        is_private = response.POST.get("universityEvent")
+        is_RSO = response.POST.get("rsoEvent")
+        if event_form.is_valid():
+            event_form.save(is_private, is_RSO)
+        return HttpResponseRedirect('../../Events/')
+      else:
+        return HttpResponseRedirect('../../Events/create')
     else:
-      return render(response, 'Events/create.html', {
-        'form' : eventform
-        })
+      event_form = CreateEventForm(None)
+      return render(response, "Events/create.html", { 'form' : event_form })
   except: 
     # printing stack trace 
     traceback.print_exc()
+
+
+
 
 def delete_event(response):
   try:
