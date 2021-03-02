@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from crispy_forms.helper import FormHelper
 from .forms import EventForm, CommentForm
-import traceback 
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Event
 
