@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from crispy_forms.helper import FormHelper
-from .forms import CreateEventForm
+from .forms import EventForm, CommentForm
 import traceback 
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Event
@@ -14,13 +14,12 @@ def event(response):
     # printing stack trace 
     traceback.print_exc()
 
-
 def add_event(response):
   try:
     # model = Event
     if response.method == "POST":
       if response.POST.get("create-event-btn"):
-        event_form = CreateEventForm(response.POST)
+        event_form = EventForm(response.POST)
         is_private = response.POST.get("universityEvent")
         is_RSO = response.POST.get("rsoEvent")
         if event_form.is_valid():
@@ -29,14 +28,11 @@ def add_event(response):
       else:
         return HttpResponseRedirect('../../Events/create')
     else:
-      event_form = CreateEventForm(None)
+      event_form = EventForm(None)
       return render(response, "Events/create.html", { 'form' : event_form })
   except: 
     # printing stack trace 
     traceback.print_exc()
-
-
-
 
 def delete_event(response):
   try:
@@ -59,8 +55,13 @@ def edit_event(response):
 def event_info(response):
   try:
     if response.method == "POST":
-      pass
-    return render(response, 'Events/?????')
+      comment_form = CommentForm(response.POST)
+      if comment_form.is_valid():
+          comment_form.save()
+      return render(response, 'Events/details.html', { 'form' : comment_form })
+    else:
+      comment_form = CommentForm(None)
+      return render(response, "Events/details.html", { 'form' : comment_form })
   except: 
     # printing stack trace 
     traceback.print_exc()

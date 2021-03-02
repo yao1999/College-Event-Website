@@ -1,0 +1,242 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Add title  -->
+    <title>Create Event</title>
+
+    <!-- vendor css  -->
+    <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- custom css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Events/main.css' %}">
+</head>
+
+
+<body class="bg-gray1">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Events Website</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/Events/">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Events/create">Create Event</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="d-flex align-items-center align-content-center align-self-center ">
+        <div class="d-flex container" >
+            <div class="text-center mt-5 mb-5 w-100">
+                <!-- outer background -->
+                <div class="card card0 border-0 d-flex align-items-center align-content-center align-self-center w-100">
+                    <!-- event title -->
+                    <div class="row w-100 gradient-orange rounded-top">
+                        <div class="col-md-12">
+                            <h2 class="font-weight-bold text-blk text-lg">Place Event Name</h2>
+                        </div>                             
+                    </div>
+                    <div class="row card card0 border-0 shadow-thick bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
+                        <div class="row d-flex align-items-center align-content-center align-self-center m-4 w-100">
+                            <div class="w-100 m-2">
+                                {% csrf_token %}
+                                <!-- event details -->
+                                <!-- date and times -->
+                                <div class="row mb-1 ml-3 mr-3">      
+                                    <!-- date -->                          
+                                    <div class="col-md-8">
+                                        <div class="d-flex w-100 justify-content-left">
+                                            <div class="text-white font-weight-bold text-md text-left">
+                                                Place Event Date
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- start and end time -->
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="d-flex w-100 justify-content-end">
+                                                    <div class="text-white font-weight-bold text-md text-right">
+                                                        Place Strt - Place End
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- location -->
+                                <div class="row mb-3 ml-3">                                
+                                    <div class="col-md-12">
+                                        <div class="d-flex w-100 justify-content-left">
+                                            <div class="text-white font-weight-bold text-left">
+                                                Place Event Location
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- rating  -->
+                                <div class="row ml-3 mb-3">
+                                    <div class="col-md-12">
+                                        <div class="d-flex w-100 justify-content-left">
+                                            <div class="w-75 text-white text-left">
+                                                Place Event Rating
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- description -->
+                                <div class="row ml-3 mb-5">
+                                    <div class="col-md-12">
+                                        <div class="d-flex w-100 justify-content-left">
+                                            <div class="w-75 text-white text-left">
+                                                Place Event Description
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- phone and email contact -->
+                                <div class="row ml-3">
+                                    <div class="col-md-6">
+                                        <div class="d-flex w-100 justify-content-center">
+                                            <div class="w-100 text-white">
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="d-flex w-100 justify-content-end">
+                                                            <div class="font-weight-bold w-50">Contact Phone #: </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 text-left">
+                                                        <div class="d-flex w-100 justify-content-start">
+                                                            <div class="font-weight-bold w-50">place phone</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex w-100 justify-content-center">
+                                            <div class="w-100 text-white">
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="d-flex w-100 justify-content-end">
+                                                            <div class="font-weight-bold w-50">Contact Email: </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 text-left">
+                                                        <div class="d-flex w-100 justify-content-start">
+                                                            <div class="font-weight-bold w-50">place email</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ./event details -->
+
+                                <!-- section separator -->
+                                <hr />
+
+                                <!-- comment section -->
+                                <div class="row mb-3">                                
+                                    <div class="col-md-12">
+                                        <div class="d-flex w-100 justify-content-center">
+                                            <div class="text-white font-weight-bold text-md text-left ">
+                                                Comments
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- make a comment -->
+                                <div class="row mb-3 ml-3 mb-3">                                
+                                    <div class="col-md-12">
+                                        <!-- trigger modal -->
+                                        <div class="d-flex w-100 justify-content-left">
+                                            <div class="w-100 text-orng text-left">
+                                                <a href="#modal" type="open-comment" data-toggle="modal" data-target="#exampleModal">
+                                                    Rate and Comment
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Comment Form Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h2 class="modal-title" id="exampleModalLabel">Leave a Comment</h2>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="POST" class="w-100 m-2">
+                                                            <div class="w-75 mb-5">
+                                                                <label class="sr-only" for="comment_rating">Event Description</label>
+                                                                {{ form.rating|as_crispy_field }}
+                                                            </div>
+                                                            <div class="w-75">
+                                                                <label class="sr-only" for="comment_content">Event Description</label>
+                                                                {{ form.content|as_crispy_field }}
+                                                            </div>
+                                                            <button type="submit" name="create-commentt-btn" value="event_info" class="btn gradient-orange float-right"> Submit Comment</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ./make a comment -->
+
+                                <!-- list current comments -->
+                                {% for comment in comments %}
+                                    {% if comment.event == object %}
+                                        <div class="row mb-3 ml-3">                                
+                                            <div class="col-md-12">
+                                                <!-- trigger modal -->
+                                                <div class="d-flex w-100 justify-content-left">
+                                                    <div class="w-100 text-white text-left">
+                                                        {{ comment.content }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    {% endif %}
+                                {% endfor %}
+                                <!-- ./list current comments -->
+                                <!-- ./comment section -->
+                            </div>
+                        </div>
+                        <!-- /.create event form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- JS -->
+<!-- vendor JS -->
+<script src="{% static 'Home/vendor/jquery/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'Home/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>
