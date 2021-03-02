@@ -7,61 +7,42 @@ from .models import Event
 
 # Create your views here.
 
-def event(response):
-  try:
-    return render(response, "Events/base.html")
-  except: 
-    # printing stack trace 
-    traceback.print_exc()
+def event_list(response):
+  # return render(response, "Events/base.html")
+  events = Event.objects.all()
+  print(events)
+  return render(response, 'Events/base.html', { 'event_list' : events})
 
 def add_event(response):
-  try:
-    # model = Event
-    if response.method == "POST":
-      if response.POST.get("create-event-btn"):
-        event_form = EventForm(response.POST)
-        is_private = response.POST.get("universityEvent")
-        is_RSO = response.POST.get("rsoEvent")
-        if event_form.is_valid():
-            event_form.save(is_private, is_RSO)
-        return HttpResponseRedirect('../../Events/')
-      else:
-        return HttpResponseRedirect('../../Events/create')
+  if response.method == "POST":
+    if response.POST.get("create-event-btn"):
+      event_form = EventForm(response.POST)
+      is_private = response.POST.get("universityEvent")
+      is_RSO = response.POST.get("rsoEvent")
+      if event_form.is_valid():
+          event_form.save(is_private, is_RSO)
+      return HttpResponseRedirect('../../Events/')
     else:
-      event_form = EventForm(None)
-      return render(response, "Events/create.html", { 'form' : event_form })
-  except: 
-    # printing stack trace 
-    traceback.print_exc()
+      return HttpResponseRedirect('../../Events/create')
+  event_form = EventForm(None)
+  return render(response, "Events/create.html", { 'form' : event_form })
 
 def delete_event(response):
-  try:
-    if response.method == "POST":
-      pass
-    return render(response, 'Events/?????')
-  except: 
-    # printing stack trace 
-    traceback.print_exc()
+  if response.method == "POST":
+    pass
+  return render(response, 'Events/?????')
 
 def edit_event(response):
-  try:
-    if response.method == "POST":
-      pass
-    return render(response, 'Events/?????')
-  except: 
-    # printing stack trace 
-    traceback.print_exc()
+  if response.method == "POST":
+    pass
+  return render(response, 'Events/?????')
 
 def event_info(response):
-  try:
-    if response.method == "POST":
-      comment_form = CommentForm(response.POST)
-      if comment_form.is_valid():
-          comment_form.save()
-      return render(response, 'Events/details.html', { 'form' : comment_form })
-    else:
-      comment_form = CommentForm(None)
-      return render(response, "Events/details.html", { 'form' : comment_form })
-  except: 
-    # printing stack trace 
-    traceback.print_exc()
+  if response.method == "POST":
+    comment_form = CommentForm(response.POST)
+    if comment_form.is_valid():
+        comment_form.save()
+    return render(response, 'Events/details.html', { 'form' : comment_form })
+  else:
+    comment_form = CommentForm(None)
+    return render(response, "Events/details.html", { 'form' : comment_form })

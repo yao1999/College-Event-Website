@@ -20,14 +20,14 @@
 <!-- fist check if the current user is logined, then check if the user is super admin -->
 <!-- user.is_super_admin -->
 <p>this is event base.html</p>
-{% for event in events %}
+<!-- {{ events.name }} -->
+{% for event in event_list  %}
 <div class="row mb-3">                                
     <div class="col-md-12">
         <div class="row m-2">
             <div class="d-flex w-100 justify-content-center">
                 <div class="text-white font-weight-bold text-md text-left ">
                     {{ event.name }}
-                    <!-- <a class="article-title" href="{% url 'details' event.id %}">{{ event.name }}</a> -->
                 </div>
             </div>
         </div>
