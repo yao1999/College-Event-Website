@@ -1,10 +1,50 @@
-<!-- this is for testing, i'll delete this later -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Add title  -->
+    <title>Events</title>
+
+    <!-- vendor css  -->
+    <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- custom css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Home/global.css' %}">
+</head>
 
 
 <!-- fist check if the current user is logined, then check if the user is super admin -->
 <!-- user.is_super_admin -->
 {% if user.is_authenticated %} 
     <p>this is event base.html</p>
+    {% for event in events %}
+    <div class="row mb-3">                                
+        <div class="col-md-12">
+            <div class="row m-2">
+                <div class="d-flex w-100 justify-content-center">
+                    <div class="text-white font-weight-bold text-md text-left ">
+                        {{ event.name }}
+                        <!-- <a class="article-title" href="{% url 'details' event.id %}">{{ event.name }}</a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="row ml-2 mr-2 mb-2">
+                <div class="d-flex w-100 justify-content-center">
+                    <div class="text-white font-weight-bold text-md text-left ">
+                        {{ event.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+
 {% else %}
     <meta http-equiv="refresh" content="0; URL=../../Users/register" />
 {% endif %}
