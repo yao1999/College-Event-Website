@@ -38,7 +38,7 @@ class EventForm(forms.Form):
 
 class CommentForm(forms.Form):
     content = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Comment Here', 'class': 'text-center text-white', 'id': 'create_event_comment'}), label="", required=True)
-    rating = forms.ChoiceField(choices=RATINGS)
+    rating = forms.ChoiceField(choices=RATINGS, label="", required=True)
 
     def save(self, current_user, current_event):
         data = self.cleaned_data

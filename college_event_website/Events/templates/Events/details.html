@@ -59,7 +59,7 @@
                                 <div class="row mb-1 ml-3 mr-3">      
                                     <!-- date -->                          
                                     <div class="col-md-8">
-                                        <div class="d-flex w-100 justify-content-left">
+                                        <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-md text-left">
                                                 {{ event.date }}
                                             </div>
@@ -81,8 +81,8 @@
                                 <!-- location -->
                                 <div class="row mb-3 ml-3">                                
                                     <div class="col-md-12">
-                                        <div class="d-flex w-100 justify-content-left">
-                                            <div class="text-white font-weight-bold text-left">
+                                        <div class="d-flex w-100 justify-content-start">
+                                            <div class="text-white font-weight-bold text-start">
                                                 {{ event.location }}
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                                 <!-- rating  -->
                                 <div class="row ml-3 mb-3">
                                     <div class="col-md-12">
-                                        <div class="d-flex w-100 justify-content-left">
+                                        <div class="d-flex w-100 justify-content-startt">
                                             <div class="w-75 text-white text-left">
                                                 Rating: {{ rating }}
                                             </div>
@@ -101,7 +101,7 @@
                                 <!-- description -->
                                 <div class="row ml-3 mb-5">
                                     <div class="col-md-12">
-                                        <div class="d-flex w-100 justify-content-left">
+                                        <div class="d-flex w-100 justify-content-start">
                                             <div class="w-75 text-white text-left">
                                                 {{ event.description }}
                                             </div>
@@ -167,7 +167,7 @@
                                 <div class="row mb-3 ml-3 mb-3">                                
                                     <div class="col-md-12">
                                         <!-- trigger modal -->
-                                        <div class="d-flex w-100 justify-content-left">
+                                        <div class="d-flex w-100 justify-content-start">
                                             <div class="w-100 text-orng text-left">
                                                 <a href="#modal" class="text-orng" type="open-comment" data-toggle="modal" data-target="#exampleModal">
                                                     Rate and Comment
@@ -179,12 +179,14 @@
                                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content bg-black">
+                                                    <!-- prompt for comment and close button -->
                                                     <div class="modal-header">
                                                         <h2 class="modal-title text-orng" id="exampleModalLabel">Leave a Comment</h2>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
+                                                    <!-- rating, comment, and submit -->
                                                     <div class="modal-body">
                                                         <form method="POST" class="w-100 m-2">
                                                             {% csrf_token %}
@@ -208,23 +210,44 @@
 
                                 <!-- list current comments -->
                                 {% for comment in comments %}
-                                <div class="row mb-3 ml-3">                                
-                                    <div class="col-md-12">
-                                        <!-- trigger modal -->
-                                        <div class="d-flex w-100 justify-content-left">
-                                            <div class="w-25 text-white text-left">
-                                                {{ comment.user }}
+                                <div class="row mb-3 ml-3 bg-gray2 ml-3 mr-3">                                
+                                    <div class="col-md-12 p-3">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="d-flex w-100 justify-content-start">
+                                                    <div class="text-md font-weight-bold text-orng text-left">
+                                                        {{ comment.user }}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="w-50 text-white text-left">
-                                                {{ comment.content }}
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="d-flex w-100 justify-content-start">
+                                                    <div class="w-100 font-weight-bold text-white text-left">
+                                                        Rating: {{ comment.rating }}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="w-25 text-white text-left">
-                                                {{ comment.timestamp }}
+                                            <div class="col-md-6">
+                                                <div class="d-flex w-100 justify-content-end">
+                                                    <div class="w-100 font-weight-bold text-white text-right">
+                                                        {{ comment.timestamp }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="d-flex w-100 justify-content-left">
+                                                    <div class="w-100 text-white text-left">
+                                                        {{ comment.content }}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                    <!-- </article> -->
                                 {% endfor %}
                                 <!-- ./list current comments -->
                                 <!-- ./comment section -->
