@@ -2,7 +2,6 @@ from django import forms
 from .models import Event, Comment
 
 RATINGS = (
-    ('', 'Rate...'),
     ('1', '1 Star'),
     ('2', '2 Stars'),
     ('3', '3 Stars'),

@@ -145,6 +145,23 @@ hr {
     /* color: white; */
 }
 
+.bg-gray2 {
+    background-color: #242121;
+}
+
+.modal-body
+{
+    background: #242121;
+}
+
+.modal-header {
+    background: transparent;
+}
+
+.modal-footer {
+    background: transparent;
+}
+
 .btn-white {
     background: linear-gradient(to top right, #ffffff 0%, #8b8b8b 100%);
     color: black;

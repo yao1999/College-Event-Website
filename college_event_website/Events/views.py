@@ -12,7 +12,7 @@ def list_events(response):
   # return render(response, "Events/base.html")
   events = Event.objects.all()
   # print(events)
-  return render(response, 'Events/base.html', { 'event_list' : events})
+  return render(response, 'Events/base.html', { 'events' : events})
 
 def add_event(response):
   if response.method == "POST":
