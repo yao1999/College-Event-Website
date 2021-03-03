@@ -170,19 +170,19 @@
                                         <!-- trigger modal -->
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="w-100 text-orng text-left">
-                                                <a href="#modal" class="text-orng" type="open-comment" data-toggle="modal" data-target="#exampleModal">
+                                                <a href="#commentModal" class="text-orng" type="open-comment" data-toggle="modal" data-target="#commentModal">
                                                     Rate and Comment
                                                 </a>
                                             </div>
                                         </div>
 
                                         <!-- Comment Form Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content bg-black">
                                                     <!-- prompt for comment and close button -->
                                                     <div class="modal-header">
-                                                        <h2 class="modal-title text-orng" id="exampleModalLabel">Leave a Comment</h2>
+                                                        <h2 class="modal-title text-orng" id="commentModalLabel">Leave a Comment</h2>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -199,7 +199,7 @@
                                                                 <label class="sr-only" for="comment_content">Content</label>
                                                                 {{ form.content|as_crispy_field }}
                                                             </div>
-                                                            <button type="submit" name="create-commentt-btn" value="event_info" class="btn gradient-orange float-right"> Submit Comment</button>
+                                                            <button type="submit" name="create-comment-btn" value="event_info" class="btn gradient-orange float-right">Submit Comment</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -209,11 +209,76 @@
                                 </div>
                                 <!-- ./make a comment -->
 
+                                <!-- edit comment modal -->
+                                <!-- trigger modal -->
+                                <div class="d-flex w-100 justify-content-start">
+                                    <div class="w-100 text-orng text-left">
+
+                                    </div>
+                                </div>
+
+                                <!-- Edit Comment Modal -->
+                                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editmodalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content bg-black">
+                                            <!-- prompt for comment edit and close button -->
+                                            <div class="modal-header">
+                                                <h2 class="modal-title text-orng" id="exampleModalLabel">Edit Your Comment</h2>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <!-- rating, comment, and submit -->
+                                            <div class="modal-body">
+                                                <form method="POST" class="w-100 m-2">
+                                                    {% csrf_token %}
+                                                    <!-- autofills with form rating -->
+                                                    <div class="w-75 mb-5">
+                                                        <label class="sr-only" for="comment_rating">Rating</label>
+                                                        {{ form.rating|as_crispy_field }}
+                                                    </div>
+                                                    <!-- autofills with form comment -->
+                                                    <div class="w-75">
+                                                        <label class="sr-only" for="comment_content">Content</label>
+                                                        {{ form.content|as_crispy_field }}
+                                                    </div>
+                                                    <button type="submit" name="edit-comment-btn" value="event_info" class="btn gradient-orange float-right">Edit Comment</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ./edit comment modal -->
+
+                                <!-- delete comment modal -->
+                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deletemodalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content bg-black">
+                                            <!-- prompt for comment edit and close button -->
+                                            <div class="modal-header">
+                                                <h2 class="modal-title text-orng" id="exampleModalLabel">Delete Comment?</h2>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <!-- rating, comment, and submit -->
+                                            <div class="modal-body">
+                                                <form method="POST" class="w-100 m-2">
+                                                    {% csrf_token %}
+                                                    <button type="submit" name="delete-comment-btn" value="event_info" class="btn gradient-orange">Delete Comment</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.delete comment modal -->
+
                                 <!-- list current comments -->
                                 {% for comment in comments %}
                                 <div class="row mb-3 ml-3 bg-gray2 ml-3 mr-3">                                
                                     <div class="col-md-12 p-3">
                                         <div class="row">
+                                            <!-- creation user's name -->
                                             <div class="col-md-6">
                                                 <div class="d-flex w-100 justify-content-start">
                                                     <div class="text-md font-weight-bold text-orng text-left">
@@ -221,18 +286,27 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- only shown if current user = creation user -->
                                             <div class="col-md-6">
                                                 <div class="d-flex w-100 justify-content-end">
-                                                    <div class="text-md font-weight-bold text-orng text-left pr-4">
-                                                        Edit 
+                                                    <!-- edit popup -->
+                                                    <div class="text-md font-weight-bold text-left pr-4">
+                                                        <a href="#editmodal" class="text-orng" type="open-comment" data-toggle="modal" data-target="#editModal">
+                                                            Edit
+                                                        </a>
                                                     </div>
+                                                    <!-- delete popup -->
                                                     <div class="text-md font-weight-bold text-orng text-right">
-                                                        Delete
+                                                        <a href="#deletemodal" class="text-orng" type="open-comment" data-toggle="modal" data-target="#deleteModal">
+                                                            Delete
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- show the users' rating and timestamp -->
                                         <div class="row mb-3">
+                                            <!-- rating -->
                                             <div class="col-md-6">
                                                 <div class="d-flex w-100 justify-content-start">
                                                     <div class="w-100 font-weight-bold text-white text-left">
@@ -240,6 +314,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- timestamp -->
                                             <div class="col-md-6">
                                                 <div class="d-flex w-100 justify-content-end">
                                                     <div class="w-100 font-weight-bold text-white text-right">
@@ -248,6 +323,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- show users comment -->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="d-flex w-100 justify-content-left">
