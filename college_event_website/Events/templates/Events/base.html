@@ -13,7 +13,7 @@
     <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- custom css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'Home/global.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Events/main.css' %}">
 </head>
 
 <body class="bg-gray1">
@@ -40,11 +40,52 @@
 
 
     <div class="d-flex align-items-center align-content-center align-self-center w-100">
-        <div class="d-flex w-100 mt-4 m-5" >
+        <div class="d-flex w-100 mb-5 ml-5 mr-5 mt-4">
             <div class="text-center mb-5 w-100">
-                <div class="row">
-                    
-                
+                <!-- search bar -->
+                <div class="row pt-2 pb-1 pl-2 pr-2 ml-1 mr-1 bg-black rounded">
+                    <!-- search prompt-->
+                    <div class="col-md-1 mt-1">
+                        <div class="d-flex w-100 justify-content-end">
+                            <div class="text-white font-weight-bold text-right text-md ml-3 w-100">
+                                <label class="form-label" for="search-form">Search</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- search input -->
+                    <div class="col-md-9">
+                        <div class="d-flex w-100 justify-content-start">
+                            <div class="text-white font-weight-bold text-left ml-3 w-100">
+                                <input type="search" id="search-form" class="form-control" placeholder="Search Events"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- different university options -->
+                    <div class="col-md-1 mt-1">
+                        <div class="d-flex w-100 justify-content-start">
+                            <div class="form-group">
+                                <label for="search-university" class="sr-only">University</label>
+                                <select id="search-university" class="form-control bg-transparent">
+                                    <!-- users' university -->
+                                    <option selected>University</option>
+                                    <!-- all the other universities -->
+                                    <option>University2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- search button -->
+                    <div class="col-md-1 mt-1">
+                        <div class="d-flex w-100 justify-content-start">
+                            <div class="text-white font-weight-bold text-left ml-3 w-100">
+                                <!-- submit button -->
+                                <button type="submit" class="btn gradient-orange" name="search-button">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- list of events -->
+                <div class="row mt-5">
                 {% for event in events  %}
                 <div class="col-md-4">
                     <!-- event card -->
@@ -80,7 +121,7 @@
                                             <div class="row ml-2 mr-2 mb-5">
                                                 <div class="d-flex w-100 justify-content-left">
                                                     <div class="text-white text-left ml-3 overflow-hidden">
-                                                        Description: {{ event.description }}
+                                                        {{ event.description }}
                                                     </div>
                                                 </div>
                                             </div>
