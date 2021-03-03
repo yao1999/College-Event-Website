@@ -38,26 +38,54 @@
         </div>
     </nav>
 
-    {% for event in events  %}
-    <div class="row mb-3">                                
-        <div class="col-md-12">
-            <div class="row m-2">
-                <div class="d-flex w-100 justify-content-center">
-                    <div class="text-white font-weight-bold text-md text-left ">
-                        <a href="/Events/{{ event.id }}">{{ event.name }}</a>
+
+    <div class="d-flex align-items-center align-content-center align-self-center w-100">
+        <div class="d-flex w-100 mt-4 m-3" >
+            <div class="text-center mb-5 w-100">
+                {% for event in events  %}
+                <!-- event card -->
+                <div class="card card0 border-0 d-flex align-items-center align-content-center align-self-center w-100 mb-3">
+                    <!-- event title -->
+                    <div class="row w-100 bg-gray2 rounded-top">
+                        <div class="col-md-12 w-100">
+                            <h2 class="font-weight-bold text-md"><a href="/Events/{{ event.id }}" class="text-orng">{{ event.name }}</a></h2>
+                        </div>                             
+                    </div>
+                    <!-- event details and links -->
+                    <div class="row card card0 border-0 bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
+                        <div class="row d-flex align-items-center align-content-center align-self-center ml-4 mr-4 w-100">
+                            <div class="w-100 m-2">
+                                <div class="row mb-3">                                
+                                    <div class="col-md-12">
+                                        <div class="row m-2">
+                                            <div class="d-flex w-100 justify-content-left">
+                                                <div class="text-white font-weight-bold text-left ">
+                                                    {{ event.date }}
+                                                    {{ event.location }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row ml-2 mr-2 mb-2">
+                                            <div class="d-flex w-100 justify-content-left">
+                                                <div class="text-white font-weight-bold text-left ">
+                                                    {{ event.description }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row ml-2 mr-2 mb-2">
-                <div class="d-flex w-100 justify-content-center">
-                    <div class="text-white font-weight-bold text-md text-left ">
-                        {{ event.description }}
-                    </div>
-                </div>
+                <!-- /.event card -->
+                {% endfor %}
             </div>
         </div>
     </div>
-{% endfor %}
+
+    
+
 
 <!-- JS -->
 <!-- vendor JS -->

@@ -122,7 +122,7 @@ hr {
     color: #971b21;
 }
 
-.text-blk, .text-blk:hover {
+.text-blk, .text-blk:hover  {
     color: #000000;
 }
 
@@ -135,14 +135,23 @@ hr {
     color: white;
 }
 
+.gradient-gray {
+    background: linear-gradient(to top right, #111010 0%, #524f50 100%);
+    color: white;
+}
+
 .bg-black {
     background-color: #161616;
     /* color: white; */
 }
 
 .bg-gray {
-    background-color: #585858;
+    background-color: #111010;
     /* color: white; */
+}
+
+.bg-gray2 {
+    background-color: #242121;
 }
 
 .btn-white {
