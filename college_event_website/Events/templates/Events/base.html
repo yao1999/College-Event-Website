@@ -16,28 +16,53 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Home/global.css' %}">
 </head>
 
+<body class="bg-gray1">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Events Website</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/Events/">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Events/create">Create Event</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
 
-<!-- fist check if the current user is logined, then check if the user is super admin -->
-<!-- user.is_super_admin -->
-<p>this is event base.html</p>
-{% for event in events %}
-<div class="row mb-3">                                
-    <div class="col-md-12">
-        <div class="row m-2">
-            <div class="d-flex w-100 justify-content-center">
-                <div class="text-white font-weight-bold text-md text-left ">
-                    {{ event.name }}
-                    <!-- <a class="article-title" href="{% url 'details' event.id %}">{{ event.name }}</a> -->
+    {% for event in events  %}
+    <div class="row mb-3">                                
+        <div class="col-md-12">
+            <div class="row m-2">
+                <div class="d-flex w-100 justify-content-center">
+                    <div class="text-white font-weight-bold text-md text-left ">
+                        <a href="/Events/event_{{ event.id }}">{{ event.name }}</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row ml-2 mr-2 mb-2">
-            <div class="d-flex w-100 justify-content-center">
-                <div class="text-white font-weight-bold text-md text-left ">
-                    {{ event.description }}
+            <div class="row ml-2 mr-2 mb-2">
+                <div class="d-flex w-100 justify-content-center">
+                    <div class="text-white font-weight-bold text-md text-left ">
+                        {{ event.description }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endfor %}
+
+<!-- JS -->
+<!-- vendor JS -->
+<script src="{% static 'Home/vendor/jquery/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'Home/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>
