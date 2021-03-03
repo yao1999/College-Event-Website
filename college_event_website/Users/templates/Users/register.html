@@ -17,8 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Home/global.css' %}">
 </head>
 
-{% if user.is_authenticated == False %} 
-    <body class="d-flex align-items-center align-content-center align-self-center">
+<body class="d-flex align-items-center align-content-center align-self-center">
     <div class="d-flex container" >
         <div class="text-center mt-5 mb-5">
 
@@ -194,9 +193,6 @@
             </div>
         </div>
     </div>
-{% else %}
-    <meta http-equiv="refresh" content="0; URL=../../Events/create" />
-{% endif %}
 
 <!-- JS -->
 <!-- vendor JS -->

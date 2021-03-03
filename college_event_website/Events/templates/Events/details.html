@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Add title  -->
-    <title>Create Event</title>
+    <title>Event Detail</title>
 
     <!-- vendor css  -->
     <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -48,13 +48,12 @@
                     <!-- event title -->
                     <div class="row w-100 gradient-orange rounded-top">
                         <div class="col-md-12">
-                            <h2 class="font-weight-bold text-blk text-lg">Place Event Name</h2>
+                            <h2 class="font-weight-bold text-blk text-lg">{{ event.name }}</h2>
                         </div>                             
                     </div>
                     <div class="row card card0 border-0 shadow-thick bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
                         <div class="row d-flex align-items-center align-content-center align-self-center m-4 w-100">
                             <div class="w-100 m-2">
-                                {% csrf_token %}
                                 <!-- event details -->
                                 <!-- date and times -->
                                 <div class="row mb-1 ml-3 mr-3">      
@@ -62,7 +61,7 @@
                                     <div class="col-md-8">
                                         <div class="d-flex w-100 justify-content-left">
                                             <div class="text-white font-weight-bold text-md text-left">
-                                                Place Event Date
+                                                {{ event.date }}
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +71,7 @@
                                             <div class="col-md-12">
                                                 <div class="d-flex w-100 justify-content-end">
                                                     <div class="text-white font-weight-bold text-md text-right">
-                                                        Place Strt - Place End
+                                                        {{ event.start_time }} - {{ event.end_time }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -84,7 +83,7 @@
                                     <div class="col-md-12">
                                         <div class="d-flex w-100 justify-content-left">
                                             <div class="text-white font-weight-bold text-left">
-                                                Place Event Location
+                                                {{ event.location }}
                                             </div>
                                         </div>
                                     </div>
@@ -94,7 +93,7 @@
                                     <div class="col-md-12">
                                         <div class="d-flex w-100 justify-content-left">
                                             <div class="w-75 text-white text-left">
-                                                Place Event Rating
+                                                {{ rating }}
                                             </div>
                                         </div>
                                     </div>
@@ -104,7 +103,7 @@
                                     <div class="col-md-12">
                                         <div class="d-flex w-100 justify-content-left">
                                             <div class="w-75 text-white text-left">
-                                                Place Event Description
+                                                {{ event.description }}
                                             </div>
                                         </div>
                                     </div>
@@ -122,7 +121,7 @@
                                                     </div>
                                                     <div class="col-md-5 text-left">
                                                         <div class="d-flex w-100 justify-content-start">
-                                                            <div class="font-weight-bold w-50">place phone</div>
+                                                            <div class="font-weight-bold w-50">{{ event.phone }}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -140,7 +139,7 @@
                                                     </div>
                                                     <div class="col-md-5 text-left">
                                                         <div class="d-flex w-100 justify-content-start">
-                                                            <div class="font-weight-bold w-50">place email</div>
+                                                            <div class="font-weight-bold w-50">{{ event.email }}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -188,6 +187,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form method="POST" class="w-100 m-2">
+                                                            {% csrf_token %}
                                                             <div class="w-75 mb-5">
                                                                 <label class="sr-only" for="comment_rating">Event Description</label>
                                                                 {{ form.rating|as_crispy_field }}
@@ -208,19 +208,23 @@
 
                                 <!-- list current comments -->
                                 {% for comment in comments %}
-                                    {% if comment.event == object %}
-                                        <div class="row mb-3 ml-3">                                
-                                            <div class="col-md-12">
-                                                <!-- trigger modal -->
-                                                <div class="d-flex w-100 justify-content-left">
-                                                    <div class="w-100 text-white text-left">
-                                                        {{ comment.content }}
-                                                    </div>
-                                                </div>
+                                <div class="row mb-3 ml-3">                                
+                                    <div class="col-md-12">
+                                        <!-- trigger modal -->
+                                        <div class="d-flex w-100 justify-content-left">
+                                            <div class="w-25 text-white text-left">
+                                                {{ comment.user }}
+                                            </div>
+                                            <div class="w-50 text-white text-left">
+                                                {{ comment.content }}
+                                            </div>
+                                            <div class="w-25 text-white text-left">
+                                                {{ comment.timestamp }}
                                             </div>
                                         </div>
-                                    </article>
-                                    {% endif %}
+                                    </div>
+                                </div>
+                                    <!-- </article> -->
                                 {% endfor %}
                                 <!-- ./list current comments -->
                                 <!-- ./comment section -->
