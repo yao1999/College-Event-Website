@@ -73,7 +73,7 @@ def event_info(response, event_id):
     except:
       messages.error(response, "Event Not Found")
       return HttpResponseRedirect('../../Events/')
-    all_comments = Comment.objects.filter(event= event)
+    all_comments = Comment.objects.filter(event= event).order_by('-timestamp')
     rating  = get_rating(all_comments)
     return render(response, "Events/details.html", { 
       'form' : comment_form,
