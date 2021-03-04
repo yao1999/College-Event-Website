@@ -5,15 +5,18 @@ from django.http import HttpResponseRedirect, HttpResponse
 from .models import Event, Comment
 from Users.models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required(login_url='/Users/login/')
 def list_events(response):
   # return render(response, "Events/base.html")
   events = Event.objects.all()
   # print(events)
   return render(response, 'Events/base.html', { 'events' : events})
 
+@login_required(login_url='/Users/login/')
 def add_event(response):
   if response.method == "POST":
     if response.POST.get("create-event-btn"):
@@ -39,8 +42,23 @@ def edit_event(response):
     pass
   return render(response, 'Events/?????')
 
+
+@login_required(login_url='/Users/login/')
 def event_info(response, event_id):
   if response.method == "POST":
+    if response.POST.get("delete-comment-btn"):
+      comment_id = response.POST.get("delete-comment-btn")
+      delete_comment(comment_id, response.user)
+      return  HttpResponseRedirect('../../Events/' + str(event_id) + '')
+    
+    if response.POST.get("edit-comment-btn"):
+      comment_id = response.POST.get("edit-comment-btn")
+      comment_rating = response.POST.get("edit-comment-btn")
+      print(response.user.username)
+      print(response.user.id)
+      if delete_comment(comment_id, response.user) == False:
+        return  HttpResponseRedirect('../../Events/' + str(event_id) + '')
+
     comment_form = CommentForm(response.POST)
     if comment_form.is_valid():
         current_event = Event.objects.filter(id = event_id)[0]
@@ -64,6 +82,13 @@ def event_info(response, event_id):
       'comments': all_comments
       })
 
+def delete_comment(comment_id, current_user):
+  current_comment = Comment.objects.filter(id=comment_id)[0]
+  if current_comment.user.id == current_user.id:
+    current_comment.delete()
+    return True
+  else:
+    return False
 
 def get_rating(all_comments):
   if len(all_comments) == 0:

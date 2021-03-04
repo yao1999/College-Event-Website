@@ -76,8 +76,11 @@ def auto_login_for_coder(response):
   is_admin = True
   is_super_admin = True
   try:
-    current_user = User.objects.get(username = username, is_admin = is_admin, is_super_admin = is_super_admin)
+    # current_user = User.objects.get(username = "Tom")
+    current_user = User.objects.get(username = username)
     login(response, current_user)
+    print(current_user.username)
+    print(current_user.id)
   except: 
     current_user = User(
       first_name = username,
@@ -90,4 +93,4 @@ def auto_login_for_coder(response):
     )
     current_user.save()
     login(response, current_user)
-  return HttpResponseRedirect("../../Events/create")
+  return HttpResponseRedirect("../../Events/")
