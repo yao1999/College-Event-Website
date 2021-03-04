@@ -32,10 +32,6 @@ def add_event(response):
   event_form = EventForm(None)
   return render(response, "Events/create.html", { 'form' : event_form })
 
-def delete_event(response):
-  if response.method == "POST":
-    pass
-  return render(response, 'Events/?????')
 
 def edit_event(response):
   if response.method == "POST":
