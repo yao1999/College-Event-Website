@@ -1,16 +1,10 @@
 
-# this is for me to test if the python code is right or not
-# I'll delete this when we submit this
 
-from datetime import datetime
+email = "zefeng.yao@knights.ucf.edu"
 
-# now = datetime.now()
-
-current_time = datetime.now().strftime("%H:%M:%S")
-print("Current Time =", current_time)
+domain = email.split('@')[1].split('.')
+if domain.count('ucf'):
+    print("yes")
+else:
+    print("no")
   
-# {% if user.is_authenticated %}
-# <div></div>
-# {% else %}
-#     <meta http-equiv="refresh" content="0; URL=../../Users/login" />
-# {% endif %}
