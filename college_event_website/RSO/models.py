@@ -3,7 +3,6 @@ from Users.models import User
 
 # Create your models here.
 class Rso(models.Model):
-  id = models.AutoField(primary_key=True) 
   name = models.CharField(max_length = 255, null=False)
   students = models.ForeignKey(User, on_delete=models.CASCADE, related_name='students')
   admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin')

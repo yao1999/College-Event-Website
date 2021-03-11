@@ -341,3 +341,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+# pythontest.py is not necessary
+college_event_website/pythontest.py
