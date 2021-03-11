@@ -1,6 +1,7 @@
 from django.db import models
-from location_field.models.plain import PlainLocationField
+from mapbox_location_field.models import LocationField  
 
+ucf_location = [28.6014075,-81.20134150000001]
 
 # Create your models here.
 
@@ -19,7 +20,7 @@ class University(models.Model):
   abbreviation = models.CharField(max_length = 10, null=False)
   description = models.TextField()
   email = models.CharField(max_length = 254, null=False)
-  location = PlainLocationField(based_fields= ['city'], zoom= 7)
+  location = LocationField(map_attrs={"center": ucf_location, "marker_color": "red"})
   picture = models.ImageField(upload_to = university_directory_path) 
   number_of_students = models.IntegerField()
 

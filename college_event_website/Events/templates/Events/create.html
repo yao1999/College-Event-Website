@@ -1,6 +1,10 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% load mapbox_location_field_tags %} 
+{% location_field_includes %}
+{% include_jquery %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,11 +113,12 @@
                                                         Location
                                                     </div>  
                                                 </div>
-                                                <div class="col-md-8">
-                                                    <div class="d-flex w-100 justify-content-start">
-                                                        <div class="w-75 mb-4">
+                                                <div class="">
+                                                    <div class="">
+                                                        <div class="">
                                                             <label class="sr-only" for="event_location">Event Location</label>
                                                             {{ form.location|as_crispy_field }}
+
                                                         </div>
                                                     </div>
                                                 </div>
