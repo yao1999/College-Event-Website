@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Add title  -->
-    <title>Create Event</title>
+    <title>Create University</title>
 
     <!-- vendor css  -->
     <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -42,13 +42,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/RSO/create">Create RSO</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/Events/create">Create Event<span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Events/create">Create Event</a>
                 </li>
                     <a class="nav-link" href="/Universities/">Universities</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Universities/create">Create University</a>
+                    <a class="nav-link active" href="/Universities/create">Create University<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Profile</a>
@@ -65,68 +65,63 @@
                 <div class="text-center mt-5 mb-5 w-100">
                     <!-- outer background -->
                     <div class="card card0 border-0 d-flex align-items-center align-content-center align-self-center w-100">
-                        <!-- create event title -->
+                        <!-- create university title -->
                         <div class="row w-100 gradient-orange rounded-top">
                             <div class="col-md-12">
-                                <h2 class="font-weight-bold text-blk text-lg">Create Event</h2>
+                                <h2 class="font-weight-bold text-blk text-lg">Create University</h2>
                             </div>                             
                         </div>
-                        <!-- create event form card-->
+                        <!-- create university form card-->
                         <div class="row card card0 border-0 shadow-thick bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
                             <div class="row d-flex align-items-center align-content-center align-self-center m-4 w-100">
-                                <!-- create event form -->
+                                <!-- create university form -->
                                 <form method="POST" class="w-100 m-2">
                                     {% csrf_token %}
-                                    <!-- event details section text -->
+                                    <!-- university details section text -->
                                     <div class="row mb-3">                                
                                         <div class="col-md-12">
                                             <div class="d-flex w-100 justify-content-center">
                                                 <div class="text-white font-weight-bold text-md text-left ">
-                                                    Event Details
+                                                    University details
                                                 </div>
                                             </div>
+                                        </div>
                                     </div>
-                                    </div>
-                                    <!-- event name  -->
+                                    <!-- university name  -->
                                     <div class="row justify-content-center">
                                         <div class="col-md-12 justify-content-center">
                                             <div class="d-flex w-100 justify-content-center">
                                                 <div class="w-75">
-                                                    <label class="sr-only" for="event_name">Event Name</label>
+                                                    <label class="sr-only" for="university_name">University Name</label>
                                                     {{ form.name|as_crispy_field }}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- event description -->
+                                    <!-- university description -->
                                     <div class="row justify-content-center">
                                         <div class="col-md-12 justify-content-center">
                                             <div class="d-flex w-100 justify-content-center">
                                                 <div class="w-75">
-                                                    <label class="sr-only" for="event_description">Event Description</label>
+                                                    <label class="sr-only" for="university_description">University Description</label>
                                                     {{ form.description|as_crispy_field }}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- event checkboxes for RSO / University -->
+                                    <!-- university student count -->
                                     <div class="row justify-content-center">
                                         <div class="col-md-12 justify-content-center">
                                             <div class="row justify-items-center">
-                                                <div class="col-md-6">
-                                                    <div class="d-flex w-100 justify-content-end">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value = "isUniversityEvent" id="universityEvent" name="universityEvent">
-                                                            <label class="form-check-label text-white" for="universityEvent">University Event</label>
-                                                        </div>  
-                                                    </div>
+                                                <div class="col-md-4">
+                                                    <div class="text-white text-right mt-3">
+                                                        Number of Students:
+                                                    </div>  
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="d-flex w-100 justify-content-start">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value = "isRsoEvent" id="rsoEvent" name="rsoEvent">
-                                                            <label class="form-check-label text-white" for="rsoEvent">RSO Event</label>
-                                                        </div>
+                                                    <div class="">
+                                                        <label class="sr-only" for="university_student_number">University Number of Students</label>
+                                                        {{ form.number_of_students|as_crispy_field }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -136,7 +131,7 @@
                                     <!-- section separator -->
                                     <hr />
 
-                                    <!-- event sechdule section text -->
+                                    <!-- university section text -->
                                     <div class="row mb-3">                                
                                         <div class="col-md-12">
                                             <div class="d-flex w-100 justify-content-center">
@@ -147,22 +142,19 @@
                                         </div>
                                     </div>
 
-                                    <!-- event location -->
+                                    <!-- university location -->
                                     <div class="row justify-content-center">
                                         <div class="col-md-12 justify-content-center">
                                             <div class="row justify-items-end">
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="text-white text-right mt-3">
-                                                        Location
+                                                        Enter Number 
                                                     </div>  
                                                 </div>
-                                                <div class="">
+                                                <div class="col-md-6">
                                                     <div class="">
-                                                        <div class="">
-                                                            <label class="sr-only" for="event_location">Event Location</label>
-                                                            {{ form.location|as_crispy_field }}
-
-                                                        </div>
+                                                        <label class="sr-only" for="university_location">University Location</label>
+                                                        Location input here
                                                     </div>
                                                 </div>
                                             </div>
@@ -172,99 +164,37 @@
                                     <!-- section separator -->
                                     <hr />
 
-                                    <!-- event sechdule section text -->
+                                    <!-- university pictures section text -->
                                     <div class="row mb-3">                                
                                         <div class="col-md-12">
                                             <div class="d-flex w-100 justify-content-center">
                                                 <div class="text-white font-weight-bold text-md text-left ">
-                                                    Event Schedule
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- event start, end, and location -->
-                                    <div class="row justify-content-start">
-                                        <div class="col-md-6 justify-items-start">
-                                            <!-- start time -->
-                                            <div class="row justify-items-end">
-                                                <div class="col-md-6">
-                                                    <div class="text-white text-right mt-3">
-                                                        Start
-                                                    </div>  
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="w-100 mb-4">
-                                                        <label class="sr-only" for="event_start">Event Start Time</label>
-                                                        {{ form.start_time|as_crispy_field }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end time-->
-                                            <div class="row justify-items-end">
-                                                <div class="col-md-6">
-                                                    <div class="text-white text-right mt-3">
-                                                        End
-                                                    </div>  
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="w-100 mb-4">
-                                                        <label class="sr-only" for="event_end">Event End Time</label>
-                                                        {{ form.end_time|as_crispy_field }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- event date -->
-                                        <div class="col-md-6">
-                                            <div class="w-75">
-                                                <label class="sr-only" for="event_date">Event Date</label>
-                                                {{ form.date|as_crispy_field }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- section separator -->
-                                    <hr />
-
-                                    <!-- contact info section text -->
-                                    <div class="row mb-3">                                
-                                        <div class="col-md-12">
-                                            <div class="d-flex w-100 justify-content-center">
-                                                <div class="text-white font-weight-bold text-md text-left ">
-                                                    Contact Info
+                                                    Pictures
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- phone and email input -->
+                                    <!-- Add pictures -->
                                     <div class="row justify-content-center">
                                         <div class="col-md-12 justify-content-center">
                                             <div class="row justify-items-center">
-                                                <div class="col-md-6">
-                                                    <div class="d-flex w-100 justify-content-end">
-                                                        <div class="w-75">
-                                                            <label class="sr-only" for="event_phone">Event Contact Phone Number</label>
-                                                            {{ form.phone|as_crispy_field }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="d-flex w-100 justify-content-start">
-                                                        <div class="w-75 mb-4">
-                                                            <label class="sr-only" for="event_email">Event Contact Email</label>
-                                                            {{ form.email|as_crispy_field }}
-                                                        </div>
-                                                    </div>
+                                                <div class="col-md-12">
+                                                    <!-- add photo button -->
+                                                    <button class="add_photo" type="button" id="add_photo">Add Photo</button>
+                                                    <!-- add photo inputs -->
+                                                    <div id="new_photos" class="ml-5"></div>
+                                                    <!-- number of photos -->
+                                                    <input value="0" id="number_photos" type="hidden">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- submit button -->
-                                    <button class="btn btn-white float-right mt-3 mr-2" type="submit" name="create-event-btn" value = "create-event">Create</button>
+                                    <button class="btn btn-white float-right mt-3 mr-2" type="submit" name="create-university-btn" value = "create-university">Create</button>
                                 </form>
                             </div>
-                            <!-- /.create event form -->
+                            <!-- /.create university form -->
                         </div>
                     </div>
                 </div>
@@ -279,6 +209,8 @@
 <!-- vendor JS -->
 <script src="{% static 'Home/vendor/jquery/jquery-3.5.1.min.js' %}"></script>
 <script src="{% static 'Home/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- custom JS -->
+<script src="{% static 'Universities/universities.js' %}"></script>
 
 </body>
 </html>
