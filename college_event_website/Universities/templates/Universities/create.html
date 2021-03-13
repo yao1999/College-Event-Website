@@ -131,7 +131,7 @@
                                     <!-- section separator -->
                                     <hr />
 
-                                    <!-- university section text -->
+                                    <!-- event sechdule section text -->
                                     <div class="row mb-3">                                
                                         <div class="col-md-12">
                                             <div class="d-flex w-100 justify-content-center">
@@ -142,23 +142,42 @@
                                         </div>
                                     </div>
 
-                                    <!-- university location -->
+                                    <!-- name -->
                                     <div class="row justify-content-center">
-                                        <div class="col-md-12 justify-content-center">
-                                            <div class="row justify-items-end">
-                                                <div class="col-md-6">
-                                                    <div class="text-white text-right mt-3">
-                                                        Enter Number 
-                                                    </div>  
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="">
-                                                        <label class="sr-only" for="university_location">University Location</label>
-                                                        Location input here
-                                                    </div>
-                                                </div>
+                                        <div class="col-md-10 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-center">
+                                                <label for="location_name" class="sr-only">Location Name</label>
+                                                <input type="text" class="form-control" id="location_name" placeholder="Location Name*" required>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <!-- latitude and longitude -->
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-center">
+                                                <label for="location_latitude" class="sr-only">Location latitude</label>
+                                                <input type="text" class="form-control" id="location_latitude" name="location_latitude" placeholder="Latitude*" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-center">
+                                                <label for="location_longitude" class="sr-only">Location longitude</label>
+                                                <input type="text" class="form-control" id="location_longitude" name="location_longitude" placeholder="Longitude*" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- adjust map button -->
+                                    <div class="float-left ml-5 pl-5">
+                                        <button class="adjust_map" type="button" id="adjust_map">Adjust Map</button>
+                                    </div>
+                                    
+                                    <!-- map area with UCF default -->
+                                    <div id="map" class="ml-5 mt-5">
+                                        <iframe id="current_map"
+                                        src="https://maps.google.com/maps?q=28.6024,-81.2001&hl=es;z=14&amp;output=embed"
+                                        width="550" height="300" style="border:0;" allowfullscreen="true" loading="lazy"></iframe>
                                     </div>
 
                                     <!-- section separator -->

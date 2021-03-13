@@ -85,7 +85,7 @@
                                                     Event Details
                                                 </div>
                                             </div>
-                                    </div>
+                                       </div>
                                     </div>
                                     <!-- event name  -->
                                     <div class="row justify-content-center">
@@ -94,6 +94,17 @@
                                                 <div class="w-75">
                                                     <label class="sr-only" for="event_name">Event Name</label>
                                                     {{ form.name|as_crispy_field }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- event category  -->
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-12 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-center">
+                                                <div class="w-75">
+                                                    <label class="sr-only" for="event_category">Event Category</label>
+                                                    {{ form.category|as_crispy_field }}
                                                 </div>
                                             </div>
                                         </div>
@@ -147,32 +158,48 @@
                                         </div>
                                     </div>
 
-                                    <!-- event location -->
+                                    <!-- name -->
                                     <div class="row justify-content-center">
-                                        <div class="col-md-12 justify-content-center">
-                                            <div class="row justify-items-end">
-                                                <div class="col-md-4">
-                                                    <div class="text-white text-right mt-3">
-                                                        Location
-                                                    </div>  
-                                                </div>
-                                                <div class="">
-                                                    <div class="">
-                                                        <div class="">
-                                                            <label class="sr-only" for="event_location">Event Location</label>
-                                                            {{ form.location|as_crispy_field }}
-
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <div class="col-md-10 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-center">
+                                                <label for="location_name" class="sr-only">Location Name</label>
+                                                <input type="text" class="form-control" id="location_name" placeholder="Location Name*">
                                             </div>
                                         </div>
                                     </div>
 
+                                    <!-- latitude and longitude -->
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-center">
+                                                <label for="location_latitude" class="sr-only">Location latitude</label>
+                                                <input type="text" class="form-control" id="location_latitude" name="location_latitude" placeholder="Latitude*">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-center">
+                                                <label for="location_longitude" class="sr-only">Location longitude</label>
+                                                <input type="text" class="form-control" id="location_longitude" name="location_longitude" placeholder="Longitude*">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- adjust map button -->
+                                    <div class="float-left ml-5 pl-5">
+                                        <button class="adjust_map" type="button" id="adjust_map">Adjust Map</button>
+                                    </div>
+                                    
+                                    <!-- map area with UCF default -->
+                                    <div id="map" class="ml-5 mt-5">
+                                        <iframe id="current_map"
+                                        src="https://maps.google.com/maps?q=28.6024,-81.2001&hl=es;z=14&amp;output=embed"
+                                        width="550" height="300" style="border:0;" allowfullscreen="true" loading="lazy"></iframe>
+                                    </div>
+                                    
                                     <!-- section separator -->
                                     <hr />
 
-                                    <!-- event sechdule section text -->
+                                    <!-- event schedule section text -->
                                     <div class="row mb-3">                                
                                         <div class="col-md-12">
                                             <div class="d-flex w-100 justify-content-center">
@@ -279,6 +306,7 @@
 <!-- vendor JS -->
 <script src="{% static 'Home/vendor/jquery/jquery-3.5.1.min.js' %}"></script>
 <script src="{% static 'Home/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'Events/main.js' %}"></script>
 
 </body>
 </html>
