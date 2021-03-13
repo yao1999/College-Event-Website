@@ -68,23 +68,27 @@
                             </div>
                         </div>
                     </div>
-                    <!-- search input -->
-                    <div class="col-md-10">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <input type="search" id="search-form" class="form-control" placeholder="Search Universities by Name"/>
+                    <form method="post" class="w-100">
+                        {% csrf_token %}
+                        <!-- search input -->
+                        <div class="col-md-10">
+                            <div class="d-flex w-100 justify-content-start">
+                                <div class="text-white font-weight-bold text-left ml-3 w-100">
+                                    <input type="search" id="search-form" class="form-control" name="UniversityName" placeholder="Search Universities by Name"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- search button -->
-                    <div class="col-md-1 mt-1">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <!-- submit button -->
-                                <button type="submit" class="btn gradient-orange" name="search-button">Search</button>
+                        <!-- search button -->
+                        <div class="col-md-1 mt-1">
+                            <div class="d-flex w-100 justify-content-start">
+                                <div class="text-white font-weight-bold text-left ml-3 w-100">
+                                    <!-- submit button -->
+                                    <button type="submit" class="btn gradient-orange" value = "SearchValue" name="search-button">Search</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                    
                 </div>
                 <!-- list of universities -->
                 <div class="row mt-5">
