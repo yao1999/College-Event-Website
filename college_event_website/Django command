@@ -37,3 +37,21 @@ To delete row from a table in Database:
 3. list = yy.objects.all()
 4. list.delete()
 5. list <- make sure it is empty
+6. quit()
+
+To delete one record in Database:
+1. python manage.py shell
+2. from xx.models import yy
+3. yy.objects.filter(id=[id]).delete()
+4. quit()
+
+--------------------------------------------------------------------------
+For the RSO student email (you can not find in the SQLite database)
+>>> from RSO.models import Rso
+>>> current_rso = Rso.objects.all()[id-1]
+>>> print(current_rso)
+RSO for test different member email
+>>> current_students = current_rso.students.all()
+>>> print(current_students)
+<QuerySet [<User: usertest1>, <User: usertest2>, <User: usertest3>, <User: Tom>]>
+>>> quit() <-- for exit

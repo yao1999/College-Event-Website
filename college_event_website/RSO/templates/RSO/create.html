@@ -170,9 +170,10 @@
                                             <div class="d-flex w-100 justify-content-center">
                                                 <div class="w-75">
                                                     <label class="sr-only" for="rso_email_1">Member email</label>
+                                                    <!-- {{ studentsEmailForm.student_email1 | as_crispy_field }} -->
                                                     <div id="div_id_admin_email" class="form-group">
                                                         <div class="">
-                                                            <input type="text" name="member_email" placeholder="Member Email*" class="text-center text-white textinput textInput form-control" id="rso_email_1" required>
+                                                            <input type="text" placeholder="Member Email*" class="text-center text-white textinput textInput form-control" id="rso_email_1" name="rso_email_1" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -182,9 +183,10 @@
                                             <div class="d-flex w-100 justify-content-center">
                                                 <div class="w-75">
                                                     <label class="sr-only" for="rso_email_2">Member email</label>
+                                                    <!-- {{ studentsEmailForm.student_email2 | as_crispy_field }} -->
                                                     <div id="div_id_admin_email" class="form-group">
                                                         <div class="">
-                                                            <input type="text" name="member_email" placeholder="Member Email*" class="text-center text-white textinput textInput form-control" id="rso_email_2" required>
+                                                            <input type="text" placeholder="Member Email*" class="text-center text-white textinput textInput form-control" id="rso_email_2" name="rso_email_2" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -194,9 +196,10 @@
                                             <div class="d-flex w-100 justify-content-center">
                                                 <div class="w-75">
                                                     <label class="sr-only" for="rso_email_3">Member email</label>
+                                                    <!-- {{ studentsEmailForm.student_email3 | as_crispy_field }} -->
                                                     <div id="div_id_admin_email" class="form-group">
                                                         <div class="">
-                                                            <input type="text" name="member_email" placeholder="Member Email*" class="text-center text-white textinput textInput form-control" id="rso_email_3" required>
+                                                            <input type="text" placeholder="Member Email*" class="text-center text-white textinput textInput form-control" id="rso_email_3" name="rso_email_3" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -206,9 +209,23 @@
                                             <div class="d-flex w-100 justify-content-center">
                                                 <div class="w-75">
                                                     <label class="sr-only" for="rso_email_4">Member email</label>
+                                                    <!-- {{ studentsEmailForm.student_email4 | as_crispy_field }} -->
                                                     <div id="div_id_admin_email" class="form-group">
                                                         <div class="">
-                                                            <input type="text" name="member_email" placeholder="Member Email*" class="text-center text-white textinput textInput form-control" id="rso_email_4" required>
+                                                            <input type="text" placeholder="Member Email*" class="text-center text-white textinput textInput form-control" id="rso_email_4" name="rso_email_4" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-center">
+                                                <div class="w-75">
+                                                    <label class="sr-only" for="rso_email_5">Member email</label>
+                                                    <!-- {{ studentsEmailForm.student_email4 | as_crispy_field }} -->
+                                                    <div id="div_id_admin_email" class="form-group">
+                                                        <div class="">
+                                                            <input type="text" placeholder="Member Email*" class="text-center text-white textinput textInput form-control" id="rso_email_5" name="rso_email_5" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -227,7 +244,7 @@
                                                     <!-- add email inputs -->
                                                     <div id="new_email" class="ml-5 w-100 row justify-items-center"></div>
                                                     <!-- number of emails -->
-                                                    <input value="4" id="number_emails" type="hidden">
+                                                    <input value="5" id="number_emails" name="number_emails" type="hidden">
                                                 </div>
                                             </div>
                                         </div>
