@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Add title  -->
-    <title>Events</title>
+    <title>Universities</title>
 
     <!-- vendor css  -->
     <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -27,8 +27,8 @@
         <!-- main links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/Events/">Home<span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Events/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/RSO/">RSOs</a>
@@ -39,7 +39,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/Events/create">Create Event</a>
                 </li>
-                    <a class="nav-link" href="/Universities/">Universities</a>
+                    <a class="nav-link active" href="/Universities/">Universities<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/Universities/create">Create University</a>
@@ -59,84 +59,60 @@
         <div class="d-flex w-100 mb-5 ml-5 mr-5 mt-4">
             <div class="text-center mb-5 w-100">
                 <!-- search bar -->
-                <div class="row pt-2 pb-1 pl-2 pr-2 ml-1 mr-1 bg-black rounded">
-                    <!-- search prompt-->
-                    <div class="col-md-1 mt-1">
-                        <div class="d-flex w-100 justify-content-end">
-                            <div class="text-white font-weight-bold text-right text-md ml-3 w-100">
-                                <label class="form-label" for="search-form">Search</label>
+                <form method="post" class="w-100">
+                    <div class="row pt-2 pb-1 pl-2 pr-2 ml-1 mr-1 bg-black rounded">
+                        <!-- search prompt-->
+                        <div class="col-md-1 mt-1">
+                            <div class="d-flex w-100 justify-content-end">
+                                <div class="text-white font-weight-bold text-right text-md ml-3 w-100">
+                                    <label class="form-label" for="search-form">Search</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% csrf_token %}
+                        <!-- search input -->
+                        <div class="col-md-10">
+                            <div class="d-flex w-100 justify-content-start">
+                                <div class="text-white font-weight-bold text-left ml-3 w-100">
+                                    <input type="search" id="search-form" class="form-control" name="UniversityName" placeholder="Search Universities by Name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- search button -->
+                        <div class="col-md-1 mt-1">
+                            <div class="d-flex w-100 justify-content-start">
+                                <div class="text-white font-weight-bold text-left ml-3 w-100">
+                                    <!-- submit button -->
+                                    <button type="submit" class="btn gradient-orange" value = "SearchValue" name="search-button">Search</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- search input -->
-                    <div class="col-md-9">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <input type="search" id="search-form" class="form-control" placeholder="Search Events by Locations"/>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- different university options -->
-                    <div class="col-md-1 mt-1">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="form-group">
-                                <label for="search-university" class="sr-only">University</label>
-                                <select id="search-university" class="form-control bg-transparent">
-                                    <!-- users' university -->
-                                    <option selected>University</option>
-                                    <!-- all the other universities -->
-                                    <option>University2</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- search button -->
-                    <div class="col-md-1 mt-1">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <!-- submit button -->
-                                <button type="submit" class="btn gradient-orange" name="search-button">Search</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- list of events -->
+                </form>
+                <!-- list of universities -->
                 <div class="row mt-5">
-                {% for event in events  %}
+                {% for university in universities  %}
                 <div class="col-md-4">
-                    <!-- event card -->
+                    <!-- university card -->
                     <div class="card card0 border-0 d-flex align-items-center align-content-center align-self-center w-100 mb-3">
-                        <!-- event title -->
+                        <!-- university title -->
                         <div class="row w-100 bg-gray2 rounded-top">
                             <div class="col-md-12 w-100">
-                                <h2 class="font-weight-bold text-md text-orng">{{ event.name }}</a></h2>
+                                <h2 class="font-weight-bold text-md text-orng">{{ university.name }}</a></h2>
                             </div>                             
                         </div>
-                        <!-- event details and links -->
+                        <!-- university details and links -->
                         <div class="row card card0 border-0 bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
                             <div class="row d-flex align-items-center align-content-center align-self-center ml-4 mr-4 mt-0 mb-2 w-100">
                                 <div class="w-100 m-2">
                                     <div class="row mb-2">                                
                                         <div class="col-md-12">
-                                            <div class="row ml-2 mr-2 mb-5">
-                                                <div class="d-flex w-100 justify-content-left">
-                                                    <div class="text-white font-weight-bold text-left">
-                                                        {{ event.category }}
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="row m-2">
-                                                <div class="col-md-6 justify-content-start">
+                                                <div class="col-md-12 justify-content-start">
                                                     <div class="d-flex w-100 justify-content-start">
                                                         <div class="text-white font-weight-bold text-left">
-                                                            {{ event.date }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 justify-content-end">
-                                                    <div class="d-flex w-100 justify-content-end">
-                                                        <div class="text-white font-weight-bold text-right">
-                                                            {{ event.location }}
+                                                            {{ university.location }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -144,14 +120,14 @@
                                             <div class="row ml-2 mr-2 mb-5">
                                                 <div class="d-flex w-100 justify-content-left">
                                                     <div class="text-white text-left ml-3 overflow-hidden">
-                                                        {{ event.description }}
+                                                        {{ university.description }}
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row ml-2 mr-2 mb-2">
                                                 <div class="d-flex w-100 justify-content-left">
                                                     <div class="text-white font-weight-bold text-left ml-3">
-                                                        <a href="/Events/{{ event.id }}" class="text-orng">Learn More</a>
+                                                        <a href="/Universities/{{ university.id }}" class="text-orng">Learn More</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,7 +138,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.event card -->
+                <!-- /.university card -->
                 {% endfor %}
                 </div>
             </div>

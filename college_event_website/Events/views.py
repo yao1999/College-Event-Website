@@ -3,6 +3,7 @@ from crispy_forms.helper import FormHelper
 from .forms import EventForm, CommentForm
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Event, Comment
+from Universities.models import University
 from Users.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -14,7 +15,13 @@ def list_events(response):
   # return render(response, "Events/base.html")
   events = Event.objects.all()
   # print(events)
-  return render(response, 'Events/base.html', { 'events' : events})
+  user_university = University.objects.filter(name = response.user.university)[0]
+  all_university = University.objects.all()
+  return render(response, 'Events/base.html', { 
+    'events' : events,
+    'user_university': user_university,
+    'all_university': all_university
+    })
 
 @login_required(login_url='/Users/login/')
 def add_event(response):

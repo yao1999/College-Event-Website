@@ -29,21 +29,26 @@
         <!-- main links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/Events/">Home<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">RSOs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Create RSO</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Events/create">Create Event</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#/">Profile</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Events/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/RSO/">RSOs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/RSO/create">Create RSO</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Events/create">Create Event</a>
+                </li>
+                    <a class="nav-link" href="/Universities/">Universities</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Universities/create">Create University</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
             </ul>
         </div>
         <!-- logout link -->
@@ -91,10 +96,21 @@
                                 </div>
                                 <!-- location -->
                                 <div class="row mb-3 ml-3 mr-3">                                
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-start">
                                                 {{ event.location }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- category and rating -->
+                                <div class="row mb-3 ml-3 mr-3">                                
+                                    <div class="col-md-6">
+                                        <div class="d-flex w-100 justify-content-start">
+                                            <div class="text-white font-weight-bold text-start">
+                                                {{ event.category }}
                                             </div>
                                         </div>
                                     </div>
@@ -106,10 +122,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- rating  -->
-                                <div class="row ml-3 mb-3">
 
-                                </div>
                                 <!-- description -->
                                 <div class="row ml-3 mb-5">
                                     <div class="col-md-12">

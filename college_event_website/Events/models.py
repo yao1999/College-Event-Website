@@ -3,6 +3,9 @@ from django.urls import reverse
 from datetime import datetime, date, time
 from phone_field import PhoneField
 from Users.models import User
+from mapbox_location_field.models import LocationField  
+
+ucf_location = [28.6014075,-81.20134150000001]
 
 # Create your models here.
 class Event(models.Model):
@@ -13,6 +16,7 @@ class Event(models.Model):
   start_time = models.TimeField(null=False)
   end_time = models.TimeField(null=False)
   location = models.TextField()
+  # location = LocationField(map_attrs={"center": ucf_location, "marker_color": "red"})
   phone = PhoneField(blank=True, help_text='Contact phone number', null=False)
   email = models.CharField(max_length = 254, null=False)
   is_public = models.BooleanField(default=False) 
@@ -34,3 +38,5 @@ class Comment(models.Model):
   
   def __str__(self):
     return f'{self.event.name}'
+
+
