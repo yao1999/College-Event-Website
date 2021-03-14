@@ -1,10 +1,8 @@
 
 
-email = "zefeng.yao@knights.ucf.edu"
+email = "user@knights.ucf.edu"
+student = email.split('@')[1]
 
-domain = email.split('@')[1].split('.')
-if domain.count('ucf'):
-    print("yes")
-else:
-    print("no")
+print(student)
+
   
