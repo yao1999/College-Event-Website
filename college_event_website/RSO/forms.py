@@ -17,7 +17,12 @@ class RsoForm(forms.Form):
         if current_admin is not None:
             current_university = find_university(current_admin, students)
             if current_university is not None: 
-                current_rso = Rso(name = data['name'], admin = current_admin)
+                total_students = int(1 + len(students))
+                current_rso = Rso(name = data['name'], 
+                                  description = data['description'],
+                                  university = current_university,
+                                  admin = current_admin,
+                                  total_students = total_students)
                 current_rso.save()
                 for student in students:
                     current_rso.students.add(student)

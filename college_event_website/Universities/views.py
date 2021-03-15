@@ -34,7 +34,9 @@ def add_university(response):
       if response.POST.get("create-university-btn"):
         university_form = UniversityForm(response.POST)
         if university_form.is_valid():
-            university_form.save()
+            latitude = response.POST.get("location_latitude")
+            longitude = response.POST.get("location_longitude")
+            university_form.save(latitude, longitude)
             messages.success(response, "University added")
         return HttpResponseRedirect('../../Universities/')
       else:
@@ -59,7 +61,6 @@ def university_info(response, university_id):
     else:
       return render(response, "Universities/details.html", {
         "University_Name": current_university.name,
-        "location": current_university.location,
         "num_of_students": current_university.number_of_students,
         "Description": current_university.description
       })

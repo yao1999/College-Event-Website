@@ -18,7 +18,8 @@ def university_directory_path(university_name, instance, filename):
 class University(models.Model):
   name = models.CharField(max_length = 100, null=False)
   description = models.TextField()
-  location = LocationField(map_attrs={"center": ucf_location, "marker_color": "red"})
+  latitude = models.CharField(max_length = 100, null=True)
+  longitude = models.CharField(max_length = 100, null=True)
   picture = models.ImageField(upload_to = university_directory_path) 
   number_of_students = models.IntegerField()
 

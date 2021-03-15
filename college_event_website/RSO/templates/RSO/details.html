@@ -61,10 +61,11 @@
             <div class="text-center mt-5 mb-5 w-100">
                 <!-- outer background -->
                 <div class="card card0 border-0 d-flex align-items-center align-content-center align-self-center w-100">
+                    
                     <!-- rso title -->
                     <div class="row w-100 gradient-orange rounded-top">
                         <div class="col-md-12">
-                            <h2 class="font-weight-bold text-blk text-lg">Name go here</h2>
+                            <h2 class="font-weight-bold text-blk text-lg">{{ rso.name }}</h2>
                         </div>                             
                     </div>
                     <div class="row card card0 border-0 shadow-thick bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
@@ -76,7 +77,7 @@
                                     <div class="col-md-12">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-md text-left">
-                                                University rso belongs to go here
+                                                University: {{ rso.university }}
                                             </div>
                                         </div>
                                     </div>
@@ -86,7 +87,7 @@
                                     <div class="col-md-12">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-start">
-                                                Students: num of students go here
+                                                {{ rso.total_students }}
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +97,7 @@
                                     <div class="col-md-12">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="w-75 text-white text-left">
-                                                description go here
+                                                {{ rso.description }}
                                             </div>
                                         </div>
                                     </div>
