@@ -8,7 +8,6 @@ class Rso(models.Model):
   id = models.AutoField(primary_key=True) 
   name = models.CharField(max_length = 255, null=False)
   description = models.TextField(null = True)
-  # students = models.ForeignKey(User, on_delete=models.CASCADE, related_name='students')
   university =  models.ForeignKey(University, on_delete=models.CASCADE, related_name='University', null=True)
   students = ManyToManyField(User)
   admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin', null=True)
