@@ -27,26 +27,49 @@
         <!-- main links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/Events/">Home<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/RSO/">RSOs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/RSO/create">Create RSO</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Events/create">Create Event</a>
-                </li>
-                    <a class="nav-link" href="/Universities/">Universities</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Universities/create">Create University</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
-                </li>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Events
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item active" href="/Events/">View Events<span class="sr-only">(current)</span></a>
+                            <a class="dropdown-item" href="/Events/create">Create Event</a>
+                            {% if user.is_super_admin == True %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Events/approve">Approve Events</a>
+                            {% endif %}
+                        </div>
+                    </li>
+    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            RSOs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                            <a class="dropdown-item" href="/RSO/create">Create RSO</a>
+                        </div>
+                    </li>
+    
+                    {% if user.is_super_admin == True %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Universities
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/Universities/">View Universities</a>
+                                <a class="dropdown-item" href="/Universities/create">Create University</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Universities/">Universities</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/Users/profile">Profile</a>
+                    </li>
             </ul>
         </div>
         <!-- logout link -->
@@ -132,55 +155,56 @@
                 <!-- list of events -->
                 <div class="row mt-5">
                 {% for event in events  %}
-                <div class="col-md-4">
                     <!-- event card -->
-                    <div class="card card0 border-0 d-flex align-items-center align-content-center align-self-center w-100 mb-3">
-                        <!-- event title -->
-                        <div class="row w-100 bg-gray2 rounded-top">
-                            <div class="col-md-12 w-100">
-                                <h2 class="font-weight-bold text-md text-orng">{{ event.name }}</a></h2>
-                            </div>                             
-                        </div>
-                        <!-- event details and links -->
-                        <div class="row card card0 border-0 bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
-                            <div class="row d-flex align-items-center align-content-center align-self-center ml-4 mr-4 mt-0 mb-2 w-100">
-                                <div class="w-100 m-2">
-                                    <div class="row mb-2">                                
-                                        <div class="col-md-12">
-                                            <div class="row ml-2 mr-2 mb-5">
-                                                <div class="d-flex w-100 justify-content-left">
-                                                    <div class="text-white font-weight-bold text-left">
-                                                        {{ event.category }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row m-2">
-                                                <div class="col-md-6 justify-content-start">
-                                                    <div class="d-flex w-100 justify-content-start">
+                    <div class="col-md-4">
+                        <div class="card card0 bg-gray2 border-0 d-flex align-items-center align-content-center align-self-center w-100 mb-3">
+                            <!-- event title -->
+                            <div class="row w-100 bg-gray2 rounded-top">
+                                <div class="col-md-12 w-100">
+                                    <h2 class="font-weight-bold text-md text-orng">{{ event.name }}</a></h2>
+                                </div>                             
+                            </div>
+                            <!-- event details and links -->
+                            <div class="row card card0 border-0 bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
+                                <div class="row d-flex align-items-center align-content-center align-self-center ml-4 mr-4 mt-0 mb-2 w-100">
+                                    <div class="w-100 m-2">
+                                        <div class="row mb-2">                                
+                                            <div class="col-md-12">
+                                                <div class="row ml-2 mr-2 mb-5">
+                                                    <div class="d-flex w-100 justify-content-left">
                                                         <div class="text-white font-weight-bold text-left">
-                                                            {{ event.date }}
+                                                            {{ event.category }}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 justify-content-end">
-                                                    <div class="d-flex w-100 justify-content-end">
-                                                        <div class="text-white font-weight-bold text-right">
-                                                            {{ event.location }}
+                                                <div class="row m-2">
+                                                    <div class="col-md-6 justify-content-start">
+                                                        <div class="d-flex w-100 justify-content-start">
+                                                            <div class="text-white font-weight-bold text-left">
+                                                                {{ event.date }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 justify-content-end">
+                                                        <div class="d-flex w-100 justify-content-end">
+                                                            <div class="text-white font-weight-bold text-right">
+                                                                {{ event.location }}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row ml-2 mr-2 mb-5">
-                                                <div class="d-flex w-100 justify-content-left">
-                                                    <div class="text-white text-left ml-3 overflow-hidden">
-                                                        {{ event.description }}
+                                                <div class="row ml-2 mr-2 mb-5">
+                                                    <div class="d-flex w-100 justify-content-left">
+                                                        <div class="text-white text-left ml-3 overflow-hidden">
+                                                            {{ event.description }}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row ml-2 mr-2 mb-2">
-                                                <div class="d-flex w-100 justify-content-left">
-                                                    <div class="text-white font-weight-bold text-left ml-3">
-                                                        <a href="/Events/{{ event.id }}" class="text-orng">Learn More</a>
+                                                <div class="row ml-2 mr-2 mb-2">
+                                                    <div class="d-flex w-100 justify-content-left">
+                                                        <div class="text-white font-weight-bold text-left ml-3">
+                                                            <a href="/Events/{{ event.id }}" class="text-orng">Learn More</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -190,8 +214,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.event card -->
+                    <!-- /.event card -->
                 {% endfor %}
                 </div>
             </div>
