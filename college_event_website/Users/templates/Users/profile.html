@@ -1,0 +1,249 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Add title  -->
+    <title>Universities</title>
+
+    <!-- vendor css  -->
+    <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- custom css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Events/main.css' %}">
+</head>
+
+<body class="bg-gray1">
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Events Website</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- main links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Events/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/RSO/">RSOs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/RSO/create">Create RSO</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Events/create">Create Event</a>
+                </li>
+                    <a class="nav-link" href="/Universities/">Universities</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Universities/create">Create University</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Profile<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+        <!-- logout link -->
+        <a class="nav-link text-white" href="../../Users/logout">Logout</a>
+    </nav>
+    <!-- /.navbar -->
+
+
+    <div class="d-flex align-items-center align-content-center align-self-center w-100">
+        <div class="d-flex w-100 mb-5 ml-5 mr-5 mt-4">
+            <div class="text-center mb-5 w-100">
+                <!-- user name, email, etc -->
+                <div class="row mt-5 ml-5 justify-content-center">
+                    <div class="col-md-8 ml-2 justify-content-center">
+                        <!-- user card -->
+                        <div class="card card0 bg-gray2 border-0 d-flex align-items-center align-content-center align-self-center w-100 mb-3">
+                            <!-- user name -->
+                            <div class="row w-100 bg-gray rounded-top">
+                                <div class="col-md-12 w-100">
+                                    <h2 class="font-weight-bold text-md text-orng">User Information</a></h2>
+                                </div>                             
+                            </div>
+                            <div class="row w-100 bg-gray2">
+                                <!-- name -->
+                                <div class="col-md-12 mb-2">
+                                    <div class="text-white font-weight-bold">
+                                        <div class="row">
+                                            <div class="col-md-6 text-right">
+                                                Firstnamehere
+                                            </div>
+                                            <div class="col-md-6 text-left">
+                                                Lastnamehere
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- email -->       
+                                <div class="col-md-12 mb-2">
+                                    <div class="text-white font-weight-bold">
+                                        <div class="row">
+                                            <div class="col-md-6 text-right">
+                                                Email:
+                                            </div>
+                                            <div class="col-md-6 text-left">
+                                                emailhere
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- username -->      
+                                <div class="col-md-12 mb-2">
+                                    <div class="text-white font-weight-bold">
+                                        <div class="row">
+                                            <div class="col-md-6 text-right">
+                                                Username:
+                                            </div>
+                                            <div class="col-md-6 text-left">
+                                                usernamehere
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- section separator -->
+                <hr />
+
+                <!-- university section -->
+                <div class="row mb-3">                                
+                    <div class="col-md-12">
+                        <div class="d-flex w-100 justify-content-center">
+                            <div class="text-white font-weight-bold text-md text-left ">
+                                Your University
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- list users' university -->
+                <div class="row mt-5 ml-5">
+                    <div class="col-md-4 ml-2">
+                        <!-- university card -->
+                        <div class="card card0 bg-gray2 border-0 d-flex align-items-center align-content-center align-self-center w-100 mb-3">
+                            <!-- university title -->
+                            <div class="row w-100 bg-gray2 rounded-top">
+                                <div class="col-md-12 w-100">
+                                    <h2 class="font-weight-bold text-md text-orng">{{ university.name }}</a></h2>
+                                </div>                             
+                            </div>
+                            <!-- university details and links -->
+                            <div class="row card card0 border-0 bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
+                                <div class="row d-flex align-items-center align-content-center align-self-center ml-4 mr-4 mt-0 mb-2 w-100">
+                                    <div class="w-100 m-2">
+                                        <div class="row mb-2">                                
+                                            <div class="col-md-12">
+                                                <div class="row m-2">
+                                                    <div class="col-md-12 justify-content-start">
+                                                        <div class="d-flex w-100 justify-content-start">
+                                                            <div class="text-white font-weight-bold text-left">
+                                                                {{ university.location }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row ml-2 mr-2 mb-5">
+                                                    <div class="d-flex w-100 justify-content-left">
+                                                        <div class="text-white text-left ml-3 overflow-hidden">
+                                                            {{ university.description }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row ml-2 mr-2 mb-2">
+                                                    <div class="d-flex w-100 justify-content-left">
+                                                        <div class="text-white font-weight-bold text-left ml-3">
+                                                            <a href="/Universities/{{ university.id }}" class="text-orng">Learn More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./university card -->
+                    </div>
+                </div>            
+                <!-- /.list user' university, if they have one -->
+
+                <!-- section separator -->
+               <hr />
+
+                <!-- rso section -->
+                <div class="row mb-3">                                
+                    <div class="col-md-12">
+                        <div class="d-flex w-100 justify-content-center">
+                            <div class="text-white font-weight-bold text-md text-left ">
+                                Your RSOs
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- list of users' rsos -->
+                <div class="row mt-5 ml-5">
+                    {% for rso in users_rsos  %}
+                    <div class="col-md-4 ml-2">
+                        <!-- rso card -->
+                        <div class="card card0 bg-gray2 border-0 d-flex align-items-center align-content-center align-self-center w-100 mb-3">
+                            <!-- rso title -->
+                            <div class="row w-100 bg-gray2 rounded-top">
+                                <div class="col-md-12 w-100">
+                                    <h2 class="font-weight-bold text-md text-orng">{{ rso.name }}</a></h2>
+                                </div>                             
+                            </div>
+                            <!-- rso details and links -->
+                            <div class="row card card0 border-0 bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
+                                <div class="row d-flex align-items-center align-content-center align-self-center ml-4 mr-4 mt-0 mb-2 w-100">
+                                    <div class="w-100 m-2">
+                                        <div class="row mb-2">                                
+                                            <div class="col-md-12">
+                                                <div class="row m-2">
+                                                    <div class="col-md-12 justify-content-start">
+                                                        <div class="d-flex w-100 justify-content-start">
+                                                            <div class="text-white font-weight-bold text-left">
+                                                                <!--  rso.university -->
+                                                                {{ rso.admin }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row ml-2 mr-2 mb-5">
+                                                    <div class="d-flex w-100 justify-content-left">
+                                                        <div class="text-white text-left ml-3 overflow-hidden">
+                                                            {{ rso.description }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row ml-2 mr-2 mb-2">
+                                                    <div class="d-flex w-100 justify-content-left">
+                                                        <div class="text-white font-weight-bold text-left ml-3">
+                                                            <a href="/RSO/{{ rso.id }}" class="text-orng">Learn More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.rso card -->
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
