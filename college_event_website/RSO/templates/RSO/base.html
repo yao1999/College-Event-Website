@@ -94,11 +94,11 @@
                                         {% endif %}
                                         <!-- all the other universities -->
                                         {% for university in all_university %}
-                                            {% if user.university != null and university != user.university %}
+                                            {% if user.university != null %}
                                                 {% if university != user.university %}
                                                     <option>{{ university }}</option>
                                                 {% endif %}
-                                            {% elif user.university == null and university != all_university.0 %}
+                                            {% elif user.university == null %}
                                                 <option>{{ university }}</option>
                                             {% endif %}
                                         {% endfor %}
