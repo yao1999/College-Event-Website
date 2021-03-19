@@ -85,6 +85,10 @@ def event_info(response, event_id):
       'comments': all_comments
       })
 
+@login_required(login_url='/Users/login/')
+def approve(response):
+  return render(response, "Events/approve.html")
+
 def delete_comment(comment_id, current_user):
   current_comment = Comment.objects.filter(id=comment_id)[0]
   if current_comment.user.id == current_user.id:
