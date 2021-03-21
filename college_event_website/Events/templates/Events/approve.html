@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Add title  -->
-    <title>Events</title>
+    <title>Approve Events</title>
 
     <!-- vendor css  -->
     <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -33,11 +33,11 @@
                             Events
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item active" href="/Events/">View Events<span class="sr-only">(current)</span></a>
+                            <a class="dropdown-item " href="/Events/">View Events</a>
                             <a class="dropdown-item" href="/Events/create">Create Event</a>
                             {% if user.is_super_admin == True %}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Events/approve">Approve Events</a>
+                                <a class="dropdown-item active" href="/Events/approve">Approve Events<span class="sr-only">(current)</span></a>
                             {% endif %}
                         </div>
                     </li>
@@ -81,78 +81,7 @@
     <div class="d-flex align-items-center align-content-center align-self-center w-100">
         <div class="d-flex w-100 mb-5 ml-5 mr-5 mt-4">
             <div class="text-center mb-5 w-100">
-                <!-- search bar -->
-                <div class="row pt-2 pb-1 pl-2 pr-2 ml-1 mr-1 bg-black rounded">
-                    <!-- search prompt-->
-                    <div class="col-md-1 mt-1">
-                        <div class="d-flex w-100 justify-content-end">
-                            <div class="text-white font-weight-bold text-right text-md ml-3 w-100">
-                                <label class="form-label" for="search-form">Search</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- search input for location -->
-                    <div class="col-md-5">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <input type="search" id="search-form-location-name" class="form-control" placeholder="Location Name"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <input type="search" id="search-form-latitude" class="form-control" placeholder="Latitude"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <input type="search" id="search-form-longitude" class="form-control" placeholder="Longitude"/>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- different university options -->
-                    <div class="col-md-1 mt-1">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="form-group">
-                                <label for="search-university" class="sr-only">University</label>
-                                <select id="search-university" class="form-control bg-transparent">
-                                    <!-- users' university -->
-                                    {% if user.university != null %}
-                                        <option selected>{{ user_university }}</option>
-                                    {% else %}
-                                        <option selected>All Universities</option>
-                                    {% endif %}
-                                    <option>All Universities</option>
-                                    <!-- all the other universities -->
-                                    {% for university in all_university %}
-                                        {% if user.university != null %}
-                                            {% if university != user.university %}
-                                                <option>{{ university }}</option>
-                                            {% endif %}
-                                        {% elif user.university == null %}
-                                            <option>{{ university }}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- search button -->
-                    <div class="col-md-1 mt-1">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <!-- submit button -->
-                                <button type="submit" class="btn gradient-orange" name="search-button">Search</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- list of events -->
+                <!-- list of events to be approved -->
                 <div class="row mt-5">
                 {% for event in events  %}
                     <!-- event card -->
@@ -204,6 +133,19 @@
                                                     <div class="d-flex w-100 justify-content-left">
                                                         <div class="text-white font-weight-bold text-left ml-3">
                                                             <a href="/Events/{{ event.id }}" class="text-orng">Learn More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- approval section -->
+                                                <div class="row ml-2 mr-2 mb-2 mt-2">
+                                                    <div class="col-md-6">
+                                                        <div class="text-white font-weight-bold text-left">
+                                                            <button type="submit" name = "DisapproveButton" value = "Disapprove" class="btn gradient-black text-center float-left login-btn">Disapprove</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="text-white font-weight-bold text-right">
+                                                            <button type="submit" name = "ApproveButton" value = "Approve" class="btn gradient-black text-center float-right login-btn">Approve</button>
                                                         </div>
                                                     </div>
                                                 </div>
