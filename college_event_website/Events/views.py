@@ -15,7 +15,7 @@ def list_events(response):
   # return render(response, "Events/base.html")
   events = Event.objects.all()
   # print(events)
-  user_university = University.objects.filter(name = response.user.university)[0]
+  user_university = University.objects.filter(name = response.user.university).first()
   all_university = University.objects.all()
   return render(response, 'Events/base.html', { 
     'events' : events,
@@ -71,11 +71,7 @@ def event_info(response, event_id):
     return HttpResponseRedirect('../../Events/' + str(event_id) + '')
   else:
     comment_form = CommentForm(None)
-    try:
-      event = Event.objects.filter(id = event_id)[0]
-    except:
-      messages.error(response, "Event Not Found")
-      return HttpResponseRedirect('../../Events/')
+    event = Event.objects.filter(id = event_id).first()
     all_comments = Comment.objects.filter(event= event).order_by('-timestamp')
     rating  = get_rating(all_comments)
     return render(response, "Events/details.html", { 
