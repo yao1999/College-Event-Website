@@ -27,25 +27,47 @@
         <!-- main links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/Events/">Home</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Events
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/Events/">View Events</a>
+                        <a class="dropdown-item" href="/Events/create">Create Event</a>
+                        {% if user.is_super_admin == True %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/Events/approve">Approve Events</a>
+                        {% endif %}
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="/RSO/">RSOs<span class="sr-only">(current)</span></a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        RSOs
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item active" href="/RSO/">View RSOs<span class="sr-only">(current)</span></a>
+                        <a class="dropdown-item" href="/RSO/create">Create RSO</a>
+                    </div>
                 </li>
+
+                {% if user.is_super_admin == True %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Universities
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/Universities/">View Universities</a>
+                            <a class="dropdown-item" href="/Universities/create">Create University</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Universities/">Universities</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/RSO/create">Create RSO</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Events/create">Create Event</a>
-                </li>
-                    <a class="nav-link" href="/Universities/">Universities</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Universities/create">Create University</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" href="/Users/profile">Profile</a>
                 </li>
             </ul>
         </div>
@@ -72,13 +94,41 @@
                         
                         {% csrf_token %}
                         <!-- search input -->
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <div class="d-flex w-100 justify-content-start">
                                 <div class="text-white font-weight-bold text-left ml-3 w-100">
                                     <input type="search" id="search-form" class="form-control" name="RsoName" placeholder="Search Rsos by Name"/>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- university search input -->
+                        <div class="col-md-1 mt-1">
+                            <div class="d-flex w-100 justify-content-start">
+                                <div class="form-group">
+                                    <label for="search-university" class="sr-only">University</label>
+                                    <select id="search-university" class="form-control bg-transparent">
+                                        <!-- users' university -->
+                                        {% if user.university != null %}
+                                            <option selected>{{ user_university }}</option>
+                                        {% else %}
+                                            <option selected>{{ all_university.0 }}</option>
+                                        {% endif %}
+                                        <!-- all the other universities -->
+                                        {% for university in all_university %}
+                                            {% if user.university != null %}
+                                                {% if university != user.university %}
+                                                    <option>{{ university }}</option>
+                                                {% endif %}
+                                            {% elif user.university == null %}
+                                                <option>{{ university }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- search button -->
                         <div class="col-md-1 mt-1">
                             <div class="d-flex w-100 justify-content-start">
@@ -95,7 +145,7 @@
                 {% for rso in rsos  %}
                 <div class="col-md-4">
                     <!-- rso card -->
-                    <div class="card card0 border-0 d-flex align-items-center align-content-center align-self-center w-100 mb-3">
+                    <div class="card card0 bg-gray2 border-0 d-flex align-items-center align-content-center align-self-center w-100 mb-3">
                         <!-- rso title -->
                         <div class="row w-100 bg-gray2 rounded-top">
                             <div class="col-md-12 w-100">
