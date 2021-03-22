@@ -3,9 +3,6 @@ from django.urls import reverse
 from datetime import datetime, date, time
 from phone_field import PhoneField
 from Users.models import User
-from mapbox_location_field.models import LocationField  
-
-ucf_location = [28.6014075,-81.20134150000001]
 
 # Create your models here.
 class Event(models.Model):
