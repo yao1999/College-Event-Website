@@ -75,7 +75,7 @@
                         <div class="row card card0 border-0 shadow-thick bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
                             <div class="row d-flex align-items-center align-content-center align-self-center m-4 w-100">
                                 <!-- create university form -->
-                                <form method="POST" class="w-100 m-2">
+                                <form method="POST" class="w-100 m-2" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <!-- university details section text -->
                                     <div class="row mb-3">                                
@@ -204,7 +204,7 @@
                                                     <!-- add photo inputs -->
                                                     <div id="new_photos" class="ml-5"></div>
                                                     <!-- number of photos -->
-                                                    <input value="0" id="number_photos" type="hidden">
+                                                    <input value="0" id="number_photos" name="number_photos" type="hidden">
                                                 </div>
                                             </div>
                                         </div>

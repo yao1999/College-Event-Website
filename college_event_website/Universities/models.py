@@ -17,11 +17,11 @@ def university_directory_path(university_name, instance, filename):
     return 'university_{0}/{1}'.format(university_name, filename) 
 
 class Photos(models.Model):
-  name = models.CharField(max_length = 100, null=False)
-  photo = models.ImageField(upload_to = university_directory_path) 
+  university_name = models.CharField(max_length = 100, null=True)
+  photo_path = models.CharField(max_length = 100, null=True)
 
   def __str__(self):
-    return self.name
+    return self
 
 class University(models.Model):
   name = models.CharField(max_length = 100, null=False)
@@ -32,4 +32,4 @@ class University(models.Model):
   number_of_students = models.IntegerField()
 
   def __str__(self): 
-    return f'{self.name}'
+    return self.name

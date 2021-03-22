@@ -3,9 +3,11 @@ from crispy_forms.helper import FormHelper
 from .forms import UniversityForm
 from django.http import HttpResponseRedirect, HttpResponse
 from Users.models import User
-from .models import University
+from .models import University,Photos
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.forms.models import modelformset_factory
+from django.core.files.storage import FileSystemStorage
 
 @login_required(login_url='/Users/login/')
 def list_universities(response):
@@ -33,11 +35,12 @@ def add_university(response):
     if response.method == "POST":
       if response.POST.get("create-university-btn"):
         university_form = UniversityForm(response.POST)
-        if university_form.is_valid():
-            latitude = response.POST.get("location_latitude")
-            longitude = response.POST.get("location_longitude")
-            university_form.save(latitude, longitude)
-            messages.success(response, "University added")
+        photos = get_photos(response, university_form.data['name'])
+        # if university_form.is_valid():
+        #     latitude = response.POST.get("location_latitude")
+        #     longitude = response.POST.get("location_longitude")
+        #     university_form.save(latitude, longitude)
+        #     messages.success(response, "University added")
         return HttpResponseRedirect('../../Universities/')
       else:
         return HttpResponseRedirect('../../Universities/create')
@@ -72,3 +75,19 @@ def delete_university():
 
 def edit_university():
     pass
+
+
+def get_photos(request, university_name):
+  photos = []
+  total_photos = request.POST.get("number_photos")
+  folder='Universities/images/' + str(university_name) + '/' 
+  for i in range(1, int(total_photos)+1):
+      html_tag = 'university_photo_' + str(i)
+      myfile = request.FILES[html_tag]
+      if myfile is not None:
+        photos.append(request.FILES[html_tag].name)
+        fs = FileSystemStorage(location=folder)
+        filename = fs.save(myfile.name, myfile)
+        file_url = fs.url(filename)
+
+  return photos
