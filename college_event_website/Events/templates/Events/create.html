@@ -33,25 +33,47 @@
         <!-- main links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Events
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/Events/">View Events</a>
+                        <a class="dropdown-item active" href="/Events/create">Create Event<span class="sr-only">(current)</span></a>
+                        {% if user.is_super_admin == True %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/Events/approve">Approve Events</a>
+                        {% endif %}
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        RSOs
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                        <a class="dropdown-item" href="/RSO/create">Create RSO</a>
+                    </div>
+                </li>
+
+                {% if user.is_super_admin == True %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Universities
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/Universities/">View Universities</a>
+                            <a class="dropdown-item" href="/Universities/create">Create University</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Universities/">Universities</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/Events/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/RSO/">RSOs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/RSO/create">Create RSO</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/Events/create">Create Event<span class="sr-only">(current)</span></a>
-                </li>
-                    <a class="nav-link" href="/Universities/">Universities</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Universities/create">Create University</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" href="/Users/profile">Profile</a>
                 </li>
             </ul>
         </div>

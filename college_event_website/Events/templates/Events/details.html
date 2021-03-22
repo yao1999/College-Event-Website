@@ -10,11 +10,21 @@
     <!-- Add title  -->
     <title>Event Detail</title>
 
+    <!-- fb open graphs -->
+    <meta property="og:url"           content="localhost://Events/{{ event.id }}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="College Event: {{ event.name }}" />
+    <meta property="og:description"   content="{{ event.description }}" />
+
     <!-- vendor css  -->
     <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- custom css -->
     <link rel="stylesheet" type="text/css" href="{% static 'Events/main.css' %}">
+
+    <!-- facebook sdk -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v10.0" nonce="jOG6UFvu"></script>
 </head>
 
 
@@ -29,25 +39,47 @@
         <!-- main links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/Events/">Home</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Events
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/Events/">View Events</a>
+                        <a class="dropdown-item" href="/Events/create">Create Event</a>
+                        {% if user.is_super_admin == True %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/Events/approve">Approve Events</a>
+                        {% endif %}
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/RSO/">RSOs</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        RSOs
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                        <a class="dropdown-item" href="/RSO/create">Create RSO</a>
+                    </div>
                 </li>
+
+                {% if user.is_super_admin == True %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Universities
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/Universities/">View Universities</a>
+                            <a class="dropdown-item" href="/Universities/create">Create University</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Universities/">Universities</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/RSO/create">Create RSO</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Events/create">Create Event</a>
-                </li>
-                    <a class="nav-link" href="/Universities/">Universities</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Universities/create">Create University</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" href="/Users/profile">Profile</a>
                 </li>
             </ul>
         </div>
@@ -68,8 +100,21 @@
                         </div>                             
                     </div>
                     <div class="row card card0 border-0 shadow-thick bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
-                        <div class="row d-flex align-items-center align-content-center align-self-center m-4 w-100">
-                            <div class="w-100 m-2">
+                        <div class="row d-flex align-items-center align-content-center align-self-center ml-4 mr-4 mt-2 mb-4 w-100">
+                            <div class="w-100 ml-2 mr-2 mb-2">
+                                <!-- share post section -->
+                                <div class="row mb-1 ml-4 mr-3">
+                                    <!-- share to twitter -->
+                                    <div class="ml-2 mt-1">
+                                        <a href="https://twitter.com/intent/tweet?button_hashtag=button&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-text="I&#39;m going to an event: {{ event.name }}!" data-lang="en" data-show-count="false">Tweet #button</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                    </div>
+                                    <!-- share to facebook -->
+                                    <div class="ml-3">
+                                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flocalhost%2FEvents%2F{{ event.id }}%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+                                    </div>
+                                </div>
+                                <!-- /.share post section -->
+
                                 <!-- event details -->
                                 <!-- date and times -->
                                 <div class="row mb-1 ml-3 mr-3">      

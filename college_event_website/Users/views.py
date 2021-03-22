@@ -71,6 +71,9 @@ def user_logout(response):
   logout(response)
   return HttpResponseRedirect("../../")
 
+def profile(response):
+  return render(response, 'Users/profile.html')
+
 def auto_login_for_coder(response):
   username = "testForCoder"
   is_admin = True
