@@ -30,7 +30,6 @@ def add_rso(response):
         students = []
         for student_email in student_emails:
             is_in_db, current_student = check_user(student_email)
-            print(current_student.username)
             if is_in_db is True:
                 students.append(current_student)
         RSOForm = RsoForm(response.POST)
@@ -46,7 +45,20 @@ def add_rso(response):
 
 @login_required(login_url='/Users/login/')
 def rso_info(response, rso_id):
-    return render(response, 'RSO/details.html')
+    rso = Rso.objects.filter(id = rso_id).first()
+    if response.method == 'POST':
+        if response.POST.get("join-rso-btn"):
+            student = User.objects.filter(id = response.user.id).first()
+            if student is not None:
+                rso.students.add(student)
+                messages.success(response, "User joined the Rso")
+            return HttpResponseRedirect('../../RSO/')
+    if rso is None:
+        messages.warning(response, "RSO does not exist")
+        return HttpResponseRedirect('../../RSO/')
+    return render(response, 'RSO/details.html',{
+        'rso': rso
+    })
   
 
 def delete_rso():

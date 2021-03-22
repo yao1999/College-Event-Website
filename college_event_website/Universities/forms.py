@@ -1,5 +1,5 @@
 from django import forms
-from .models import University
+from .models import University, Photos
 # from mapbox_location_field.forms import LocationField
 
 def university_directory_path(university_name, instance, filename): 
@@ -13,19 +13,28 @@ def university_directory_path(university_name, instance, filename):
 #         return current_university.number_of_students
     
 #     return 0
+# class PhotosForm(forms.Form):
+#     photo = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),required=False)  
+#     class Meta:
+#         model = Photos
+#         fields = ('photo', )
 
 
 class UniversityForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'University Name', 'class': 'text-center text-white', 'id': 'university_name'}), label="", required=True)
     description = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'University Description', 'class': 'text-center text-white', 'id': 'university_description'}), label="", required=True)
-    # location = LocationField(widget=forms.TextInput(attrs={'placeholder': '99.0, 100.1', 'id': 'event_location'}), label="", required=True)
     number_of_students = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': '99', 'id': 'university_student_number', 'class': 'text-center text-white'}), label="", required=True)
 
-    def save(self):
+    def save(self, latitude, longitude, university_photos):
         data = self.cleaned_data
         current_university = University(name = data['name'],
                                         description = data['description'],
-                                        # location = data['location'],
-                                        # picture = data['picture'],
-                                        number_of_students = data['number_of_students'])
+                                        number_of_students = data['number_of_students'],
+                                        latitude = latitude, 
+                                        longitude = longitude)
+                                        
+        current_university.save()
+        for photo in university_photos:
+            current_university.pictures.add(photo)
+            current_university.save()
         current_university.save()
