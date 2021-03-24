@@ -1,13 +1,12 @@
 from django.shortcuts import render
 from crispy_forms.helper import FormHelper
-from .forms import EventForm, CommentForm
+from .forms import EventForm, CommentForm, LocationForm
 from django.http import HttpResponseRedirect, HttpResponse
-from .models import Event, Comment
+from .models import Event, Comment, Locations
 from Universities.models import University
 from Users.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from Events.models import Locations
 
 # Create your views here.
 
@@ -15,9 +14,18 @@ from Events.models import Locations
 def list_events(response):
   if response.method == "POST":
     if response.POST.get("search-button"):
-      university_name = response.POST.get("search-university")
-      university = University.objects.filter(name = university_name).first()
-      events = Event.objects.filter(university = university)
+      is_location, location_info = search_by_location(response)
+      if is_location is False:
+        university = search_by_university_name(response)
+        if university is not None:
+          events = Event.objects.filter(university = university)
+
+      else:
+        if isinstance(location_info, list):
+          pass
+        else:
+          if location_info is not None:
+            events = Event.objects.filter(location = location_info)
   else:
     events = Event.objects.all()
   
@@ -47,7 +55,11 @@ def add_event(response):
     else:
       return HttpResponseRedirect('../../Events/create')
   event_form = EventForm(None)
-  return render(response, "Events/create.html", { 'form' : event_form })
+  location_form = LocationForm(None)
+  return render(response, "Events/create.html", { 
+    'form' : event_form,
+    'location_form': location_form
+  })
 
 
 def edit_event(response):
@@ -91,8 +103,20 @@ def event_info(response, event_id):
 
 @login_required(login_url='/Users/login/')
 def approve(response):
-  
-  return render(response, "Events/approve.html")
+  if response.method == "POST":
+    disapprove = response.POST.get("DisapproveButton")
+    approve = response.POST.get("ApproveButton")
+
+    if approve:
+      current_event = Event.objects.filter(id = approve).first()
+      current_event.is_approved = True
+    elif disapprove:
+      current_event = Event.objects.filter(id = disapprove).delete()
+
+  events = Event.objects.filter(is_approved = False)
+  return render(response, "Events/approve.html", {
+    'events': events
+  })
 
 def delete_comment(comment_id, current_user):
   current_comment = Comment.objects.filter(id=comment_id)[0]
@@ -114,12 +138,65 @@ def get_rating(all_comments):
 
   return round(result, 2)
 
+def is_in_db(latitude, longitude, location_in_db):
+  if len(location_in_db) < 0:
+    return None
+  
+  for location in location_in_db:
+    if (location.latitude == latitude and location.longitude == longitude):
+      return location
+  
+  return None
 
 def get_location(response):
-  current_location = Locations(
-    name = response.POST.get("location_name"),
-    latitude = response.POST.get("location_latitude"),
-    longitude = response.POST.get("location_longitude")
-  )
-  current_location.save()
+  location_name = response.POST.get("location_name"),
+  latitude = response.POST.get("latitude"),
+  longitude = response.POST.get("longitude")
+
+  if isinstance(location_name, str) is False:
+    location_name = location_name[0]
+
+  if isinstance(latitude, str) is False:
+    latitude = latitude[0]
+  
+  if isinstance(longitude, str) is False:
+    longitude = longitude[0]
+
+  location_in_db = Locations.objects.filter(location_name=location_name)
+
+  current_location = is_in_db(latitude, longitude, location_in_db)
+
+  if current_location is None:
+    location_form = LocationForm(response.POST)
+    if location_form.is_valid():
+      current_location = location_form.save()
+          
   return current_location
+
+def search_by_university_name(response):
+  university_name = response.POST.get("search-university")
+  university = University.objects.filter(name = university_name).first()
+
+  if university is None:
+    return None
+
+  return university
+
+
+def search_by_location(response):
+  location = response.POST.get("search-form-location-name")
+  latitude = response.POST.get("search-form-latitude")
+  longitude = response.POST.get("search-form-longitude")
+
+  current_location = Locations.objects.filter(location_name = location).first()
+
+  if current_location is not None:
+    return True, current_location
+  
+  current_latitude = Locations.objects.filter(latitude = latitude).first()
+  current_longitude = Locations.objects.filter(longitude = longitude).first()
+
+  if (current_latitude is not None and current_longitude is not None):
+    return True, [current_latitude, current_longitude]
+
+  return False, None
