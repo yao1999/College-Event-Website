@@ -77,81 +77,83 @@
     </nav>
     <!-- /.navbar -->
 
-
     <div class="d-flex align-items-center align-content-center align-self-center w-100">
         <div class="d-flex w-100 mb-5 ml-5 mr-5 mt-4">
             <div class="text-center mb-5 w-100">
-                <!-- search bar -->
-                <div class="row pt-2 pb-1 pl-2 pr-2 ml-1 mr-1 bg-black rounded">
-                    <!-- search prompt-->
-                    <div class="col-md-1 mt-1">
-                        <div class="d-flex w-100 justify-content-end">
-                            <div class="text-white font-weight-bold text-right text-md ml-3 w-100">
-                                <label class="form-label" for="search-form">Search</label>
+                <form method="POST">
+                    {% csrf_token %}
+                    <!-- search bar -->
+                    <div class="row pt-2 pb-1 pl-2 pr-2 ml-1 mr-1 bg-black rounded">
+                        <!-- search prompt-->
+                        <div class="col-md-1 mt-1">
+                            <div class="d-flex w-100 justify-content-end">
+                                <div class="text-white font-weight-bold text-right text-md ml-3 w-100">
+                                    <label class="form-label" for="search-form">Search</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- search input for location -->
-                    <div class="col-md-5">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <input type="search" id="search-form-location-name" class="form-control" placeholder="Location Name"/>
+            
+                        <!-- search input for location -->
+                        <div class="col-md-5">
+                            <div class="d-flex w-100 justify-content-start">
+                                <div class="text-white font-weight-bold text-left ml-3 w-100">
+                                    <input type="search" id="search-form-location-name" class="form-control" placeholder="Location Name"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <input type="search" id="search-form-latitude" class="form-control" placeholder="Latitude"/>
+                        <div class="col-md-2">
+                            <div class="d-flex w-100 justify-content-start">
+                                <div class="text-white font-weight-bold text-left ml-3 w-100">
+                                    <input type="search" id="search-form-latitude" class="form-control" placeholder="Latitude"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <input type="search" id="search-form-longitude" class="form-control" placeholder="Longitude"/>
+                        <div class="col-md-2">
+                            <div class="d-flex w-100 justify-content-start">
+                                <div class="text-white font-weight-bold text-left ml-3 w-100">
+                                    <input type="search" id="search-form-longitude" class="form-control" placeholder="Longitude"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- different university options -->
-                    <div class="col-md-1 mt-1">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="form-group">
-                                <label for="search-university" class="sr-only">University</label>
-                                <select id="search-university" class="form-control bg-transparent">
-                                    <!-- users' university -->
-                                    {% if user.university != null %}
-                                        <option selected>{{ user_university }}</option>
-                                    {% else %}
-                                        <option selected>All Universities</option>
-                                    {% endif %}
-                                    <option>All Universities</option>
-                                    <!-- all the other universities -->
-                                    {% for university in all_university %}
+                        <!-- different university options -->
+                        <div class="col-md-1 mt-1">
+                            <div class="d-flex w-100 justify-content-start">
+                                <div class="form-group">
+                                    <label for="search-university" class="sr-only">University</label>
+                                    <select id="search-university" name="search-university"class="form-control bg-transparent">
+                                        <!-- users' university -->
                                         {% if user.university != null %}
-                                            {% if university != user.university %}
+                                            <option selected>{{ user_university }}</option>
+                                        {% else %}
+                                            <option selected>No Home University</option>
+                                        {% endif %}
+                                        <option>↓All Universities↓</option>
+                                        <!-- all the other universities -->
+                                        {% for university in all_university %}
+                                            {% if user.university != null %}
+                                                {% if university != user.university %}
+                                                    <option>{{ university }}</option>
+                                                {% endif %}
+                                            {% elif user.university == null %}
                                                 <option>{{ university }}</option>
                                             {% endif %}
-                                        {% elif user.university == null %}
-                                            <option>{{ university }}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                </select>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- search button -->
+                        <div class="col-md-1 mt-1">
+                            <div class="d-flex w-100 justify-content-start">
+                                <div class="text-white font-weight-bold text-left ml-3 w-100">
+                                    <!-- submit button -->
+                                    <button type="submit" class="btn gradient-orange" name="search-button" value = "search-button">Search</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- search button -->
-                    <div class="col-md-1 mt-1">
-                        <div class="d-flex w-100 justify-content-start">
-                            <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                <!-- submit button -->
-                                <button type="submit" class="btn gradient-orange" name="search-button">Search</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </form>
                 <!-- list of events -->
                 <div class="row mt-5">
                 {% for event in events  %}

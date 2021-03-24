@@ -43,20 +43,16 @@ def user_login(response):
         password = response.POST.get("UserPassword")
 
         current_user = ""
-        try:
-          if response.POST.get("UserLoginButton"):
-            current_user = User.objects.get(username = username, is_super_admin = False)
-          elif response.POST.get("SuperUserLoginButton"):
-            current_user = User.objects.get(username = username, is_super_admin = True)
-        except:
-          messages.error(response, "User not found")
-          return HttpResponseRedirect('../../Users/login')
+        if response.POST.get("UserLoginButton"):
+            current_user = User.objects.filter(username = username, is_super_admin = False).first()
+        elif response.POST.get("SuperUserLoginButton"):
+          current_user = User.objects.filter(username = username, is_super_admin = True).first()
         
-        if current_user != "":
+        if current_user is not None:
           if current_user.password == password:
             login(response, current_user)
             messages.success(response, "Welcome!!!")
-            return HttpResponseRedirect('../../Events/')
+            return HttpResponseRedirect('../../Users/profile')
           else:
             messages.warning(response, "Password incorrect")
             return HttpResponseRedirect('../../Users/login')
@@ -84,7 +80,7 @@ def auto_login_for_coder(response):
     login(response, current_user)
     print(current_user.username)
     print(current_user.id)
-  except: 
+  except Exception: 
     current_user = User(
       first_name = username,
       last_name = "Yao",
@@ -96,4 +92,4 @@ def auto_login_for_coder(response):
     )
     current_user.save()
     login(response, current_user)
-  return HttpResponseRedirect("../../Events/")
+  return HttpResponseRedirect("../../Users/profile")

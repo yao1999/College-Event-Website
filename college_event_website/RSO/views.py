@@ -26,16 +26,13 @@ def list_rsos(response):
 @login_required(login_url='/Users/login/')
 def add_rso(response):
     if response.method == 'POST':
-        student_emails = get_emails(response)
-        students = []
-        for student_email in student_emails:
-            is_in_db, current_student = check_user(student_email)
-            if is_in_db is True:
-                students.append(current_student)
-        RSOForm = RsoForm(response.POST)
-        if RSOForm.is_valid():
-          RSOForm.save(students)
-          messages.success(response, "RSO added")
+        students = get_emails(response)
+        
+        if check_university(response, students) == True:
+            RSOForm = RsoForm(response.POST)
+            if RSOForm.is_valid():
+                RSOForm.save(students)
+                messages.success(response, "RSO added")
         return HttpResponseRedirect('../../RSO/')
     else:
         RSOForm = RsoForm(None)
@@ -68,9 +65,9 @@ def edit_rso():
     pass
 
 def check_user(email, is_admin=False):
-    current_user = User.objects.filter(email=email, is_admin=is_admin)
-    if len(current_user) > 0:
-        return True, current_user[0]
+    current_user = User.objects.filter(email=email, is_admin=is_admin).first()
+    if current_user is not None:
+        return True, current_user
     
     return False, None
 
@@ -82,3 +79,21 @@ def get_emails(response):
         if response.POST.get(html_tag) is not None:
             student_emails.append(response.POST.get(html_tag))
     return student_emails
+
+def check_university(response, students):
+    university_name = response.POST.get("universityname")
+
+    for student in students:
+        if student.university.name is not university_name:
+            return False
+
+    return True
+
+def get_emails(response):
+    student_emails = get_emails(response)
+    students = []
+    for student_email in student_emails:
+        is_in_db, current_student = check_user(student_email)
+        if is_in_db is True:
+            students.append(current_student)
+    return students
