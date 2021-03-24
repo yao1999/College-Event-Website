@@ -143,22 +143,26 @@
                                     <div class="row justify-content-center">
                                         <div class="col-md-12 justify-content-center">
                                             <div class="row justify-items-center">
-                                                <div class="col-md-6">
-                                                    <div class="d-flex w-100 justify-content-end">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value = "isUniversityEvent" id="universityEvent" name="universityEvent">
-                                                            <label class="form-check-label text-white" for="universityEvent">University Event</label>
-                                                        </div>  
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="d-flex w-100 justify-content-start">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value = "isRsoEvent" id="rsoEvent" name="rsoEvent">
-                                                            <label class="form-check-label text-white" for="rsoEvent">RSO Event</label>
+                                                {% if user.university != null %}
+                                                    <div class="col-md-6">
+                                                        <div class="d-flex w-100 justify-content-end">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value = "isUniversityEvent" id="universityEvent" name="universityEvent">
+                                                                <label class="form-check-label text-white" for="universityEvent">University Event</label>
+                                                            </div>  
                                                         </div>
                                                     </div>
-                                                </div>
+                                                {% endif %}
+                                                {% if user.is_admin == True %}
+                                                    <div class="col-md-6">
+                                                        <div class="d-flex w-100 justify-content-start">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value = "isRsoEvent" id="rsoEvent" name="rsoEvent">
+                                                                <label class="form-check-label text-white" for="rsoEvent">RSO Event</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -182,7 +186,7 @@
                                         <div class="col-md-10 justify-content-center">
                                             <div class="d-flex w-100 justify-content-center">
                                                 <label for="location_name" class="sr-only">Location Name</label>
-                                                <input type="text" class="form-control" id="location_name" placeholder="Location Name*">
+                                                <input type="text" class="form-control" id="location_name" name="location_name" placeholder="Location Name*">
                                             </div>
                                         </div>
                                     </div>

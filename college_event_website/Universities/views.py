@@ -3,7 +3,7 @@ from crispy_forms.helper import FormHelper
 from .forms import UniversityForm
 from django.http import HttpResponseRedirect, HttpResponse
 from Users.models import User
-from .models import University, Photos
+from .models import University, Photos, Locations
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
@@ -35,11 +35,10 @@ def add_university(response):
     if response.method == "POST":
       if response.POST.get("create-university-btn"):
         university_form = UniversityForm(response.POST)
-        university_photos = get_photos(response, university_form.data['name'])
         if university_form.is_valid():
-            latitude = response.POST.get("location_latitude")
-            longitude = response.POST.get("location_longitude")
-            university_form.save(latitude, longitude, university_photos)
+            location = get_location(response)
+            university_photos = get_photos(response, university_form.data['name'])
+            university_form.save(location, university_photos)
             messages.success(response, "University added")
         return HttpResponseRedirect('../../Universities/')
       else:
@@ -91,6 +90,14 @@ def get_photos(request, university_name):
         fs = FileSystemStorage(location=folder)
         filename = fs.save(myfile.name, myfile)
         file_url = fs.url(filename)
-        
 
   return photos
+
+def get_location(response):
+  current_location = Locations(
+    name = response.POST.get("location_name"),
+    latitude = response.POST.get("location_latitude"),
+    longitude = response.POST.get("location_longitude")
+  )
+  current_location.save()
+  return current_location
