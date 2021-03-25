@@ -15,14 +15,17 @@ def list_events(response):
   if response.method == "POST":
     if response.POST.get("search-button"):
       is_location, location_info = search_by_location(response)
+      university = search_by_university_name(response)
       if is_location is False:
-        university = search_by_university_name(response)
         if university is not None:
           events = Event.objects.filter(university = university)
         else:
           events = []
       else:
-        events = Event.objects.filter(location = location_info)
+        if university is not None:
+          events = Event.objects.filter(location = location_info, university = university)
+        else:
+          events = Event.objects.filter(location = location_info)
   else:
     events = Event.objects.filter(is_approved = True)
   

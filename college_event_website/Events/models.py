@@ -16,6 +16,7 @@ class Locations(models.Model):
 class Event(models.Model):
   id = models.AutoField(primary_key=True) 
   name = models.CharField(max_length = 150, null=False)
+  category = models.CharField(max_length = 150, null=True)
   description = models.TextField()
   date = models.DateField(default=date.today, null=False)
   start_time = models.TimeField(null=False)

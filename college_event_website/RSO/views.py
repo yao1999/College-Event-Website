@@ -26,10 +26,10 @@ def list_rsos(response):
 @login_required(login_url='/Users/login/')
 def add_rso(response):
     if response.method == 'POST':
-        students = get_emails(response)
-        
-        if check_university(response, students) == True:
-            RSOForm = RsoForm(response.POST)
+        students = get_students(response)
+        RSOForm = RsoForm(response.POST)
+        if (check_university(response, students) == True and 
+            check_admin(response, RSOForm.data['admin_email']) == True):
             if RSOForm.is_valid():
                 RSOForm.save(students)
                 messages.success(response, "RSO added")
@@ -64,8 +64,8 @@ def delete_rso():
 def edit_rso():
     pass
 
-def check_user(email, is_admin=False):
-    current_user = User.objects.filter(email=email, is_admin=is_admin).first()
+def check_user(email):
+    current_user = User.objects.filter(email=email, is_admin=False).first()
     if current_user is not None:
         return True, current_user
     
@@ -84,12 +84,25 @@ def check_university(response, students):
     university_name = response.POST.get("universityname")
 
     for student in students:
-        if student.university.name is not university_name:
+        if student.university.name != university_name:
             return False
 
     return True
 
-def get_emails(response):
+def check_admin(response, admin_email):
+    admin = User.objects.filter(email=admin_email, is_admin=True).first()
+    university_name = response.POST.get("universityname")
+
+    if admin is None:
+        return False
+    
+    if university_name != admin.university.name:
+        return False
+
+    return True
+
+
+def get_students(response):
     student_emails = get_emails(response)
     students = []
     for student_email in student_emails:

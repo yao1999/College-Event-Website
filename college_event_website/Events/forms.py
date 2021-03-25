@@ -23,7 +23,8 @@ class EventForm(forms.Form):
         data = self.cleaned_data
         current_event = Event(name = data['name'], 
                               date = data['date'],
-                              start_time = data['start_time'], 
+                              start_time = data['start_time'],
+                              category = data['category'],
                               end_time = data['end_time'],
                               description = data['description'],
                               phone = data['phone'],
