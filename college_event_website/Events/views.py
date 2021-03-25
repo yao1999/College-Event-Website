@@ -19,10 +19,9 @@ def list_events(response):
         university = search_by_university_name(response)
         if university is not None:
           events = Event.objects.filter(university = university)
-
       else:
         if isinstance(location_info, list):
-          pass
+          pass # TODO: need to do longitude and latitude
         else:
           if location_info is not None:
             events = Event.objects.filter(location = location_info)
