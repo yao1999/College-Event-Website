@@ -107,12 +107,12 @@
                             <div class="d-flex w-100 justify-content-start">
                                 <div class="form-group">
                                     <label for="search-university" class="sr-only">University</label>
-                                    <select id="search-university" class="form-control bg-transparent">
+                                    <select id="search-university" name="search-university" class="form-control bg-transparent">
                                         <!-- users' university -->
                                         {% if user.university != null %}
                                             <option selected>{{ user_university }}</option>
                                         {% else %}
-                                            <option selected>{{ all_university.0 }}</option>
+                                            <option selected>No Home University</option>
                                         {% endif %}
                                         <!-- all the other universities -->
                                         {% for university in all_university %}
