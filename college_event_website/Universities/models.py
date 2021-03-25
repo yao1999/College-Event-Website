@@ -19,7 +19,7 @@ class Photos(models.Model):
 
 
 class Locations(models.Model):
-  name = models.CharField(max_length = 100, null=False)
+  location_name = models.CharField(max_length = 100, null=False)
   latitude = models.CharField(max_length = 100, null=False)
   longitude = models.CharField(max_length = 100, null=False)
 

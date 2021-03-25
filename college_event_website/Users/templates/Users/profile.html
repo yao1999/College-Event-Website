@@ -97,10 +97,10 @@
                                     <div class="text-white font-weight-bold">
                                         <div class="row">
                                             <div class="col-md-6 text-right">
-                                                Firstnamehere
+                                                {{user.first_name}}
                                             </div>
                                             <div class="col-md-6 text-left">
-                                                Lastnamehere
+                                                {{user.last_name}}
                                             </div>
                                         </div>
                                     </div>
@@ -113,7 +113,7 @@
                                                 Email:
                                             </div>
                                             <div class="col-md-6 text-left">
-                                                emailhere
+                                                {{user.email}}
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +126,7 @@
                                                 Username:
                                             </div>
                                             <div class="col-md-6 text-left">
-                                                usernamehere
+                                                {{user.username}}
                                             </div>
                                         </div>
                                     </div>
@@ -157,7 +157,7 @@
                                 <!-- university title -->
                                 <div class="row w-100 bg-gray2 rounded-top">
                                     <div class="col-md-12 w-100">
-                                        <h2 class="font-weight-bold text-md text-orng">{{ university.name }}</a></h2>
+                                        <h2 class="font-weight-bold text-md text-orng">{{ user.university.name }}</a></h2>
                                     </div>                             
                                 </div>
                                 <!-- university details and links -->
@@ -170,7 +170,7 @@
                                                         <div class="col-md-12 justify-content-start">
                                                             <div class="d-flex w-100 justify-content-start">
                                                                 <div class="text-white font-weight-bold text-left">
-                                                                    {{ university.location }}
+                                                                    {{ user.university.location.name }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -178,14 +178,14 @@
                                                     <div class="row ml-2 mr-2 mb-5">
                                                         <div class="d-flex w-100 justify-content-left">
                                                             <div class="text-white text-left ml-3 overflow-hidden">
-                                                                {{ university.description }}
+                                                                {{ user.university.description }}
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row ml-2 mr-2 mb-2">
                                                         <div class="d-flex w-100 justify-content-left">
                                                             <div class="text-white font-weight-bold text-left ml-3">
-                                                                <a href="/Universities/{{ university.id }}" class="text-orng">Learn More</a>
+                                                                <a href="/Universities/{{ user.university.id }}" class="text-orng">Learn More</a>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from crispy_forms.helper import FormHelper
-from .forms import UniversityForm
+from .forms import UniversityForm, LocationForm
 from django.http import HttpResponseRedirect, HttpResponse
 from Users.models import User
-from .models import University, Photos
+from .models import University, Photos, Locations
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
@@ -13,18 +13,14 @@ from django.core.files.storage import FileSystemStorage
 def list_universities(response):
   if response.method == "POST":
     if response.POST.get("search-button"):
-      university_name =response.POST.get("UniversityName")
-      universities = University.objects.filter(name = university_name)
-      return render(response, 'Universities/base.html', {
-        'universities': universities
-      })
-    else:
-      return HttpResponseRedirect('../../Universities/')
+      universities = search_university_by_name(response)
+      if universities is None:
+        universities = search_university_by_location(response)
   else:
     universities = University.objects.all().order_by('id')
-    return render(response, 'Universities/base.html', {
-      'universities': universities
-    })
+  return render(response, 'Universities/base.html', {
+    'universities': universities
+  })
 
 @login_required(login_url='/Users/login/')
 def add_university(response):
@@ -35,19 +31,20 @@ def add_university(response):
     if response.method == "POST":
       if response.POST.get("create-university-btn"):
         university_form = UniversityForm(response.POST)
-        university_photos = get_photos(response, university_form.data['name'])
         if university_form.is_valid():
-            latitude = response.POST.get("location_latitude")
-            longitude = response.POST.get("location_longitude")
-            university_form.save(latitude, longitude, university_photos)
+            location = get_location(response)
+            university_photos = get_photos(response, university_form.data['name'])
+            university_form.save(location, university_photos)
             messages.success(response, "University added")
         return HttpResponseRedirect('../../Universities/')
       else:
         return HttpResponseRedirect('../../Universities/create')
     else:
       universityForm = UniversityForm(None)
+      location_form = LocationForm(None)
       return render(response, "Universities/create.html", {
           'form': universityForm,
+          'location_form': location_form
         })
 
 @login_required(login_url='/Users/login/')
@@ -91,6 +88,58 @@ def get_photos(request, university_name):
         fs = FileSystemStorage(location=folder)
         filename = fs.save(myfile.name, myfile)
         file_url = fs.url(filename)
-        
 
   return photos
+
+def is_in_db(latitude, longitude, location_in_db):
+  if len(location_in_db) < 0:
+    return None
+  
+  for location in location_in_db:
+    if (location.latitude == latitude and location.longitude == longitude):
+      return location
+  
+  return None
+
+def get_location(response):
+  location_name = response.POST.get("location_name"),
+  latitude = response.POST.get("latitude"),
+  longitude = response.POST.get("longitude")
+
+  location_in_db = Locations.objects.filter(location_name=location_name)
+
+  current_location = is_in_db(latitude, longitude, location_in_db)
+
+  if current_location is None:
+    location_form = LocationForm(response.POST)
+    if location_form.is_valid():
+      current_location = location_form.save()
+  return current_location
+
+def search_university_by_name(response):
+  university_name = response.POST.get("search-form-university-name")
+  universities = University.objects.filter(name = university_name)
+
+  if len(universities) > 0:
+    return universities
+  
+  return None
+
+def search_university_by_location(response):
+  location = response.POST.get("search-form-location-name")
+  latitude = response.POST.get("search-form-latitude")
+  longitude = response.POST.get("search-form-longitude")
+
+  current_location = Locations.objects.filter(location_name = location).first()
+
+  if current_location is not None:
+    universities = University.objects.filter(location = current_location)
+    return universities
+  
+  current_latitude = Locations.objects.filter(latitude = latitude).first()
+  current_longitude = Locations.objects.filter(longitude = longitude).first()
+
+  if (current_latitude is not None and current_longitude is not None):
+    pass # TODO: need to do longitude and latitude
+
+  return University.objects.all().order_by('id')

@@ -3,8 +3,16 @@ from django.urls import reverse
 from datetime import datetime, date, time
 from phone_field import PhoneField
 from Users.models import User
+from Universities.models import University
 
 # Create your models here.
+
+class Locations(models.Model):
+  location_name = models.CharField(max_length = 100, null=False)
+  latitude = models.CharField(max_length = 100, null=False)
+  longitude = models.CharField(max_length = 100, null=False)
+
+
 class Event(models.Model):
   id = models.AutoField(primary_key=True) 
   name = models.CharField(max_length = 150, null=False)
@@ -12,14 +20,14 @@ class Event(models.Model):
   date = models.DateField(default=date.today, null=False)
   start_time = models.TimeField(null=False)
   end_time = models.TimeField(null=False)
-  latitude = models.CharField(max_length = 100, null=True)
-  longitude = models.CharField(max_length = 100, null=True)
+  location = models.ForeignKey(Locations, on_delete=models.CASCADE, null=True) 
   phone = PhoneField(blank=True, help_text='Contact phone number', null=False)
   email = models.CharField(max_length = 254, null=False)
   is_public = models.BooleanField(default=False) 
   is_private = models.BooleanField(default=False) 
   is_RSO = models.BooleanField(default=False)
-
+  is_approved = models.BooleanField(default=False)
+  university = models.ForeignKey(University, on_delete=models.CASCADE, null=True, blank=True)
   user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
   
   def __str__(self):
@@ -35,5 +43,3 @@ class Comment(models.Model):
   
   def __str__(self):
     return f'{self.event.name}'
-
-
