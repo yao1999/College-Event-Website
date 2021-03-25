@@ -24,7 +24,7 @@ def list_events(response):
       else:
         events = Event.objects.filter(location = location_info)
   else:
-    events = Event.objects.all()
+    events = Event.objects.filter(is_approved = True)
   
   user_university = University.objects.filter(name = response.user.university).first()
   all_university = University.objects.all()
@@ -107,6 +107,7 @@ def approve(response):
     if approve:
       current_event = Event.objects.filter(id = approve).first()
       current_event.is_approved = True
+      current_event.save()
     elif disapprove:
       current_event = Event.objects.filter(id = disapprove).delete()
 

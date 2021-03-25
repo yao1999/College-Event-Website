@@ -62,7 +62,9 @@ def university_info(response, university_id):
       return render(response, "Universities/details.html", {
         "University_Name": current_university.name,
         "num_of_students": current_university.number_of_students,
-        "Description": current_university.description
+        "Description": current_university.description,
+        'longitude': current_university.location.longitude,
+        'latitude': current_university.location.latitude
       })
   
 
