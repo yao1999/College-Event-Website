@@ -136,10 +136,10 @@ def search_university_by_location(response):
     universities = University.objects.filter(location = current_location)
     return universities
   
-  current_latitude = Locations.objects.filter(latitude = latitude).first()
-  current_longitude = Locations.objects.filter(longitude = longitude).first()
+  current_location = Locations.objects.filter(latitude = latitude, longitude = longitude).first()
 
-  if (current_latitude is not None and current_longitude is not None):
-    pass # TODO: need to do longitude and latitude
+  if current_location is not None:
+    universities = University.objects.filter(location = current_location)
+    return universities
 
-  return University.objects.all().order_by('id')
+  return []
