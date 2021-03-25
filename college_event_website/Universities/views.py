@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from crispy_forms.helper import FormHelper
-from .forms import UniversityForm
+from .forms import UniversityForm, LocationForm
 from django.http import HttpResponseRedirect, HttpResponse
 from Users.models import User
 from .models import University, Photos, Locations
@@ -45,8 +45,10 @@ def add_university(response):
         return HttpResponseRedirect('../../Universities/create')
     else:
       universityForm = UniversityForm(None)
+      location_form = LocationForm(None)
       return render(response, "Universities/create.html", {
           'form': universityForm,
+          'location_form': location_form
         })
 
 @login_required(login_url='/Users/login/')
@@ -93,11 +95,28 @@ def get_photos(request, university_name):
 
   return photos
 
+def is_in_db(latitude, longitude, location_in_db):
+  if len(location_in_db) < 0:
+    return None
+  
+  for location in location_in_db:
+    if (location.latitude == latitude and location.longitude == longitude):
+      return location
+  
+  return None
+
 def get_location(response):
-  current_location = Locations(
-    name = response.POST.get("location_name"),
-    latitude = response.POST.get("location_latitude"),
-    longitude = response.POST.get("location_longitude")
-  )
-  current_location.save()
+  location_name = response.POST.get("location_name"),
+  latitude = response.POST.get("latitude"),
+  longitude = response.POST.get("longitude")
+
+  location_in_db = Locations.objects.filter(location_name=location_name)
+
+  current_location = is_in_db(latitude, longitude, location_in_db)
+
+  if current_location is None:
+    location_form = LocationForm(response.POST)
+    if location_form.is_valid():
+      current_location = location_form.save()
   return current_location
+  

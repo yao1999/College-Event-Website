@@ -97,21 +97,21 @@
                         <div class="col-md-5">
                             <div class="d-flex w-100 justify-content-start">
                                 <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                    <input type="search" id="search-form-location-name" class="form-control" placeholder="Location Name"/>
+                                    <input type="search" id="search-form-location-name" name="search-form-location-name" class="form-control" placeholder="Location Name"/>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="d-flex w-100 justify-content-start">
                                 <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                    <input type="search" id="search-form-latitude" class="form-control" placeholder="Latitude"/>
+                                    <input type="search" id="search-form-latitude" name="search-form-latitude" class="form-control" placeholder="Latitude"/>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="d-flex w-100 justify-content-start">
                                 <div class="text-white font-weight-bold text-left ml-3 w-100">
-                                    <input type="search" id="search-form-longitude" class="form-control" placeholder="Longitude"/>
+                                    <input type="search" id="search-form-longitude" name="search-form-longitude" class="form-control" placeholder="Longitude"/>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +127,6 @@
                                         {% else %}
                                             <option selected>No Home University</option>
                                         {% endif %}
-                                        <option>↓All Universities↓</option>
                                         <!-- all the other universities -->
                                         {% for university in all_university %}
                                             {% if user.university != null %}

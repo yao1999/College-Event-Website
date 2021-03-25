@@ -186,7 +186,8 @@
                                         <div class="col-md-10 justify-content-center">
                                             <div class="d-flex w-100 justify-content-center">
                                                 <label for="location_name" class="sr-only">Location Name</label>
-                                                <input type="text" class="form-control" id="location_name" name="location_name" placeholder="Location Name*">
+                                                {{ location_form.location_name|as_crispy_field }}
+                                                <!-- <input type="text" class="form-control" id="location_name" name="location_name" placeholder="Location Name*"> -->
                                             </div>
                                         </div>
                                     </div>
@@ -196,13 +197,15 @@
                                         <div class="col-md-5 justify-content-center">
                                             <div class="d-flex w-100 justify-content-center">
                                                 <label for="location_latitude" class="sr-only">Location latitude</label>
-                                                <input type="text" class="form-control" id="location_latitude" name="location_latitude" placeholder="Latitude*">
+                                                {{ location_form.latitude|as_crispy_field }}
+                                                <!-- <input type="text" class="form-control" id="location_latitude" name="location_latitude" placeholder="Latitude*"> -->
                                             </div>
                                         </div>
                                         <div class="col-md-5 justify-content-center">
                                             <div class="d-flex w-100 justify-content-center">
                                                 <label for="location_longitude" class="sr-only">Location longitude</label>
-                                                <input type="text" class="form-control" id="location_longitude" name="location_longitude" placeholder="Longitude*">
+                                                {{ location_form.longitude|as_crispy_field }}
+                                                <!-- <input type="text" class="form-control" id="location_longitude" name="location_longitude" placeholder="Longitude*"> -->
                                             </div>
                                         </div>
                                     </div>

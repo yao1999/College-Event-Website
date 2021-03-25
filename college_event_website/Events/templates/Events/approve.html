@@ -77,75 +77,76 @@
     </nav>
     <!-- /.navbar -->
 
-
-    <div class="d-flex align-items-center align-content-center align-self-center w-100">
-        <div class="d-flex w-100 mb-5 ml-5 mr-5 mt-4">
-            <div class="text-center mb-5 w-100">
-                <!-- list of events to be approved -->
-                <div class="row mt-5">
-                {% for event in events  %}
-                    <!-- event card -->
-                    <div class="col-md-4">
-                        <div class="card card0 bg-gray2 border-0 d-flex align-items-center align-content-center align-self-center w-100 mb-3">
-                            <!-- event title -->
-                            <div class="row w-100 bg-gray2 rounded-top">
-                                <div class="col-md-12 w-100">
-                                    <h2 class="font-weight-bold text-md text-orng">{{ event.name }}</a></h2>
-                                </div>                             
-                            </div>
-                            <!-- event details and links -->
-                            <div class="row card card0 border-0 bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
-                                <div class="row d-flex align-items-center align-content-center align-self-center ml-4 mr-4 mt-0 mb-2 w-100">
-                                    <div class="w-100 m-2">
-                                        <div class="row mb-2">                                
-                                            <div class="col-md-12">
-                                                <div class="row ml-2 mr-2 mb-5">
-                                                    <div class="d-flex w-100 justify-content-left">
-                                                        <div class="text-white font-weight-bold text-left">
-                                                            {{ event.category }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row m-2">
-                                                    <div class="col-md-6 justify-content-start">
-                                                        <div class="d-flex w-100 justify-content-start">
+    <form method="POST">
+        <div class="d-flex align-items-center align-content-center align-self-center w-100">
+            <div class="d-flex w-100 mb-5 ml-5 mr-5 mt-4">
+                <div class="text-center mb-5 w-100">
+                    <!-- list of events to be approved -->
+                    <div class="row mt-5">
+                    {% for event in events  %}
+                        <!-- event card -->
+                        <div class="col-md-4">
+                            <div class="card card0 bg-gray2 border-0 d-flex align-items-center align-content-center align-self-center w-100 mb-3">
+                                <!-- event title -->
+                                <div class="row w-100 bg-gray2 rounded-top">
+                                    <div class="col-md-12 w-100">
+                                        <h2 class="font-weight-bold text-md text-orng">{{ event.name }}</a></h2>
+                                    </div>                             
+                                </div>
+                                <!-- event details and links -->
+                                <div class="row card card0 border-0 bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
+                                    <div class="row d-flex align-items-center align-content-center align-self-center ml-4 mr-4 mt-0 mb-2 w-100">
+                                        <div class="w-100 m-2">
+                                            <div class="row mb-2">                                
+                                                <div class="col-md-12">
+                                                    <div class="row ml-2 mr-2 mb-5">
+                                                        <div class="d-flex w-100 justify-content-left">
                                                             <div class="text-white font-weight-bold text-left">
-                                                                {{ event.date }}
+                                                                {{ event.category }}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6 justify-content-end">
-                                                        <div class="d-flex w-100 justify-content-end">
+                                                    <div class="row m-2">
+                                                        <div class="col-md-6 justify-content-start">
+                                                            <div class="d-flex w-100 justify-content-start">
+                                                                <div class="text-white font-weight-bold text-left">
+                                                                    {{ event.date }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 justify-content-end">
+                                                            <div class="d-flex w-100 justify-content-end">
+                                                                <div class="text-white font-weight-bold text-right">
+                                                                    {{ event.location }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row ml-2 mr-2 mb-5">
+                                                        <div class="d-flex w-100 justify-content-left">
+                                                            <div class="text-white text-left ml-3 overflow-hidden">
+                                                                {{ event.description }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row ml-2 mr-2 mb-2">
+                                                        <div class="d-flex w-100 justify-content-left">
+                                                            <div class="text-white font-weight-bold text-left ml-3">
+                                                                <a href="/Events/{{ event.id }}" class="text-orng">Learn More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- approval section -->
+                                                    <div class="row ml-2 mr-2 mb-2 mt-2">
+                                                        <div class="col-md-6">
+                                                            <div class="text-white font-weight-bold text-left">
+                                                                <button type="submit" name = "DisapproveButton" value = {{ event.id }} class="btn gradient-black text-center float-left login-btn">Disapprove</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
                                                             <div class="text-white font-weight-bold text-right">
-                                                                {{ event.location }}
+                                                                <button type="submit" name = "ApproveButton" value = {{ event.id }} class="btn gradient-black text-center float-right login-btn">Approve</button>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row ml-2 mr-2 mb-5">
-                                                    <div class="d-flex w-100 justify-content-left">
-                                                        <div class="text-white text-left ml-3 overflow-hidden">
-                                                            {{ event.description }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row ml-2 mr-2 mb-2">
-                                                    <div class="d-flex w-100 justify-content-left">
-                                                        <div class="text-white font-weight-bold text-left ml-3">
-                                                            <a href="/Events/{{ event.id }}" class="text-orng">Learn More</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- approval section -->
-                                                <div class="row ml-2 mr-2 mb-2 mt-2">
-                                                    <div class="col-md-6">
-                                                        <div class="text-white font-weight-bold text-left">
-                                                            <button type="submit" name = "DisapproveButton" value = "Disapprove" class="btn gradient-black text-center float-left login-btn">Disapprove</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="text-white font-weight-bold text-right">
-                                                            <button type="submit" name = "ApproveButton" value = "Approve" class="btn gradient-black text-center float-right login-btn">Approve</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -155,13 +156,13 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- /.event card -->
+                    {% endfor %}
                     </div>
-                    <!-- /.event card -->
-                {% endfor %}
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
     
 

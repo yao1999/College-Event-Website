@@ -1,5 +1,5 @@
 from django import forms
-from .models import University, Photos
+from .models import University, Locations
 
 
 class UniversityForm(forms.Form):
@@ -19,3 +19,16 @@ class UniversityForm(forms.Form):
             current_university.pictures.add(photo)
             current_university.save()
         current_university.save()
+
+class LocationForm(forms.Form):
+    location_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Location Name*', 'class': 'form-control', 'id': 'location_name'}), label="", required=True)
+    latitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Latitude*', 'class': 'form-control', 'id': 'location_latitude'}), label="", required=True)
+    longitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Longitude*', 'class': 'form-control', 'id': 'location_longitude'}), label="", required=True)
+
+    def save(self):
+        data = self.cleaned_data
+        current_location = Locations(location_name = data['location_name'],
+                                    latitude = data['latitude'],
+                                    longitude = data['longitude'])
+        current_location.save()
+        return current_location
