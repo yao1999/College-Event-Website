@@ -13,18 +13,14 @@ from django.core.files.storage import FileSystemStorage
 def list_universities(response):
   if response.method == "POST":
     if response.POST.get("search-button"):
-      university_name =response.POST.get("UniversityName")
-      universities = University.objects.filter(name = university_name)
-      return render(response, 'Universities/base.html', {
-        'universities': universities
-      })
-    else:
-      return HttpResponseRedirect('../../Universities/')
+      universities = search_university_by_name(response)
+      if universities is None:
+        universities = search_university_by_location(response)
   else:
     universities = University.objects.all().order_by('id')
-    return render(response, 'Universities/base.html', {
-      'universities': universities
-    })
+  return render(response, 'Universities/base.html', {
+    'universities': universities
+  })
 
 @login_required(login_url='/Users/login/')
 def add_university(response):
@@ -119,4 +115,31 @@ def get_location(response):
     if location_form.is_valid():
       current_location = location_form.save()
   return current_location
+
+def search_university_by_name(response):
+  university_name = response.POST.get("search-form-university-name")
+  universities = University.objects.filter(name = university_name)
+
+  if len(universities) > 0:
+    return universities
   
+  return None
+
+def search_university_by_location(response):
+  location = response.POST.get("search-form-location-name")
+  latitude = response.POST.get("search-form-latitude")
+  longitude = response.POST.get("search-form-longitude")
+
+  current_location = Locations.objects.filter(location_name = location).first()
+
+  if current_location is not None:
+    universities = University.objects.filter(location = current_location)
+    return universities
+  
+  current_latitude = Locations.objects.filter(latitude = latitude).first()
+  current_longitude = Locations.objects.filter(longitude = longitude).first()
+
+  if (current_latitude is not None and current_longitude is not None):
+    pass # TODO: need to do longitude and latitude
+
+  return University.objects.all().order_by('id')
