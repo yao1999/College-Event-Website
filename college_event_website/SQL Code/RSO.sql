@@ -1,10 +1,8 @@
-CREATE TRIGGER RSOStatusUpdateA
-    AFTER INSERT ON Students_RSOs  -- Event
-REFERENCING NEW AS NewMember
-WHEN ((SELECT COUNT(*)     
-        FROM Students_RSOs M
-        WHERE M.RSO_ID = NewMember.RSO_ID) > 4) 
-FOR EACH ROW  --  Row-level trigger
-    UPDATERSOs  --  Action    
-        SET Status = ‘active’    
-        WHERE RSO_ID = NewMember.RSO_ID
+CREATE TABLE RSO_rso(
+    id INT PRIMARY KEY NOTNULL,
+    name VARCHAR(255) NOTNULL,
+    description TEXT,
+    total_students INT NOTNULL,
+    admin_id INT NOTNULL,
+    university_id INT NOTNULL,
+);
