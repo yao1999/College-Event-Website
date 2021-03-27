@@ -12,6 +12,7 @@ class Rso(models.Model):
   students = ManyToManyField(User)
   admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin')
   total_students = models.IntegerField(default=5)
+  status = models.BooleanField(default=False)
 
   def __str__(self):
     return self.name

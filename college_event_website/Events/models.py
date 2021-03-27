@@ -4,6 +4,7 @@ from datetime import datetime, date, time
 from phone_field import PhoneField
 from Users.models import User
 from Universities.models import University
+from RSO.models import Rso
 
 # Create your models here.
 
@@ -32,7 +33,8 @@ class Event(models.Model):
   is_RSO = models.BooleanField(default=False)
   is_approved = models.BooleanField(default=False)
   university = models.ForeignKey(University, on_delete=models.CASCADE, null=True, blank=True)
-  user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+  rso = models.ForeignKey(Rso, on_delete=models.CASCADE, null=True, blank=True)
+  admin = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
   
   def __str__(self):
     return self.name
