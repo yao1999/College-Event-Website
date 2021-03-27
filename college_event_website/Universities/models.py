@@ -15,13 +15,16 @@ class Photos(models.Model):
   photo_path = models.CharField(max_length = 100, null=False)
 
   def __str__(self):
-    return self
+    return self.university_name
 
 
 class Locations(models.Model):
   location_name = models.CharField(max_length = 100, null=False)
   latitude = models.CharField(max_length = 100, null=False)
   longitude = models.CharField(max_length = 100, null=False)
+
+  def __str__(self):
+    return self.location_name
 
 
 class University(models.Model):
