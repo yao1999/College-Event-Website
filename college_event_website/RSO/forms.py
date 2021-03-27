@@ -20,7 +20,8 @@ class RsoForm(forms.Form):
                                   description = data['description'],
                                   university = current_university,
                                   admin = current_admin,
-                                  total_students = total_students)
+                                  total_students = total_students,
+                                  status = True if total_students >= 5 else False)
                 current_rso.save()
                 for student in students:
                     current_rso.students.add(student)

@@ -43,18 +43,29 @@ def add_rso(response):
 @login_required(login_url='/Users/login/')
 def rso_info(response, rso_id):
     rso = Rso.objects.filter(id = rso_id).first()
+    isInRSO = rso.students.filter(username=response.user.username).exists()
     if response.method == 'POST':
         if response.POST.get("join-rso-btn"):
             student = User.objects.filter(id = response.user.id).first()
             if student is not None:
                 rso.students.add(student)
+                rso.total_students += 1
+                rso.save()
                 messages.success(response, "User joined the Rso")
-            return HttpResponseRedirect('../../RSO/')
+        if response.POST.get("leave-rso-btn"):
+            student = User.objects.filter(id = response.user.id).first()
+            if student is not None:
+                rso.students.remove(student)
+                rso.total_students = rso.total_students - 1
+                rso.save()
+                messages.success(response, "User leaved the Rso")
+        return HttpResponseRedirect('../../RSO/')
     if rso is None:
         messages.warning(response, "RSO does not exist")
         return HttpResponseRedirect('../../RSO/')
     return render(response, 'RSO/details.html',{
-        'rso': rso
+        'rso': rso,
+        'isInRSO': isInRSO,
     })
   
 
@@ -129,6 +140,4 @@ def search_rso_by_university(response):
         return rsos
     
     rsos = Rso.objects.filter(university = university)
-
-
     return university

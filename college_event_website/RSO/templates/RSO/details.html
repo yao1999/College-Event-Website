@@ -132,7 +132,11 @@
                                             <div class="w-100 text-white">
                                                 <form method="POST" class="w-100">
                                                     {% csrf_token %}
-                                                    <button type="submit" name="join-rso-btn" value="join_rso" class="btn btn-white float-left">Join RSO</button>
+                                                    {% if isInRSO == False and user.is_admin == False %}
+                                                        <button type="submit" name="join-rso-btn" value="join_rso" class="btn btn-white float-left">Join RSO</button>
+                                                    {% elif isInRSO and user.is_admin == False %}
+                                                        <button type="submit" name="leave-rso-btn" value="join_rso" class="btn btn-white float-left">Leave RSO</button>
+                                                    {% endif %}
                                                 </form>
                                             </div>
                                         </div>

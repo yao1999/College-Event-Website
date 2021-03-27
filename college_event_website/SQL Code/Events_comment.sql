@@ -1,16 +1,8 @@
-
-INSERT INTO Event_comment(
-    id,	
-    content,	
-    rating,	
-    event_id,	
-    user_id	timestamp
-)
-VALUES (
-    1,	
-    "This is Database test for 4710"	
-    5,	
-    1,	
-    1,	
-    "12:04:26"
-)
+CREATE TABLE Event_comment(
+    id INT PRIMARY KEY NOTNULL,
+    content TEXT NOTNULL,
+    rating INT NOTNULL,
+    event_id INT NOTNULL,
+    user_id INT NOTNULL,
+    timestamp TIME NOTNULL
+);

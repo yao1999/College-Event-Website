@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 import traceback 
 from django.contrib.auth import login, logout
 from django.contrib import messages
+from RSO.models import Rso
 
 def user_register(response):
   if response.user.is_authenticated is True:
@@ -68,7 +69,11 @@ def user_logout(response):
   return HttpResponseRedirect("../../")
 
 def profile(response):
-  return render(response, 'Users/profile.html')
+  users_rsos = get_rso(response.user)
+  return render(response, 'Users/profile.html', {
+    'users_rsos': users_rsos,
+    'haveRSO': True if len(users_rsos) > 0 else False,
+  })
 
 def auto_login_for_coder(response):
   username = "testForCoder"
@@ -90,3 +95,16 @@ def auto_login_for_coder(response):
     current_user.save()
     login(response, current_user)
   return HttpResponseRedirect("../../Users/profile")
+
+
+def get_rso(user):
+    all_rso = Rso.objects.all()
+
+    rsos = []
+
+    for rso in all_rso:
+      if rso.students.filter(id=user.id).exists():
+        rsos.append(rso)
+        
+    
+    return rsos

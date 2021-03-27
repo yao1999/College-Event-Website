@@ -7,6 +7,7 @@ from Universities.models import University
 from Users.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from RSO.models import Rso
 
 # Create your views here.
 
@@ -41,15 +42,20 @@ def list_events(response):
 def add_event(response):
   if response.method == "POST":
     if response.POST.get("create-event-btn"):
+      if response.user.is_admin == False:
+        messages.warning(response, "User is not admin")
+        return HttpResponseRedirect('../../Events/create')
       event_form = EventForm(response.POST)
       is_private = response.POST.get("universityEvent")
-      is_RSO = response.POST.get("rsoEvent")
+      
       if event_form.is_valid():
           location = get_location(response)
-          user_university = None
           if response.POST.get("universityEvent"):
             user_university = response.user.university
-          event_form.save(is_private, is_RSO, response.user.is_admin, location, user_university)
+          if response.POST.get("rsoEvent"):
+            is_RSO = response.POST.get("rsoEvent")
+            user_rso = get_rso(response.user)
+          event_form.save(is_private, is_RSO, response.user.is_admin, location, user_university, user_rso, response.user)
           messages.success(response, "Event added")
       return HttpResponseRedirect('../../Events/')
     else:
@@ -200,3 +206,13 @@ def search_by_location(response):
     return True, current_location
 
   return False, None
+
+
+def get_rso(user):
+    all_rso = Rso.objects.all()
+
+    for rso in all_rso:
+      if rso.students.filter(id=user.id).exists():
+        return rso
+    
+    return None
