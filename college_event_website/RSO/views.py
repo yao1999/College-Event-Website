@@ -42,23 +42,18 @@ def add_rso(response):
 
 @login_required(login_url='/Users/login/')
 def rso_info(response, rso_id):
-    rso = Rso.objects.filter(id = rso_id).first()
+    rso = Rso.objects.filter(id = rso_id)
     isInRSO = rso.students.filter(username=response.user.username).exists()
     if response.method == 'POST':
         if response.POST.get("join-rso-btn"):
-            student = User.objects.filter(id = response.user.id).first()
-            if student is not None:
-                rso.students.add(student)
-                rso.total_students += 1
-                rso.save()
+            if join_or_leave(response.user.id, rso, is_join=True) is True:
                 messages.success(response, "User joined the Rso")
         if response.POST.get("leave-rso-btn"):
-            student = User.objects.filter(id = response.user.id).first()
-            if student is not None:
-                rso.students.remove(student)
-                rso.total_students = rso.total_students - 1
-                rso.save()
+            if join_or_leave(response.user.id, rso, is_leave=True) is True:
                 messages.success(response, "User leaved the Rso")
+        if response.POST.get("delete-rso-btn"):
+            rso.delete()
+            messages.success(response, "Admin deleted the Rso")
         return HttpResponseRedirect('../../RSO/')
     if rso is None:
         messages.warning(response, "RSO does not exist")
@@ -141,3 +136,18 @@ def search_rso_by_university(response):
     
     rsos = Rso.objects.filter(university = university)
     return university
+
+def join_or_leave(user_id, rso, is_join=False, is_leave=False):
+    student = User.objects.filter(id = user_id).first()
+    if student is not None:
+        if is_join is True:
+            rso.students.add(student)
+            rso.total_students += 1
+        if is_leave is True:
+            rso.students.remove(student)
+            rso.total_students = rso.total_students - 1
+        rso.save()
+        return True
+    
+    return False
+        

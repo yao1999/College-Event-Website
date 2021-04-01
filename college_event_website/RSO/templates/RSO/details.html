@@ -136,6 +136,8 @@
                                                         <button type="submit" name="join-rso-btn" value="join_rso" class="btn btn-white float-left">Join RSO</button>
                                                     {% elif isInRSO and user.is_admin == False %}
                                                         <button type="submit" name="leave-rso-btn" value="join_rso" class="btn btn-white float-left">Leave RSO</button>
+                                                    {% elif isInRSO and user.is_admin == True %}
+                                                        <button type="submit" name="delete-rso-btn" value="join_rso" class="btn btn-white float-left">Delete RSO</button>
                                                     {% endif %}
                                                 </form>
                                             </div>
