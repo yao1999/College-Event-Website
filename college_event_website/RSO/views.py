@@ -16,11 +16,18 @@ def list_rsos(response):
             if rsos is None:
                 rsos = search_rso_by_university(response)
     else:
-        rsos = Rso.objects.all().order_by('id')
+        rsos = Rso.objects.filter(status=True).order_by('id')
     all_university = University.objects.all()
     return render(response, 'RSO/base.html', {
       'rsos': rsos,
       'all_university': all_university
+    })
+
+@login_required(login_url='/Users/login/')
+def rso_inactive_info(response):
+    inactive_rsos = Rso.objects.filter(status=False).order_by('id')
+    return render(response, 'RSO/inactiveRsos.html', {
+      'rsos': inactive_rsos
     })
 
 @login_required(login_url='/Users/login/')
@@ -119,7 +126,7 @@ def get_students(response):
 
 def search_rso_by_name(response):
     rso_name =response.POST.get("RsoName")
-    rsos = Rso.objects.filter(name = rso_name)
+    rsos = Rso.objects.filter(name = rso_name, status =True)
 
     if len(rsos) > 0:
         return rsos
@@ -128,7 +135,7 @@ def search_rso_by_name(response):
 
 def search_rso_by_university(response):
     university_name = response.POST.get("search-university")
-    university = University.objects.filter(name = university_name).first()
+    university = University.objects.filter(name = university_name, status =True).first()
 
     if university is None:
         rsos = Rso.objects.all().order_by('id')
@@ -143,9 +150,11 @@ def join_or_leave(user_id, rso, is_join=False, is_leave=False):
         if is_join is True:
             rso.students.add(student)
             rso.total_students += 1
+            rso.status = False if (rso.total_students < 5) else True
         if is_leave is True:
             rso.students.remove(student)
             rso.total_students = rso.total_students - 1
+            rso.status = False if (rso.total_students < 5) else True
         rso.save()
         return True
     
