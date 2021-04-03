@@ -34,7 +34,8 @@ def add_university(response):
         if university_form.is_valid():
             location = get_location(response)
             university_photos = get_photos(response, university_form.data['name'])
-            university_form.save(location, university_photos)
+            super_admin = response.user.id
+            university_form.save(location, university_photos, super_admin)
             messages.success(response, "University added")
         return HttpResponseRedirect('../../Universities/')
       else:
@@ -49,16 +50,19 @@ def add_university(response):
 
 @login_required(login_url='/Users/login/')
 def university_info(response, university_id):
-  current_university = University.objects.filter(id = university_id)
-  if len(current_university) <= 0:
+  current_university = University.objects.filter(id = university_id).first()
+  isInUniveristy = User.objects.filter(university=current_university).exists()
+  if isInUniveristy is False:
+      isInUniveristy = True if current_university.super_admin == response.user.id else False
+  if current_university is None:
     return HttpResponseRedirect('../../Universities/')
   else:
-    current_university = current_university[0]
     if response.method == "POST":
       if response.POST.get("join-university-btn"):
         current_user = User.objects.filter(id = response.user.id).update(university = current_university)
         return HttpResponseRedirect('../../Universities/')
     else:
+      all_picture = Photos.objects.filter(university_name = current_university.name)
       return render(response, "Universities/details.html", {
         "University_Name": current_university.name,
         "num_of_students": current_university.number_of_students,
@@ -66,6 +70,9 @@ def university_info(response, university_id):
         'longitude': current_university.location.longitude,
         'latitude': current_university.location.latitude,
         'location_name': current_university.location.location_name,
+        'isInUniveristy': isInUniveristy,
+        'University_Name_For_Photo': current_university.name.replace(' ', ''),
+        'all_picture': all_picture
       })
   
 
@@ -80,7 +87,8 @@ def edit_university():
 def get_photos(request, university_name):
   photos = []
   total_photos = request.POST.get("number_photos")
-  folder='Universities/images/' + str(university_name) + '/' 
+  university_name_for_photo = university_name.replace(" ", "")
+  folder='Universities/static/Universities/images/' + str(university_name_for_photo) + '/' 
   for i in range(1, int(total_photos)+1):
       html_tag = 'university_photo_' + str(i)
       myfile = request.FILES[html_tag]

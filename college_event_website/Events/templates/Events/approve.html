@@ -129,13 +129,15 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        {% if event.university != null %}
                                                         <div class="col-md-6">
                                                             <div class="d-flex w-100 justify-content-end">
                                                                 <div class="text-white font-weight-bold text-right">
-                                                                    University name go here
+                                                                    {{event.university}}
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    {% endif %}
                                                     </div>
                                                     <!-- description -->
                                                     <div class="row ml-2 mr-2 mb-5">

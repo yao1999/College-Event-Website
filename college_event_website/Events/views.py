@@ -47,7 +47,9 @@ def add_event(response):
         return HttpResponseRedirect('../../Events/create')
       event_form = EventForm(response.POST)
       is_private = response.POST.get("universityEvent")
-      
+      is_RSO = None
+      user_university = None
+      user_rso = None 
       if event_form.is_valid():
           location = get_location(response)
           if response.POST.get("universityEvent"):
@@ -104,7 +106,9 @@ def event_info(response, event_id):
       'form' : comment_form,
       'event' : event,
       'rating': rating,
-      'comments': all_comments
+      'comments': all_comments,
+      'longitude': event.location.longitude,
+      'latitude': event.location.latitude,
       })
 
 @login_required(login_url='/Users/login/')
