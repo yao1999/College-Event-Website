@@ -13,21 +13,16 @@ def user_register(response):
     return HttpResponseRedirect('../../Events/')
   else:
     if response.method == "POST":
-      if response.POST.get("UserRegisterButton") or response.POST.get("SuperUserRegisterButton"):
+      if response.POST.get("UserRegisterButton"):
+        user_check_and_register(response, "user")
 
-        current_user = User(
-            first_name = response.POST.get("UserFirstName"),
-            last_name = response.POST.get("UserLastName"),
-            email = response.POST.get("UserEmail"),
-            username = response.POST.get("UserUsername"),
-            password = response.POST.get("UserPassword"),
-            is_admin = False,
-            is_super_admin = True if response.POST.get("SuperUserRegisterButton") else False
-          )
-        current_user.save()
-        return HttpResponseRedirect('../../Users/login')
-      else:
-        return HttpResponseRedirect('../../Users/register')
+      elif response.POST.get("AdminRegisterButton"):
+        user_check_and_register(response, "admin")
+
+      elif response.POST.get("SuperUserRegisterButton"):
+        user_check_and_register(response, "faculty")
+
+      return HttpResponseRedirect('../../Users/login')
     else:
       return render(response, "Users/register.html") 
 
@@ -36,27 +31,19 @@ def user_login(response):
   if response.user.is_authenticated is True:
       messages.error(response, "User Authorized Already")
       return HttpResponseRedirect('../../Events/')
-
   else:
     if response.method == "POST":
-      if response.POST.get("UserLoginButton") or response.POST.get("SuperUserLoginButton"):
-        username = response.POST.get("UserUsername")
-        password = response.POST.get("UserPassword")
-
-        current_user = ""
-        if response.POST.get("UserLoginButton"):
-            current_user = User.objects.filter(username = username, is_super_admin = False).first()
-        elif response.POST.get("SuperUserLoginButton"):
-          current_user = User.objects.filter(username = username, is_super_admin = True).first()
-        
+      if response.POST.get("UserLoginButton"):
+        current_user = user_check_and_login(response, "user")
+      elif response.POST.get("SuperUserLoginButton"):
+        current_user = user_check_and_login(response, "faculty")
         if current_user is not None:
-          if current_user.password == password:
             login(response, current_user)
             messages.success(response, "Welcome!!!")
             return HttpResponseRedirect('../../Users/profile')
-          else:
-            messages.warning(response, "Password incorrect")
-            return HttpResponseRedirect('../../Users/login')
+        else:
+          messages.warning(response, "Password incorrect")
+          return HttpResponseRedirect('../../Users/login')
 
       else:
         return HttpResponseRedirect('../../Users/login')
@@ -74,6 +61,40 @@ def profile(response):
     'users_rsos': users_rsos,
     'haveRSO': True if len(users_rsos) > 0 else False,
   })
+
+def user_check_and_register(response, user_type):
+  first_name = response.POST.get(user_type + "FirstName")
+  last_name = response.POST.get(user_type + "LastName")
+  email = response.POST.get(user_type + "Email")
+  username = response.POST.get(user_type + "Username")
+  password = response.POST.get(user_type + "Password")
+  current_user = User(
+    first_name = first_name,
+    last_name = last_name,
+    email = email,
+    username = username,
+    password = password,
+    is_admin = True if user_type == "admin" else False,
+    is_super_admin = True if user_type == "faculty" else False
+  )
+  current_user.save()
+
+def user_check_and_login(response, user_type):
+  username = response.POST.get(user_type + "Username")
+  password = response.POST.get(user_type + "Password")
+
+  current_user = None
+  if user_type == "user":
+    current_user = User.objects.filter(username = username, is_super_admin = False).first()
+  elif user_type == "faculty":
+    current_user = User.objects.filter(username = username, is_super_admin = True).first()
+  
+  if current_user is not None:
+    if current_user.password == password:
+      return current_user
+  
+  return None
+
 
 def auto_login_for_coder(response):
   username = "testForCoder"
