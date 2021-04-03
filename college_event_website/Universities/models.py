@@ -29,6 +29,7 @@ class Locations(models.Model):
 
 class University(models.Model):
   name = models.CharField(max_length = 100, null=False)
+  super_admin = models.IntegerField(null=True)
   description = models.TextField()
   location = models.ForeignKey(Locations, on_delete=models.CASCADE) 
   pictures = ManyToManyField(Photos)

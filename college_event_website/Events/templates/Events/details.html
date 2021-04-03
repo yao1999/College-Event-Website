@@ -145,17 +145,19 @@
                                     <div class="col-md-6">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-start">
-                                                {{ event.location }}: lat, long
+                                                {{ event.location }}: {{latitude}}, {{longitude}}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="d-flex w-100 justify-content-end">
-                                            <div class="text-white font-weight-bold text-right">
-                                                University name go here
+                                    {% if event.university != null %}
+                                        <div class="col-md-6">
+                                            <div class="d-flex w-100 justify-content-end">
+                                                <div class="text-white font-weight-bold text-right">
+                                                    {{event.university}}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {% endif %}
                                 </div>
 
                                 <!-- category and rating -->

@@ -29,7 +29,7 @@ class EventForm(forms.Form):
                               description = data['description'],
                               phone = data['phone'],
                               email = data['email'],
-                              is_public = True if (is_RSO == None and is_private == None) else False,
+                              is_public = True if (is_RSO == '' and is_private == '') else False,
                               is_RSO = True if is_RSO else False,
                               is_private = True if is_private else False,
                               is_approved = True if make_by_admin else False,

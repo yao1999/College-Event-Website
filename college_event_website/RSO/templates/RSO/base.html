@@ -115,7 +115,7 @@
                                         {% else %}
                                             <option selected>No Home University</option>
                                         {% endif %}
-                                        <!-- all the other universities -->
+                                        <option>ALL university</option>
                                         {% for university in all_university %}
                                             {% if user.university != null %}
                                                 {% if university != user.university %}

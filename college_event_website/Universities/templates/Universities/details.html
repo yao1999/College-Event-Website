@@ -139,10 +139,12 @@
                                             <div class="w-100 text-white">
                                                 <form method="POST" class="w-100">
                                                     {% csrf_token %}
-                                                    {% if isInUniveristy == False %}
-                                                    <button type="submit" name="join-university-btn" value="join_university" class="btn btn-white float-left">Join University</button>
-                                                    {% else %}
-                                                    <button type="submit" name="leave-university-btn" value="join_university" class="btn btn-white float-left">Join University</button>
+                                                    {% if isInUniveristy == False and user.is_super_admin == False%}
+                                                        <button type="submit" name="join-university-btn" value="join_university" class="btn btn-white float-left">Join University</button>
+                                                    {% elif isInUniveristy and user.is_super_admin == False %}
+                                                        <button type="submit" name="leave-university-btn" value="join_university" class="btn btn-white float-left">Leave University</button>
+                                                    {% elif isInUniveristy and user.is_super_admin == True %}
+                                                        <button type="submit" name="delete-university-btn" value="join_rso" class="btn btn-white float-left">Delete University</button>
                                                     {% endif %}
                                                 </form>
                                             </div>
@@ -182,9 +184,10 @@
                                         </div>
                                     </div>
                                     <!-- all images -->
-                                    {% for image in university.pictures  %}
+                                    {% for image in all_picture  %}
                                     <div class="col-md-3">
-                                        <img class="d-block w-100 register-image" src="{{ image.url }}" style="max-width: 100%" alt="university info">
+                                        <img class="d-block w-100 register-image" src="{% static "Universities/images/" %}{{University_Name_For_Photo}}/{{image.photo_path}}" style="max-width: 100%" alt="university info">
+
                                     </div>
                                     {% endfor %}
                                     <!-- /all images -->
