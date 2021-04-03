@@ -69,7 +69,7 @@
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link active" href="/Users/profile">Profile</a>
+                        <a class="nav-link" href="/Users/profile">Profile</a>
                     </li>
             </ul>
         </div>
@@ -98,9 +98,11 @@
                                 <!-- event details and links -->
                                 <div class="row card card0 border-0 bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
                                     <div class="row d-flex align-items-center align-content-center align-self-center ml-4 mr-4 mt-0 mb-2 w-100">
+                                        <!-- event details and approval -->
                                         <div class="w-100 m-2">
-                                            <div class="row mb-2">                                
+                                            <div class="row mb-2">                  
                                                 <div class="col-md-12">
+                                                    <!-- cetegory -->  
                                                     <div class="row ml-2 mr-2 mb-5">
                                                         <div class="d-flex w-100 justify-content-left">
                                                             <div class="text-white font-weight-bold text-left">
@@ -108,6 +110,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <!-- date -->
                                                     <div class="row m-2">
                                                         <div class="col-md-6 justify-content-start">
                                                             <div class="d-flex w-100 justify-content-start">
@@ -116,14 +119,25 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 justify-content-end">
-                                                            <div class="d-flex w-100 justify-content-end">
-                                                                <div class="text-white font-weight-bold text-right">
+                                                    </div>
+                                                    <!-- location -->
+                                                    <div class="row mb-3 ml-3 mr-3">                                
+                                                        <div class="col-md-6">
+                                                            <div class="d-flex w-100 justify-content-start">
+                                                                <div class="text-white font-weight-bold text-start">
                                                                     {{ event.location }}
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="col-md-6">
+                                                            <div class="d-flex w-100 justify-content-end">
+                                                                <div class="text-white font-weight-bold text-right">
+                                                                    University name go here
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                    <!-- description -->
                                                     <div class="row ml-2 mr-2 mb-5">
                                                         <div class="d-flex w-100 justify-content-left">
                                                             <div class="text-white text-left ml-3 overflow-hidden">
@@ -131,6 +145,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <!-- event details link -->
                                                     <div class="row ml-2 mr-2 mb-2">
                                                         <div class="d-flex w-100 justify-content-left">
                                                             <div class="text-white font-weight-bold text-left ml-3">
@@ -138,7 +153,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- approval section -->
+                                                    <!-- approval form -->
                                                     <div class="row ml-2 mr-2 mb-2 mt-2">
                                                         <div class="col-md-6">
                                                             <div class="text-white font-weight-bold text-left">

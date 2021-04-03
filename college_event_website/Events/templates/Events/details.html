@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Add title  -->
-    <title>Event Detail</title>
+    <title>Event Details</title>
 
     <!-- fb open graphs -->
     <meta property="og:url"           content="localhost://Events/{{ event.id }}" />
@@ -142,10 +142,17 @@
                                 </div>
                                 <!-- location -->
                                 <div class="row mb-3 ml-3 mr-3">                                
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-start">
                                                 {{ event.location }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex w-100 justify-content-end">
+                                            <div class="text-white font-weight-bold text-right">
+                                                University name go here
                                             </div>
                                         </div>
                                     </div>
@@ -156,7 +163,7 @@
                                     <div class="col-md-6">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-start">
-                                                {{ event.category }}
+                                                Category: {{ event.category }}
                                             </div>
                                         </div>
                                     </div>

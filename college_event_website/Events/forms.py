@@ -53,9 +53,9 @@ class CommentForm(forms.Form):
         current_comment.save()
 
 class LocationForm(forms.Form):
-    location_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Location Name*', 'class': 'form-control', 'id': 'location_name'}), label="", required=True)
-    latitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Latitude*', 'class': 'form-control', 'id': 'location_latitude'}), label="", required=True)
-    longitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Longitude*', 'class': 'form-control', 'id': 'location_longitude'}), label="", required=True)
+    location_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Location Name*', 'class': 'text-center text-white', 'id': 'location_name'}), label="", required=True)
+    latitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Latitude*', 'class': 'text-center text-white', 'id': 'location_latitude'}), label="", required=True)
+    longitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Longitude*', 'class': 'text-center text-white', 'id': 'location_longitude'}), label="", required=True)
 
     def save(self):
         data = self.cleaned_data

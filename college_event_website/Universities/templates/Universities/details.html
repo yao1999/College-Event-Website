@@ -132,7 +132,11 @@
                                             <div class="w-100 text-white">
                                                 <form method="POST" class="w-100">
                                                     {% csrf_token %}
+                                                    {% if isInUniveristy == False %}
                                                     <button type="submit" name="join-university-btn" value="join_university" class="btn btn-white float-left">Join University</button>
+                                                    {% else %}
+                                                    <button type="submit" name="leave-university-btn" value="join_university" class="btn btn-white float-left">Join University</button>
+                                                    {% endif %}
                                                 </form>
                                             </div>
                                         </div>
