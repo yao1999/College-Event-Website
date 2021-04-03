@@ -64,7 +64,8 @@ def university_info(response, university_id):
         "num_of_students": current_university.number_of_students,
         "Description": current_university.description,
         'longitude': current_university.location.longitude,
-        'latitude': current_university.location.latitude
+        'latitude': current_university.location.latitude,
+        'location_name': current_university.location.location_name,
       })
   
 

@@ -96,10 +96,17 @@
                                 <!-- university details -->
                                 <!-- location -->
                                 <div class="row mb-1 ml-3 mr-3">          
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-md text-left">
-                                                location (need Google map)
+                                                {{location_name}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex w-100 justify-content-end">
+                                            <div class="text-white font-weight-bold text-md text-right">
+                                                {{latitude}},{{longitude}}
                                             </div>
                                         </div>
                                     </div>
@@ -143,6 +150,25 @@
                                     </div>
                                 </div>
                                 <!-- ./join univeristy -->
+                                <!-- section separator -->
+                                <hr />
+
+                                <!-- map with university location -->
+                                <!-- header -->
+                                <div class="col-md-12">
+                                    <div class="d-flex w-100 justify-content-center">
+                                        <div class="text-white font-weight-bold text-md text-center">
+                                            University Map
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- map -->
+                                <div id="map" class="ml-5 mt-5">
+                                    <iframe id="current_map"
+                                    src="https://maps.google.com/maps?q={{latitude}},{{longitude}}&hl=es;z=14&amp;output=embed"
+                                    width="550" height="300" style="border:0;" allowfullscreen="true" loading="lazy"></iframe>
+                                </div>
+
                                 <!-- section separator -->
                                 <hr />
 
