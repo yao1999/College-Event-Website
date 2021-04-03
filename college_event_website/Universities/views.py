@@ -52,8 +52,6 @@ def add_university(response):
 def university_info(response, university_id):
   current_university = University.objects.filter(id = university_id).first()
   isInUniveristy = User.objects.filter(university=current_university).exists()
-  if isInUniveristy is False:
-      isInUniveristy = True if current_university.super_admin == response.user.id else False
   if current_university is None:
     return HttpResponseRedirect('../../Universities/')
   else:
@@ -134,7 +132,8 @@ def search_university_by_name(response):
   if len(universities) > 0:
     return universities
   
-  return None
+  universities = University.objects.all() 
+  return universities
 
 def search_university_by_location(response):
   location = response.POST.get("search-form-location-name")
