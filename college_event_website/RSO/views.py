@@ -7,6 +7,7 @@ from .models import Rso
 from Universities.models import University
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import Users
 
 @login_required(login_url='/Users/login/')
 def list_rsos(response):
@@ -41,6 +42,9 @@ def add_rso(response):
         students = get_students(response)
         RSOForm = RsoForm(response.POST)
         university_name = response.POST.get("pick-university")
+
+        sign_admin(RSOForm.data['admin_email'])
+
         if (check_university(response, students, university_name) == True and 
             check_admin(response, RSOForm.data['admin_email'], university_name) == True):
             if RSOForm.is_valid():
@@ -167,4 +171,11 @@ def join_or_leave(user_id, rso, is_join=False, is_leave=False):
         return True
     
     return False
-        
+
+def sign_admin(admin_email):
+    current_admin = Users.objects.filter(email = admin_email).first()
+
+    if len(current_admin) == 1:
+        current_admin = current_admin[0]
+        current_admin.is_admin = True
+        current_admin.save()

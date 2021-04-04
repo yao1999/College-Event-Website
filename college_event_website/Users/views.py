@@ -18,9 +18,6 @@ def user_register(response):
       if response.POST.get("UserRegisterButton"):
         user_check_and_register(response, "user")
 
-      elif response.POST.get("AdminRegisterButton"):
-        user_check_and_register(response, "admin")
-
       elif response.POST.get("SuperUserRegisterButton"):
         user_check_and_register(response, "faculty")
 
