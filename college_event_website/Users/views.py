@@ -103,7 +103,7 @@ def auto_login_for_coder(response):
   is_admin = True
   is_super_admin = True
   password = "1234asd"
-  password = encrypt_password(password).decode()
+  password = encrypt_password(password)
   try:
     current_user = User.objects.get(username = username)
     login(response, current_user)

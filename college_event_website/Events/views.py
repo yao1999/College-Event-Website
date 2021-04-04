@@ -42,10 +42,13 @@ def list_events(response):
 def add_event(response):
   if response.method == "POST":
     if response.POST.get("create-event-btn"):
+      event_form = EventForm(response.POST)
       if response.user.is_admin == False:
         messages.warning(response, "User is not admin")
         return HttpResponseRedirect('../../Events/create')
-      event_form = EventForm(response.POST)
+      if check_timestamp(event_form.data['start_time'], event_form.data['end_time']) == False:
+        messages.warning(response, "End time is earlier than start time")
+        return HttpResponseRedirect('../../Events/create')
       is_private = response.POST.get("universityEvent")
       is_RSO = None
       user_university = None
@@ -220,3 +223,12 @@ def get_rso(user):
         return rso
     
     return None
+  
+def check_timestamp(start_time, end_time):
+  print(start_time)
+  print(end_time)
+
+  if start_time < end_time:
+    return False
+  
+  return True
