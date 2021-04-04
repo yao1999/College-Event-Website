@@ -6,6 +6,8 @@ import traceback
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from RSO.models import Rso
+from cryptography.fernet import Fernet
+
 
 def user_register(response):
   if response.user.is_authenticated is True:
@@ -68,6 +70,8 @@ def user_check_and_register(response, user_type):
   email = response.POST.get(user_type + "Email")
   username = response.POST.get(user_type + "Username")
   password = response.POST.get(user_type + "Password")
+
+  password = encrypt_password(password).decode() 
   current_user = User(
     first_name = first_name,
     last_name = last_name,
@@ -90,7 +94,8 @@ def user_check_and_login(response, user_type):
     current_user = User.objects.filter(username = username, is_super_admin = True).first()
   
   if current_user is not None:
-    if current_user.password == password:
+    current_user_password = decrypt_password(str.encode(current_user.password))
+    if current_user_password == password:
       return current_user
   
   return None
@@ -100,6 +105,8 @@ def auto_login_for_coder(response):
   username = "testForCoder"
   is_admin = True
   is_super_admin = True
+  password = "1234asd"
+  password = encrypt_password(password).decode()
   try:
     current_user = User.objects.get(username = username)
     login(response, current_user)
@@ -109,7 +116,7 @@ def auto_login_for_coder(response):
       last_name = "Yao",
       email = "testForCoder@gmail.com",
       username = username,
-      password = "1234asd",
+      password = password,
       is_admin = is_admin,
       is_super_admin = is_super_admin
     )
@@ -129,3 +136,16 @@ def get_rso(user):
         
     
     return rsos
+
+def encrypt_password(password):
+  key = b'HkLYcD5m5zH9VYNEQt9GpWzxq87SHHbhpxvFR9LgF9Q=' # this is bytes
+  fernet = Fernet(key)
+  enc_password = fernet.encrypt(password.encode())
+  return enc_password
+
+
+def decrypt_password(password_in_db):
+  key = b'HkLYcD5m5zH9VYNEQt9GpWzxq87SHHbhpxvFR9LgF9Q=' # this is bytes
+  fernet = Fernet(key)
+  dec_password = fernet.decrypt(password_in_db).decode()
+  return dec_password
