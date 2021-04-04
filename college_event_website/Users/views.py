@@ -71,7 +71,7 @@ def user_check_and_register(response, user_type):
   username = response.POST.get(user_type + "Username")
   password = response.POST.get(user_type + "Password")
 
-  password = encrypt_password(password).decode() 
+  password = encrypt_password(password) 
   current_user = User(
     first_name = first_name,
     last_name = last_name,
@@ -94,7 +94,7 @@ def user_check_and_login(response, user_type):
     current_user = User.objects.filter(username = username, is_super_admin = True).first()
   
   if current_user is not None:
-    current_user_password = decrypt_password(str.encode(current_user.password))
+    current_user_password = decrypt_password(current_user.password)
     if current_user_password == password:
       return current_user
   
@@ -140,12 +140,12 @@ def get_rso(user):
 def encrypt_password(password):
   key = b'HkLYcD5m5zH9VYNEQt9GpWzxq87SHHbhpxvFR9LgF9Q=' # this is bytes
   fernet = Fernet(key)
-  enc_password = fernet.encrypt(password.encode())
+  enc_password = fernet.encrypt(password.encode()).decode()
   return enc_password
 
 
 def decrypt_password(password_in_db):
   key = b'HkLYcD5m5zH9VYNEQt9GpWzxq87SHHbhpxvFR9LgF9Q=' # this is bytes
   fernet = Fernet(key)
-  dec_password = fernet.decrypt(password_in_db).decode()
+  dec_password = fernet.decrypt(str.encode(password_in_db)).decode()
   return dec_password
