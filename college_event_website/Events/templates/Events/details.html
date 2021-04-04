@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Add title  -->
-    <title>Event Detail</title>
+    <title>Event Details</title>
 
     <!-- fb open graphs -->
     <meta property="og:url"           content="localhost://Events/{{ event.id }}" />
@@ -59,6 +59,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                        <a class="dropdown-item" href="/RSO/inactiveRsos">View Inactive RSOs</a> 
                         <a class="dropdown-item" href="/RSO/create">Create RSO</a>
                     </div>
                 </li>
@@ -141,13 +142,22 @@
                                 </div>
                                 <!-- location -->
                                 <div class="row mb-3 ml-3 mr-3">                                
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-start">
-                                                {{ event.location }}
+                                                {{ event.location }}: {{latitude}}, {{longitude}}
                                             </div>
                                         </div>
                                     </div>
+                                    {% if event.university != null %}
+                                        <div class="col-md-6">
+                                            <div class="d-flex w-100 justify-content-end">
+                                                <div class="text-white font-weight-bold text-right">
+                                                    {{event.university}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 </div>
 
                                 <!-- category and rating -->
@@ -155,7 +165,7 @@
                                     <div class="col-md-6">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-start">
-                                                {{ event.category }}
+                                                Category: {{ event.category }}
                                             </div>
                                         </div>
                                     </div>
@@ -218,6 +228,24 @@
                                     </div>
                                 </div>
                                 <!-- ./event details -->
+                                <!-- section separator -->
+                                <hr />
+
+                                <!-- map with university location -->
+                                <!-- header -->
+                                <div class="col-md-12">
+                                    <div class="d-flex w-100 justify-content-center">
+                                        <div class="text-white font-weight-bold text-md text-center">
+                                            Event Location Map
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- map -->
+                                <div id="map" class="ml-5 mt-5">
+                                    <iframe id="current_map"
+                                    src="https://maps.google.com/maps?q={{latitude}},{{longitude}}&hl=es;z=14&amp;output=embed"
+                                    width="550" height="300" style="border:0;" allowfullscreen="true" loading="lazy"></iframe>
+                                </div>
 
                                 <!-- section separator -->
                                 <hr />

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Add title  -->
-    <title>Create University</title>
+    <title>Create RSO</title>
 
     <!-- vendor css  -->
     <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -50,6 +50,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                        <a class="dropdown-item" href="/RSO/inactiveRsos">View Inactive RSOs</a>
                         <a class="dropdown-item active" href="/RSO/create">Create RSO<span class="sr-only">(current)</span></a>
                     </div>
                 </li>
@@ -146,12 +147,24 @@
                                     <!-- rso uni -->
                                     <div class="row justify-content-center">
                                         <div class="col-md-12 justify-content-center">
-                                            <div class="row justify-items-end">
-                                                <div class="col-md-12">
-                                                    <div class="">
-                                                        <label class="sr-only" for="rso_university">Home University</label>
-                                                        <input id="universityname" type="text" name="universityname" placeholder="univeristy inout here" required/>
-                                                    </div>
+                                            <div class="d-flex w-100 justify-content-center">
+                                                <div class="form-group">
+                                                    <label for="pick-university" class="sr-only">University</label>
+                                                    <select id="pick-university" name="pick-university"class="form-control bg-transparent">
+                                                        <!-- users' university -->
+                                                        {% if user.university != null %}
+                                                            <option selected>{{ user_university }}</option>
+                                                        {% endif %}
+                                                        {% for university in all_university %}
+                                                            {% if user.university != null %}
+                                                                {% if university != user.university %}
+                                                                    <option>{{ university }}</option>
+                                                                {% endif %}
+                                                            {% elif user.university == null %}
+                                                                <option>{{ university }}</option>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

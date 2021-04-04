@@ -47,6 +47,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                        <a class="dropdown-item" href="/RSO/inactiveRsos">View Inactive RSOs</a> 
                         <a class="dropdown-item" href="/RSO/create">Create RSO</a>
                     </div>
                 </li>
@@ -201,8 +202,7 @@
                     <!-- /.list user's university -->
                 {% endif %}
 
-                
-                {% if rso != null %}
+                {% if haveRSO %}
                     <!-- section separator -->
                     <hr />
 
@@ -269,7 +269,7 @@
                         <!-- /.rso card -->
                         {% endfor %}
                     </div>
-                {% endif %}
+                    {% endif%}
             </div>
         </div>
     </div>

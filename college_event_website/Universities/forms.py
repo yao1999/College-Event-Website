@@ -7,11 +7,12 @@ class UniversityForm(forms.Form):
     description = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'University Description', 'class': 'text-center text-white', 'id': 'university_description'}), label="", required=True)
     number_of_students = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': '99', 'id': 'university_student_number', 'class': 'text-center text-white'}), label="", required=True)
 
-    def save(self, location, university_photos):
+    def save(self, location, university_photos, super_admin):
         data = self.cleaned_data
         current_university = University(name = data['name'],
                                         description = data['description'],
                                         number_of_students = data['number_of_students'],
+                                        super_admin = super_admin,
                                         location = location)
                                         
         current_university.save()
@@ -21,9 +22,9 @@ class UniversityForm(forms.Form):
         current_university.save()
 
 class LocationForm(forms.Form):
-    location_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Location Name*', 'class': 'form-control', 'id': 'location_name'}), label="", required=True)
-    latitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Latitude*', 'class': 'form-control', 'id': 'location_latitude'}), label="", required=True)
-    longitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Longitude*', 'class': 'form-control', 'id': 'location_longitude'}), label="", required=True)
+    location_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Location Name*', 'class': 'text-center text-white', 'id': 'location_name'}), label="", required=True)
+    latitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Latitude*', 'class': 'text-center text-white', 'id': 'location_latitude'}), label="", required=True)
+    longitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Longitude*', 'class': 'text-center text-white', 'id': 'location_longitude'}), label="", required=True)
 
     def save(self):
         data = self.cleaned_data

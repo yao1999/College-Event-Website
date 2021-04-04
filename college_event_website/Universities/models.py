@@ -15,7 +15,7 @@ class Photos(models.Model):
   photo_path = models.CharField(max_length = 100, null=False)
 
   def __str__(self):
-    return self
+    return self.university_name
 
 
 class Locations(models.Model):
@@ -23,9 +23,13 @@ class Locations(models.Model):
   latitude = models.CharField(max_length = 100, null=False)
   longitude = models.CharField(max_length = 100, null=False)
 
+  def __str__(self):
+    return self.location_name
+
 
 class University(models.Model):
   name = models.CharField(max_length = 100, null=False)
+  super_admin = models.IntegerField(null=True)
   description = models.TextField()
   location = models.ForeignKey(Locations, on_delete=models.CASCADE) 
   pictures = ManyToManyField(Photos)

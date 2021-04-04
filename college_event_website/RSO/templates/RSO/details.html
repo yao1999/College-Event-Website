@@ -48,7 +48,8 @@
                         RSOs
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                        <a class="dropdown-item active" href="/RSO/">View RSOs</a>
+                        <a class="dropdown-item active" href="/RSO/inactiveRsos">View Inactive RSOs</a>                        
                         <a class="dropdown-item" href="/RSO/create">Create RSO</a>
                     </div>
                 </li>
@@ -132,7 +133,13 @@
                                             <div class="w-100 text-white">
                                                 <form method="POST" class="w-100">
                                                     {% csrf_token %}
-                                                    <button type="submit" name="join-rso-btn" value="join_rso" class="btn btn-white float-left">Join RSO</button>
+                                                    {% if isInRSO == False and user.is_admin == False %}
+                                                        <button type="submit" name="join-rso-btn" value="join_rso" class="btn btn-white float-left">Join RSO</button>
+                                                    {% elif isInRSO and user.is_admin == False %}
+                                                        <button type="submit" name="leave-rso-btn" value="join_rso" class="btn btn-white float-left">Leave RSO</button>
+                                                    {% elif isInRSO and user.is_admin == True %}
+                                                        <button type="submit" name="delete-rso-btn" value="join_rso" class="btn btn-white float-left">Delete RSO</button>
+                                                    {% endif %}
                                                 </form>
                                             </div>
                                         </div>

@@ -19,21 +19,24 @@ class EventForm(forms.Form):
     email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'email@realemails.com*', 'id': 'event_email*', 'class': 'text-center text-white'}), label="", required=True)
 
     # need to add is_RSO , is_private, and so on
-    def save(self, is_private, is_RSO, make_by_admin, location, user_university):
+    def save(self, is_private, is_RSO, make_by_admin, location, user_university, user_rso, current_user):
         data = self.cleaned_data
         current_event = Event(name = data['name'], 
                               date = data['date'],
-                              start_time = data['start_time'], 
+                              start_time = data['start_time'],
+                              category = data['category'],
                               end_time = data['end_time'],
                               description = data['description'],
                               phone = data['phone'],
                               email = data['email'],
-                              is_public = True if (is_RSO == None and is_private == None) else False,
+                              is_public = True if (is_RSO == '' and is_private == '') else False,
                               is_RSO = True if is_RSO else False,
                               is_private = True if is_private else False,
                               is_approved = True if make_by_admin else False,
                               location = location,
-                              university = user_university)
+                              university = user_university,
+                              rso = user_rso,
+                              admin = current_user)
         current_event.save()
 
 
@@ -50,9 +53,9 @@ class CommentForm(forms.Form):
         current_comment.save()
 
 class LocationForm(forms.Form):
-    location_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Location Name*', 'class': 'form-control', 'id': 'location_name'}), label="", required=True)
-    latitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Latitude*', 'class': 'form-control', 'id': 'location_latitude'}), label="", required=True)
-    longitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Longitude*', 'class': 'form-control', 'id': 'location_longitude'}), label="", required=True)
+    location_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Location Name*', 'class': 'text-center text-white', 'id': 'location_name'}), label="", required=True)
+    latitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Latitude*', 'class': 'text-center text-white', 'id': 'location_latitude'}), label="", required=True)
+    longitude = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Longitude*', 'class': 'text-center text-white', 'id': 'location_longitude'}), label="", required=True)
 
     def save(self):
         data = self.cleaned_data

@@ -50,6 +50,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                        <a class="dropdown-item" href="/RSO/inactiveRsos">View Inactive RSOs</a> 
                         <a class="dropdown-item" href="/RSO/create">Create RSO</a>
                     </div>
                 </li>
@@ -144,7 +145,11 @@
                                         <div class="col-md-12 justify-content-center">
                                             <div class="row justify-items-center">
                                                 {% if user.university != null %}
+                                                    {% if user.is_admin %}
                                                     <div class="col-md-6">
+                                                    {% else %}
+                                                    <div class="col-md-12">
+                                                    {% endif %}
                                                         <div class="d-flex w-100 justify-content-end">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox" value = "isUniversityEvent" id="universityEvent" name="universityEvent">
@@ -183,35 +188,32 @@
 
                                     <!-- name -->
                                     <div class="row justify-content-center">
-                                        <div class="col-md-10 justify-content-center">
+                                        <div class="col-md-12 justify-content-center">
                                             <div class="d-flex w-100 justify-content-center">
                                                 <label for="location_name" class="sr-only">Location Name</label>
                                                 {{ location_form.location_name|as_crispy_field }}
-                                                <!-- <input type="text" class="form-control" id="location_name" name="location_name" placeholder="Location Name*"> -->
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- latitude and longitude -->
                                     <div class="row justify-content-center">
-                                        <div class="col-md-5 justify-content-center">
-                                            <div class="d-flex w-100 justify-content-center">
+                                        <div class="col-md-6 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-end">
                                                 <label for="location_latitude" class="sr-only">Location latitude</label>
                                                 {{ location_form.latitude|as_crispy_field }}
-                                                <!-- <input type="text" class="form-control" id="location_latitude" name="location_latitude" placeholder="Latitude*"> -->
                                             </div>
                                         </div>
-                                        <div class="col-md-5 justify-content-center">
-                                            <div class="d-flex w-100 justify-content-center">
+                                        <div class="col-md-6 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-start">
                                                 <label for="location_longitude" class="sr-only">Location longitude</label>
                                                 {{ location_form.longitude|as_crispy_field }}
-                                                <!-- <input type="text" class="form-control" id="location_longitude" name="location_longitude" placeholder="Longitude*"> -->
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- adjust map button -->
-                                    <div class="float-left ml-5 pl-5">
+                                    <div class="row justify-content-center">
                                         <button class="adjust_map" type="button" id="adjust_map">Adjust Map</button>
                                     </div>
                                     

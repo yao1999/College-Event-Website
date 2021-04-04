@@ -49,6 +49,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                        <a class="dropdown-item" href="/RSO/inactiveRsos">View Inactive RSOs</a> 
                         <a class="dropdown-item" href="/RSO/create">Create RSO</a>
                     </div>
                 </li>
@@ -95,10 +96,17 @@
                                 <!-- university details -->
                                 <!-- location -->
                                 <div class="row mb-1 ml-3 mr-3">          
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-md text-left">
-                                                location (need Google map)
+                                                {{location_name}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex w-100 justify-content-end">
+                                            <div class="text-white font-weight-bold text-md text-right">
+                                                {{latitude}},{{longitude}}
                                             </div>
                                         </div>
                                     </div>
@@ -131,13 +139,38 @@
                                             <div class="w-100 text-white">
                                                 <form method="POST" class="w-100">
                                                     {% csrf_token %}
-                                                    <button type="submit" name="join-university-btn" value="join_university" class="btn btn-white float-left">Join University</button>
+                                                    {% if isInUniveristy == False and user.is_super_admin == False%}
+                                                        <button type="submit" name="join-university-btn" value="join_university" class="btn btn-white float-left">Join University</button>
+                                                    {% elif isInUniveristy and user.is_super_admin == False %}
+                                                        <button type="submit" name="leave-university-btn" value="join_university" class="btn btn-white float-left">Leave University</button>
+                                                    {% elif user.is_super_admin == True %}
+                                                        <button type="submit" name="delete-university-btn" value="join_rso" class="btn btn-white float-left">Delete University</button>
+                                                    {% endif %}
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- ./join univeristy -->
+                                <!-- section separator -->
+                                <hr />
+
+                                <!-- map with university location -->
+                                <!-- header -->
+                                <div class="col-md-12">
+                                    <div class="d-flex w-100 justify-content-center">
+                                        <div class="text-white font-weight-bold text-md text-center">
+                                            University Map
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- map -->
+                                <div id="map" class="ml-5 mt-5">
+                                    <iframe id="current_map"
+                                    src="https://maps.google.com/maps?q={{latitude}},{{longitude}}&hl=es;z=14&amp;output=embed"
+                                    width="550" height="300" style="border:0;" allowfullscreen="true" loading="lazy"></iframe>
+                                </div>
+
                                 <!-- section separator -->
                                 <hr />
 
@@ -151,9 +184,10 @@
                                         </div>
                                     </div>
                                     <!-- all images -->
-                                    {% for image in university.pictures  %}
+                                    {% for image in all_picture  %}
                                     <div class="col-md-3">
-                                        <img class="d-block w-100 register-image" src="{{ image.url }}" style="max-width: 100%" alt="university info">
+                                        <img class="d-block w-100 register-image" src="{% static "Universities/images/" %}{{University_Name_For_Photo}}/{{image.photo_path}}" style="max-width: 100%" alt="university info">
+
                                     </div>
                                     {% endfor %}
                                     <!-- /all images -->

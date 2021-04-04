@@ -48,6 +48,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                            <a class="dropdown-item" href="/RSO/inactiveRsos">View Inactive RSOs</a> 
                             <a class="dropdown-item" href="/RSO/create">Create RSO</a>
                         </div>
                     </li>
@@ -68,7 +69,7 @@
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link active" href="/Users/profile">Profile</a>
+                        <a class="nav-link" href="/Users/profile">Profile</a>
                     </li>
             </ul>
         </div>
@@ -127,7 +128,7 @@
                                         {% else %}
                                             <option selected>No Home University</option>
                                         {% endif %}
-                                        <!-- all the other universities -->
+                                        <option>ALL university</option>
                                         {% for university in all_university %}
                                             {% if user.university != null %}
                                                 {% if university != user.university %}
@@ -171,12 +172,23 @@
                                     <div class="w-100 m-2">
                                         <div class="row mb-2">                                
                                             <div class="col-md-12">
-                                                <div class="row ml-2 mr-2 mb-5">
-                                                    <div class="d-flex w-100 justify-content-left">
-                                                        <div class="text-white font-weight-bold text-left">
-                                                            {{ event.category }}
+                                                <div class="row m-2">
+                                                    <div class="col-md-6 justify-content-start">
+                                                        <div class="d-flex w-100 justify-content-left">
+                                                            <div class="text-white font-weight-bold text-left">
+                                                                Category: {{ event.category }}
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    {% if event.university != null %}
+                                                        <div class="col-md-6 justify-content-end">
+                                                            <div class="d-flex w-100 justify-content-end">
+                                                                <div class="text-white font-weight-bold text-right">
+                                                                    {{event.university}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
                                                 <div class="row m-2">
                                                     <div class="col-md-6 justify-content-start">
@@ -194,7 +206,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row ml-2 mr-2 mb-5">
+                                                <div class="row ml-2 mr-2 mb-3">
                                                     <div class="d-flex w-100 justify-content-left">
                                                         <div class="text-white text-left ml-3 overflow-hidden">
                                                             {{ event.description }}
