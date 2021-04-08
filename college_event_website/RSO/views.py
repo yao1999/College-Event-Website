@@ -74,6 +74,8 @@ def rso_info(response, rso_id):
                 messages.success(response, "User leaved the Rso")
         if response.POST.get("delete-rso-btn"):
             rso.delete()
+            response.user.is_admin = False
+            response.user.save()
             messages.success(response, "Admin deleted the Rso")
         return HttpResponseRedirect('../../RSO/')
     if rso is None:
