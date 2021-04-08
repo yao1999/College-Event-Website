@@ -1,0 +1,12 @@
+1	University of Central Florida	UCF is an academic, partnership and research leader in numerous fields, such as optics and lasers, modeling and simulation, engineering and computer science, business, public administration, education, hospitality management, healthcare and video game design.	66183	1	1
+
+2	University of Florida	The University of Florida (Florida or UF) is a public land-grant research university in Gainesville, Florida. It is a senior member of the State University System of Florida and traces its origins to 1853 and has operated continuously on its Gainesville campus since September 1906.	56567	2	1
+
+3	University of South Florida	A Preeminent Research University located in the heart of Tampa Bay, the University of South Florida is dedicated to empowering students to maximize their potential for lifelong success.	49591	3	1
+
+
+1	Orlando	28.6024	-81.2001
+
+2	Gainesville	29.6436	-82.3549
+
+3	Tampa	28.0587	-82.4139
