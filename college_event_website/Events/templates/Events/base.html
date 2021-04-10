@@ -28,19 +28,28 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <ul class="navbar-nav mr-auto">
+
+                    {% if user.is_admin == True or user.is_super_admin == True %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Events
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item active" href="/Events/">View Events<span class="sr-only">(current)</span></a>
+                            {% if user.is_admin == True %}
                             <a class="dropdown-item" href="/Events/create">Create Event</a>
+                            {% endif %}
                             {% if user.is_super_admin == True %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/Events/approve">Approve Events</a>
                             {% endif %}
                         </div>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/Events/">View Events<span class="sr-only">(current)</span></a>
+                    </li>
+                    {% endif %}
     
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
