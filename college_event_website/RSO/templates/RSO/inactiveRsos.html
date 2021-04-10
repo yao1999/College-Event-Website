@@ -90,7 +90,13 @@
                         <!-- rso title -->
                         <div class="row w-100 bg-gray2 rounded-top">
                             <div class="col-md-12 w-100">
-                                <h2 class="font-weight-bold text-md text-orng">{{ rso.name }}</a></h2>
+                                <h2 class="font-weight-bold text-md text-orng">
+                                    {% if rso.name|length < 35 %}
+                                    {{ rso.name }}
+                                    {% else %}
+                                    {{ rso.name|truncatechars:35 }}
+                                    {% endif %}
+                                </h2>
                             </div>                             
                         </div>
                         <!-- rso details and links -->

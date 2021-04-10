@@ -31,11 +31,9 @@ def list_events(response):
     events = Event.objects.filter(is_approved = True)
   
   user_university = University.objects.filter(name = response.user.university).first()
-  all_university = University.objects.all()
   return render(response, 'Events/base.html', { 
     'events' : events,
-    'user_university': user_university,
-    'all_university': all_university
+    'user_university': user_university
     })
 
 @login_required(login_url='/Users/login/')

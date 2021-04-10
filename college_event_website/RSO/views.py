@@ -20,11 +20,9 @@ def list_rsos(response):
         if len(rsos) == 0:
             rsos = Rso.objects.all().order_by('id')
         
-    all_university = University.objects.all()
     user_university = University.objects.filter(name = response.user.university).first()
     return render(response, 'RSO/base.html', {
       'rsos': rsos,
-      'all_university': all_university,
       'user_university': user_university
     })
 

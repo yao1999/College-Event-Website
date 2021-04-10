@@ -112,19 +112,10 @@
                                         <!-- users' university -->
                                         {% if user.university != null %}
                                             <option selected>{{ user_university }}</option>
+                                            <option selected>No Home University</option>
                                         {% else %}
                                             <option selected>No Home University</option>
                                         {% endif %}
-                                        <option>ALL university</option>
-                                        {% for university in all_university %}
-                                            {% if user.university != null %}
-                                                {% if university != user.university %}
-                                                    <option>{{ university }}</option>
-                                                {% endif %}
-                                            {% elif user.university == null %}
-                                                <option>{{ university }}</option>
-                                            {% endif %}
-                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -150,7 +141,13 @@
                         <!-- rso title -->
                         <div class="row w-100 bg-gray2 rounded-top">
                             <div class="col-md-12 w-100">
-                                <h2 class="font-weight-bold text-md text-orng">{{ rso.name }}</a></h2>
+                                <h2 class="font-weight-bold text-md text-orng">
+                                    {% if rso.name|length < 35 %}
+                                    {{ rso.name }}
+                                    {% else %}
+                                    {{ rso.name|truncatechars:35 }}
+                                    {% endif %}
+                                </h2>
                             </div>                             
                         </div>
                         <!-- rso details and links -->

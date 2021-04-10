@@ -92,7 +92,13 @@
                                 <!-- event title -->
                                 <div class="row w-100 bg-gray2 rounded-top">
                                     <div class="col-md-12 w-100">
-                                        <h2 class="font-weight-bold text-md text-orng">{{ event.name }}</a></h2>
+                                        <h2 class="font-weight-bold text-md text-orng">
+                                            {% if event.name|length < 35 %}
+                                            {{ event.name }}
+                                            {% else %}
+                                            {{ event.name|truncatechars:35 }}
+                                            {% endif %}
+                                        </h2>
                                     </div>                             
                                 </div>
                                 <!-- event details and links -->

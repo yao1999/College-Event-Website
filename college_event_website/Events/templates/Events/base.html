@@ -123,21 +123,12 @@
                                     <label for="search-university" class="sr-only">University</label>
                                     <select id="search-university" name="search-university"class="form-control bg-transparent">
                                         <!-- users' university -->
-                                        {% if user.university != null %}
+                                        {% if user.university != None %}
                                             <option selected>{{ user_university }}</option>
+                                            <option>No Home University</option>
                                         {% else %}
                                             <option selected>No Home University</option>
                                         {% endif %}
-                                        <option>ALL university</option>
-                                        {% for university in all_university %}
-                                            {% if user.university != null %}
-                                                {% if university != user.university %}
-                                                    <option>{{ university }}</option>
-                                                {% endif %}
-                                            {% elif user.university == null %}
-                                                <option>{{ university }}</option>
-                                            {% endif %}
-                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -163,7 +154,13 @@
                             <!-- event title -->
                             <div class="row w-100 bg-gray2 rounded-top">
                                 <div class="col-md-12 w-100">
-                                    <h2 class="font-weight-bold text-md text-orng">{{ event.name }}</a></h2>
+                                    <h2 class="font-weight-bold text-md text-orng">
+                                        {% if event.name|length < 35 %}
+                                        {{ event.name }}
+                                        {% else %}
+                                        {{ event.name|truncatechars:35 }}
+                                        {% endif %}
+                                    </h2>
                                 </div>                             
                             </div>
                             <!-- event details and links -->
