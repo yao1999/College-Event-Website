@@ -142,11 +142,7 @@
                         <div class="row w-100 bg-gray2 rounded-top">
                             <div class="col-md-12 w-100">
                                 <h2 class="font-weight-bold text-md text-orng">
-                                    {% if rso.name|length < 35 %}
-                                    {{ rso.name }}
-                                    {% else %}
                                     {{ rso.name|truncatechars:35 }}
-                                    {% endif %}
                                 </h2>
                             </div>                             
                         </div>
@@ -160,7 +156,7 @@
                                                 <div class="col-md-12 justify-content-start">
                                                     <div class="d-flex w-100 justify-content-start">
                                                         <div class="text-white font-weight-bold text-left">
-                                                            University: {{ rso.university }}
+                                                            University: {{ rso.university|truncatechars:30 }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -168,11 +164,7 @@
                                             <div class="row ml-2 mr-2 mb-5">
                                                 <div class="d-flex w-100 justify-content-left">
                                                     <div class="text-white text-left ml-3 overflow-hidden">
-                                                        {% if rso.description|length < 250 %}
-                                                        {{ rso.description }}
-                                                        {% else %}
                                                         {{ rso.description|truncatechars:250 }}
-                                                        {% endif %}
                                                     </div>
                                                 </div>
                                                 <div class="d-flex w-100 justify-content-left">

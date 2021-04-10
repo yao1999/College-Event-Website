@@ -93,11 +93,7 @@
                                 <div class="row w-100 bg-gray2 rounded-top">
                                     <div class="col-md-12 w-100">
                                         <h2 class="font-weight-bold text-md text-orng">
-                                            {% if event.name|length < 35 %}
-                                            {{ event.name }}
-                                            {% else %}
                                             {{ event.name|truncatechars:35 }}
-                                            {% endif %}
                                         </h2>
                                     </div>                             
                                 </div>
@@ -112,7 +108,7 @@
                                                     <div class="row ml-2 mr-2 mb-5">
                                                         <div class="d-flex w-100 justify-content-left">
                                                             <div class="text-white font-weight-bold text-left">
-                                                                {{ event.category }}
+                                                                Category: {{ event.category|truncatechars:15 }}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -131,7 +127,7 @@
                                                         <div class="col-md-6">
                                                             <div class="d-flex w-100 justify-content-start">
                                                                 <div class="text-white font-weight-bold text-start">
-                                                                    {{ event.location }}
+                                                                    {{ event.location|truncatechars:30 }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -139,7 +135,7 @@
                                                         <div class="col-md-6">
                                                             <div class="d-flex w-100 justify-content-end">
                                                                 <div class="text-white font-weight-bold text-right">
-                                                                    {{event.university}}
+                                                                    {{ event.university|truncatechars:25 }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -149,11 +145,7 @@
                                                     <div class="row ml-2 mr-2 mb-5">
                                                         <div class="d-flex w-100 justify-content-left">
                                                             <div class="text-white text-left ml-3 overflow-hidden">
-                                                                {% if event.description|length < 250 %}
-                                                                {{ event.description }}
-                                                                {% else %}
                                                                 {{ event.description|truncatechars:250 }}
-                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
