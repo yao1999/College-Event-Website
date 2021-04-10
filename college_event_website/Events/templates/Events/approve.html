@@ -143,7 +143,11 @@
                                                     <div class="row ml-2 mr-2 mb-5">
                                                         <div class="d-flex w-100 justify-content-left">
                                                             <div class="text-white text-left ml-3 overflow-hidden">
+                                                                {% if event.description|length < 250 %}
                                                                 {{ event.description }}
+                                                                {% else %}
+                                                                {{ event.description|truncatechars:250 }}
+                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
