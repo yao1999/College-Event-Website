@@ -110,21 +110,10 @@
                                     <label for="search-university" class="sr-only">University</label>
                                     <select id="search-university" name="search-university" class="form-control bg-transparent">
                                         <!-- users' university -->
+                                        <option>No Home University</option>
                                         {% if user.university != null %}
                                             <option selected>{{ user_university }}</option>
-                                        {% else %}
-                                            <option selected>No Home University</option>
                                         {% endif %}
-                                        <option>ALL university</option>
-                                        {% for university in all_university %}
-                                            {% if user.university != null %}
-                                                {% if university != user.university %}
-                                                    <option>{{ university }}</option>
-                                                {% endif %}
-                                            {% elif user.university == null %}
-                                                <option>{{ university }}</option>
-                                            {% endif %}
-                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>

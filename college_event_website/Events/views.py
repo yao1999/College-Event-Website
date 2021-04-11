@@ -29,13 +29,15 @@ def list_events(response):
           events = Event.objects.filter(location = location_info)
   else:
     events = Event.objects.filter(is_approved = True)
+    university_event = Event.objects.filter(university = response.user.university)
+    events = events.union(university_event) 
   
   user_university = University.objects.filter(name = response.user.university).first()
-  all_university = University.objects.all()
+  rso_event = find_rso_event(response.user.rsos)
+  events = events.union(rso_event) if len(rso_event) > 0 else events
   return render(response, 'Events/base.html', { 
     'events' : events,
     'user_university': user_university,
-    'all_university': all_university
     })
 
 @login_required(login_url='/Users/login/')
@@ -232,3 +234,14 @@ def check_timestamp(start_time, end_time):
     return False
   
   return True
+
+def find_rso_event(user_rsos):
+  rso_event = []
+
+  if user_rsos.count() == 0:
+    return rso_event
+  
+  for current_rso in user_rsos:
+    rso_event.append(Event.objects.filter(is_RSO = True, rso=current_rso.rso))
+
+  return rso_event
