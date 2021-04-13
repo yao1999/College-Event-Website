@@ -35,12 +35,22 @@ def user_login(response):
       current_user = None
       if response.POST.get("UserLoginButton"):
         current_user = user_check_and_login(response, "user")
-      elif response.POST.get("SuperUserLoginButton"):
-        current_user = user_check_and_login(response, "faculty")
-      if current_user is not None:
+        if current_user is not None:
           login(response, current_user)
           messages.success(response, "Welcome!!!")
           return HttpResponseRedirect('../../Users/profile')
+        else:
+          messages.warning(response, "Password incorrect")
+          return HttpResponseRedirect('../../Users/login')
+      elif response.POST.get("SuperUserLoginButton"):
+        current_user = user_check_and_login(response, "faculty")
+        if current_user is not None:
+          login(response, current_user)
+          messages.success(response, "Welcome!!!")
+          return HttpResponseRedirect('../../Users/profile')
+        else:
+          messages.warning(response, "Password incorrect")
+          return HttpResponseRedirect('../../Users/login')
       else:
         messages.warning(response, "Password incorrect")
         return HttpResponseRedirect('../../Users/login')

@@ -132,11 +132,9 @@
                                     <label for="search-university" class="sr-only">University</label>
                                     <select id="search-university" name="search-university"class="form-control bg-transparent">
                                         <!-- users' university -->
-                                        {% if user.university != None %}
+                                        <option>No Home University</option>
+                                        {% if user.university != null %}
                                             <option selected>{{ user_university }}</option>
-                                            <option>No Home University</option>
-                                        {% else %}
-                                            <option selected>No Home University</option>
                                         {% endif %}
                                     </select>
                                 </div>

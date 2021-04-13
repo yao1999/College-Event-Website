@@ -57,8 +57,16 @@ def university_info(response, university_id):
   else:
     if response.method == "POST":
       if response.POST.get("join-university-btn"):
+        if join_or_leave(response.user.id, current_university, is_join=True) is True:
+                messages.success(response, "User joined the university")
         current_user = User.objects.filter(id = response.user.id).update(university = current_university)
-        return HttpResponseRedirect('../../Universities/')
+      elif response.POST.get("leave-university-btn"):
+            if join_or_leave(response.user.id, current_university, is_leave=True) is True:
+                messages.success(response, "User leaved the university")
+      elif response.POST.get("delete-university-btn"):
+          current_university.delete()
+          messages.success(response, "Admin deleted the university")
+      return HttpResponseRedirect('../../Universities/')
     else:
       all_picture = Photos.objects.filter(university_name = current_university.name)
       return render(response, "Universities/details.html", {
@@ -72,14 +80,6 @@ def university_info(response, university_id):
         'University_Name_For_Photo': current_university.name.replace(' ', ''),
         'all_picture': all_picture
       })
-  
-
-
-def delete_university():
-    pass
-
-def edit_university():
-    pass
 
 
 def get_photos(request, university_name):
@@ -132,8 +132,7 @@ def search_university_by_name(response):
   if len(universities) > 0:
     return universities
   
-  universities = University.objects.all() 
-  return universities
+  return None
 
 def search_university_by_location(response):
   location = response.POST.get("search-form-location-name")
@@ -153,3 +152,14 @@ def search_university_by_location(response):
     return universities
 
   return []
+
+def join_or_leave(user_id, university, is_join=False, is_leave=False):
+    student = User.objects.filter(id = user_id)
+    if len(student) == 1:
+        if is_join is True:
+            student.update(university = university)
+        if is_leave is True:
+            student.update(university = None)
+        return True
+    
+    return False

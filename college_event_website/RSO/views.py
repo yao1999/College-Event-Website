@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from crispy_forms.helper import FormHelper
 from .forms import RsoForm
 from django.http import HttpResponseRedirect, HttpResponse
-from Users.models import User
+from Users.models import User, RsoNumber
 from .models import Rso
 from Universities.models import University
 from django.contrib import messages
@@ -68,10 +68,10 @@ def rso_info(response, rso_id):
         if response.POST.get("join-rso-btn"):
             if join_or_leave(response.user.id, rso, is_join=True) is True:
                 messages.success(response, "User joined the Rso")
-        if response.POST.get("leave-rso-btn"):
+        elif response.POST.get("leave-rso-btn"):
             if join_or_leave(response.user.id, rso, is_leave=True) is True:
                 messages.success(response, "User leaved the Rso")
-        if response.POST.get("delete-rso-btn"):
+        elif response.POST.get("delete-rso-btn"):
             rso.delete()
             response.user.is_admin = False
             response.user.save()
@@ -164,11 +164,20 @@ def join_or_leave(user_id, rso, is_join=False, is_leave=False):
             rso.students.add(student)
             rso.total_students = rso.students.count()
             rso.status = False if (rso.total_students < 5) else True
+            current_RsoNumber = RsoNumber(
+                username = student.username,
+                rso = rso.id
+            )
+            student.rsos.add(current_RsoNumber)
         if is_leave is True:
             rso.students.remove(student)
             rso.total_students = rso.students.count()
             rso.status = False if (rso.total_students < 5) else True
+            current_RsoNumber = RsoNumber.objects.filter(username = student.username, rso=rso.id).first()
+            student.rsos.remove(current_RsoNumber)
+            
         rso.save()
+        student.save()
         return True
     
     return False
@@ -176,7 +185,5 @@ def join_or_leave(user_id, rso, is_join=False, is_leave=False):
 def sign_admin(admin_email):
     current_admin = User.objects.filter(email = admin_email).first()
 
-    if current_admin is not None:
-        # current_admin = current_admin[0]
-        current_admin.is_admin = True
-        current_admin.save()
+    if len(current_admin) == 1:
+        current_admin.update(is_admin = True)
