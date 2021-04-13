@@ -33,6 +33,7 @@ def list_events(response):
     events = events.union(university_event) 
   
   user_university = University.objects.filter(name = response.user.university).first()
+
   rso_event = find_rso_event(response.user.rsos)
   events = events.union(rso_event) if len(rso_event) > 0 else events
   return render(response, 'Events/base.html', { 
@@ -42,37 +43,41 @@ def list_events(response):
 
 @login_required(login_url='/Users/login/')
 def add_event(response):
-  if response.method == "POST":
-    if response.POST.get("create-event-btn"):
-      event_form = EventForm(response.POST)
-      if response.user.is_admin == False:
-        messages.warning(response, "User is not admin")
+  if response.user.is_admin is False:
+    messages.error(response, "Only RSO admins can make events")
+    return HttpResponseRedirect('../../Events/')
+  else:
+    if response.method == "POST":
+      if response.POST.get("create-event-btn"):
+        event_form = EventForm(response.POST)
+        if response.user.is_admin == False:
+          messages.warning(response, "User is not admin")
+          return HttpResponseRedirect('../../Events/create')
+        if check_timestamp(event_form.data['start_time'], event_form.data['end_time']) == False:
+          messages.warning(response, "End time is earlier than start time")
+          return HttpResponseRedirect('../../Events/create')
+        is_private = response.POST.get("universityEvent")
+        is_RSO = None
+        user_university = None
+        user_rso = None 
+        if event_form.is_valid():
+            location = get_location(response)
+            if response.POST.get("universityEvent"):
+              user_university = response.user.university
+            if response.POST.get("rsoEvent"):
+              is_RSO = response.POST.get("rsoEvent")
+              user_rso = get_rso(response.user)
+            event_form.save(is_private, is_RSO, location, user_university, user_rso, response.user)
+            messages.success(response, "Event added")
+        return HttpResponseRedirect('../../Events/')
+      else:
         return HttpResponseRedirect('../../Events/create')
-      if check_timestamp(event_form.data['start_time'], event_form.data['end_time']) == False:
-        messages.warning(response, "End time is earlier than start time")
-        return HttpResponseRedirect('../../Events/create')
-      is_private = response.POST.get("universityEvent")
-      is_RSO = None
-      user_university = None
-      user_rso = None 
-      if event_form.is_valid():
-          location = get_location(response)
-          if response.POST.get("universityEvent"):
-            user_university = response.user.university
-          if response.POST.get("rsoEvent"):
-            is_RSO = response.POST.get("rsoEvent")
-            user_rso = get_rso(response.user)
-          event_form.save(is_private, is_RSO, response.user.is_admin, location, user_university, user_rso, response.user)
-          messages.success(response, "Event added")
-      return HttpResponseRedirect('../../Events/')
-    else:
-      return HttpResponseRedirect('../../Events/create')
-  event_form = EventForm(None)
-  location_form = LocationForm(None)
-  return render(response, "Events/create.html", { 
-    'form' : event_form,
-    'location_form': location_form
-  })
+    event_form = EventForm(None)
+    location_form = LocationForm(None)
+    return render(response, "Events/create.html", { 
+      'form' : event_form,
+      'location_form': location_form
+    })
 
 
 def edit_event(response):

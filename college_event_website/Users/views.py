@@ -32,6 +32,7 @@ def user_login(response):
       return HttpResponseRedirect('../../Events/')
   else:
     if response.method == "POST":
+      current_user = None
       if response.POST.get("UserLoginButton"):
         current_user = user_check_and_login(response, "user")
         if current_user is not None:
@@ -50,8 +51,8 @@ def user_login(response):
         else:
           messages.warning(response, "Password incorrect")
           return HttpResponseRedirect('../../Users/login')
-
       else:
+        messages.warning(response, "Password incorrect")
         return HttpResponseRedirect('../../Users/login')
 
     else:

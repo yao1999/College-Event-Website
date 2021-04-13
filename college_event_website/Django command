@@ -13,14 +13,15 @@ make a folder: Django-admin startapp [folder name]
 1. install django-crispy-forms
 2. install django-location-field
 3. install django-phone-field
-4. install database (see below)
+4. install cartography
+5. install database (see below)
 
 make sure you cd to the right folder (the one that has manage.py)
 
 make migration for model: python manage.py makemigrations
 magrate the changes to DB: python manage.py migrate
 
-run the server(compile the code): python manage.py reunserver
+run the server(compile the code): python manage.py runserver
 
 -------------------------------------------------------------------------
 

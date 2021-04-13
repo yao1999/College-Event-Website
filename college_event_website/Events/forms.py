@@ -19,7 +19,7 @@ class EventForm(forms.Form):
     email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'email@realemails.com*', 'id': 'event_email*', 'class': 'text-center text-white'}), label="", required=True)
 
     # need to add is_RSO , is_private, and so on
-    def save(self, is_private, is_RSO, make_by_admin, location, user_university, user_rso, current_user):
+    def save(self, is_private, is_RSO, location, user_university, user_rso, current_user):
         data = self.cleaned_data
         current_event = Event(name = data['name'], 
                               date = data['date'],
@@ -32,7 +32,7 @@ class EventForm(forms.Form):
                               is_public = True if (is_RSO == '' and is_private == '') else False,
                               is_RSO = True if is_RSO else False,
                               is_private = True if is_private else False,
-                              is_approved = True if make_by_admin else False,
+                              is_approved = True if is_RSO else False,
                               location = location,
                               university = user_university,
                               rso = user_rso,

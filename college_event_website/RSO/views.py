@@ -7,7 +7,6 @@ from .models import Rso
 from Universities.models import University
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-import Users
 
 @login_required(login_url='/Users/login/')
 def list_rsos(response):
@@ -52,9 +51,11 @@ def add_rso(response):
     else:
         RSOForm = RsoForm(None)
         all_university = University.objects.all().order_by('id')
+        user_university = University.objects.filter(name = response.user.university).first()
         return render(response, "RSO/create.html", {
             'form': RSOForm,
-            'all_university': all_university
+            'all_university': all_university,
+            'user_university': user_university
         })
 
 @login_required(login_url='/Users/login/')
@@ -72,6 +73,8 @@ def rso_info(response, rso_id):
                 messages.success(response, "User leaved the Rso")
         elif response.POST.get("delete-rso-btn"):
             rso.delete()
+            response.user.is_admin = False
+            response.user.save()
             messages.success(response, "Admin deleted the Rso")
         return HttpResponseRedirect('../../RSO/')
     if rso is None:
@@ -180,7 +183,7 @@ def join_or_leave(user_id, rso, is_join=False, is_leave=False):
     return False
 
 def sign_admin(admin_email):
-    current_admin = Users.objects.filter(email = admin_email).first()
+    current_admin = User.objects.filter(email = admin_email).first()
 
     if len(current_admin) == 1:
         current_admin.update(is_admin = True)
