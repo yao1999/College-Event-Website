@@ -154,12 +154,8 @@
                                         <div class="col-md-12 justify-content-center">
                                             <div class="row justify-items-center">
                                                 {% if user.university != null %}
-                                                    {% if user.is_admin %}
-                                                    <div class="col-md-6">
-                                                    {% else %}
                                                     <div class="col-md-12">
-                                                    {% endif %}
-                                                        <div class="d-flex w-100 justify-content-end">
+                                                        <div class="d-flex w-100 justify-content-center">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox" value = "isUniversityEvent" id="universityEvent" name="universityEvent">
                                                                 <label class="form-check-label text-white" for="universityEvent">University Event</label>
@@ -167,16 +163,24 @@
                                                         </div>
                                                     </div>
                                                 {% endif %}
-                                                {% if user.is_admin == True %}
-                                                    <div class="col-md-6">
-                                                        <div class="d-flex w-100 justify-content-start">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value = "isRsoEvent" id="rsoEvent" name="rsoEvent">
-                                                                <label class="form-check-label text-white" for="rsoEvent">RSO Event</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- rso uni -->
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-12 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-center">
+                                                <div class="form-group">
+                                                    <label for="pick-university" class="sr-only">University</label>
+                                                    <select id="pick-university" name="pick-university"class="form-control bg-transparent">
+                                                        <!-- users' university -->
+                                                        <option selected>No RSO</option>
+                                                        {% for rso in all_rso %}
+                                                            <option>{{ rso }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
