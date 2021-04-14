@@ -43,7 +43,7 @@ def add_rso(response):
         sign_admin(RSOForm.data['admin_email'])
 
         if (check_university(students, university_name) == True and 
-            check_admin(response, RSOForm.data['admin_email'], university_name) == True):
+            check_admin(RSOForm.data['admin_email'], university_name) == True):
             if RSOForm.is_valid():
                 RSOForm.save(students, university_name)
                 messages.success(response, "RSO added")
@@ -120,7 +120,7 @@ def check_university(students, university_name):
 
     return True
 
-def check_admin(response, admin_email, university_name):
+def check_admin(admin_email, university_name):
     admin = User.objects.filter(email=admin_email, is_admin=True).first()
 
     if admin is None:
