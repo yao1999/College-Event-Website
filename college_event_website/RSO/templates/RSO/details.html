@@ -141,11 +141,11 @@
                                             <div class="w-100 text-white">
                                                 <form method="POST" class="w-100">
                                                     {% csrf_token %}
-                                                    {% if isInRSO == False and user.is_admin == False %}
+                                                    {% if isInRSO == False and user.is_admin == False and same_university == True %}
                                                         <button type="submit" name="join-rso-btn" value="join_rso" class="btn btn-white float-left">Join RSO</button>
-                                                    {% elif isInRSO and user.is_admin == False %}
+                                                    {% elif isInRSO and user.is_admin == False and same_university == True %}
                                                         <button type="submit" name="leave-rso-btn" value="join_rso" class="btn btn-white float-left">Leave RSO</button>
-                                                    {% elif isInRSO and user.is_admin == True %}
+                                                    {% elif isInRSO and user.is_admin == True and same_university == True %}
                                                         <button type="submit" name="delete-rso-btn" value="join_rso" class="btn btn-white float-left">Delete RSO</button>
                                                     {% endif %}
                                                 </form>

@@ -1,6 +1,6 @@
 from django import forms
 from .models import Rso
-from Users.models import User
+from Users.models import User, RsoNumber
 from Universities.models import University
 
 
@@ -23,7 +23,13 @@ class RsoForm(forms.Form):
                                   total_students = total_students,
                                   status = True if total_students >= 5 else False)
                 current_rso.save()
+                current_RsoNumber = RsoNumber(username = current_admin.username, rso=current_rso.id)
+                current_RsoNumber.save()
+                current_rso.admin.rsos.add(current_RsoNumber)
                 for student in students:
+                    current_RsoNumber = RsoNumber(username = student.username, rso=current_rso.id)
+                    current_RsoNumber.save()
+                    student.rsos.add(current_RsoNumber)
                     current_rso.students.add(student)
                     current_rso.save()
                 current_rso.save()

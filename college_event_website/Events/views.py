@@ -8,6 +8,7 @@ from Users.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from RSO.models import Rso
+from datetime import datetime, date, time
 
 # Create your views here.
 
@@ -28,14 +29,14 @@ def list_events(response):
         else:
           events = Event.objects.filter(location = location_info)
   else:
-    events = Event.objects.filter(is_approved = True)
-    university_event = Event.objects.filter(university = response.user.university)
-    events = events.union(university_event) 
+    events = Event.objects.filter(is_approved = True, is_public = True)
+    university_event = Event.objects.filter(university = response.user.university, is_private = True)
+    events.union(university_event)
+    rso_event = find_rso_event(response.user.rsos)
+    events |= rso_event
   
   user_university = University.objects.filter(name = response.user.university).first()
 
-  rso_event = find_rso_event(response.user.rsos)
-  events = events.union(rso_event) if len(rso_event) > 0 else events
   return render(response, 'Events/base.html', { 
     'events' : events,
     'user_university': user_university,
@@ -53,16 +54,21 @@ def add_event(response):
         if response.user.is_admin == False:
           messages.warning(response, "User is not admin")
           return HttpResponseRedirect('../../Events/create')
-        if check_timestamp(event_form.data['start_time'], event_form.data['end_time']) == False:
+        if check_timestamp(event_form.data['date_year'], 
+                           event_form.data['date_month'], 
+                           event_form.data['date_day'], 
+                           event_form.data['start_time'], 
+                           event_form.data['end_time']) == False:
           messages.warning(response, "End time is earlier than start time")
           return HttpResponseRedirect('../../Events/create')
-        is_private = response.POST.get("universityEvent")
+        is_private = None
         is_RSO = None
         user_university = None
         user_rso = None 
         if event_form.is_valid():
             location = get_location(response)
             if response.POST.get("universityEvent"):
+              is_private = response.POST.get("universityEvent")
               user_university = response.user.university
             if response.POST.get("rsoEvent"):
               is_RSO = response.POST.get("rsoEvent")
@@ -223,30 +229,41 @@ def search_by_location(response):
 
 
 def get_rso(user):
-    all_rso = Rso.objects.all()
+    all_rso = user.rsos.all()
 
-    for rso in all_rso:
-      if rso.students.filter(id=user.id).exists():
-        return rso
+    if all_rso.count() == 1:
+      return all_rso[0]
     
     return None
   
-def check_timestamp(start_time, end_time):
-  print(start_time)
-  print(end_time)
+def check_timestamp(year, month, day, start_time, end_time):
+  today = datetime.now()
 
-  if start_time < end_time:
+  start_time_type_time = datetime.strptime(start_time,'%H:%M').time()
+  end_time_type_time = datetime.strptime(end_time,'%H:%M').time()
+
+  event_date = datetime.strptime(year + "-" + month + "-" + day + " " + start_time,'%Y-%m-%d %H:%M')
+
+
+  if start_time_type_time > end_time_type_time:
+    return False
+
+  if event_date < today:
     return False
   
   return True
 
 def find_rso_event(user_rsos):
-  rso_event = []
+  rso_event = Event.objects.none()
 
-  if user_rsos.count() == 0:
+  all_rso = user_rsos.all()
+
+  if len(all_rso) == 0:
     return rso_event
   
-  for current_rso in user_rsos:
-    rso_event.append(Event.objects.filter(is_RSO = True, rso=current_rso.rso))
+  
+  for current_rso in all_rso:
+    new_rso_event = Event.objects.filter(is_RSO = True, rso=current_rso.rso)
+    rso_event |= new_rso_event
 
   return rso_event
