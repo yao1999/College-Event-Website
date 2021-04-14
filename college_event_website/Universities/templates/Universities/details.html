@@ -147,9 +147,9 @@
                                             <div class="w-100 text-white">
                                                 <form method="POST" class="w-100">
                                                     {% csrf_token %}
-                                                    {% if isInUniveristy == False and user.is_super_admin == False%}
+                                                    {% if isInUniveristy == False and user.is_super_admin == False and user.is_admin == False %}
                                                         <button type="submit" name="join-university-btn" value="join_university" class="btn btn-white float-left">Join University</button>
-                                                    {% elif isInUniveristy and user.is_super_admin == False %}
+                                                    {% elif isInUniveristy and user.is_super_admin == False and user.is_admin == False %}
                                                         <button type="submit" name="leave-university-btn" value="join_university" class="btn btn-white float-left">Leave University</button>
                                                     {% elif user.is_super_admin == True %}
                                                         <button type="submit" name="delete-university-btn" value="join_rso" class="btn btn-white float-left">Delete University</button>

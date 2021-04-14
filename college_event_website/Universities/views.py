@@ -51,7 +51,8 @@ def add_university(response):
 @login_required(login_url='/Users/login/')
 def university_info(response, university_id):
   current_university = University.objects.filter(id = university_id).first()
-  isInUniveristy = True if (current_university == response.user.university) else False
+  isInUniveristy = current_university == response.user.university
+  isAdmin = ()
   if current_university is None:
     return HttpResponseRedirect('../../Universities/')
   else:

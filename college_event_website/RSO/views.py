@@ -62,6 +62,7 @@ def add_rso(response):
 def rso_info(response, rso_id):
     rso = Rso.objects.filter(id = rso_id).first()
     isInRSO = rso.students.filter(id=response.user.id).exists()
+    isSameUniversity = (rso.university == response.user.university) 
     if isInRSO is False:
         isInRSO = True if rso.admin.id == response.user.id else False
     if response.method == 'POST':
@@ -83,6 +84,7 @@ def rso_info(response, rso_id):
     return render(response, 'RSO/details.html',{
         'rso': rso,
         'isInRSO': isInRSO,
+        'same_university': isSameUniversity
     })
 
 
@@ -168,12 +170,14 @@ def join_or_leave(user_id, rso, is_join=False, is_leave=False):
                 username = student.username,
                 rso = rso.id
             )
+            current_RsoNumber.save()
             student.rsos.add(current_RsoNumber)
         if is_leave is True:
             rso.students.remove(student)
             rso.total_students = rso.students.count()
             rso.status = False if (rso.total_students < 5) else True
             current_RsoNumber = RsoNumber.objects.filter(username = student.username, rso=rso.id).first()
+            current_RsoNumber.save()
             student.rsos.remove(current_RsoNumber)
             
         rso.save()
@@ -185,5 +189,6 @@ def join_or_leave(user_id, rso, is_join=False, is_leave=False):
 def sign_admin(admin_email):
     current_admin = User.objects.filter(email = admin_email).first()
 
-    if len(current_admin) == 1:
-        current_admin.update(is_admin = True)
+    if current_admin is not None:
+        current_admin.is_admin = True
+        current_admin.save()
