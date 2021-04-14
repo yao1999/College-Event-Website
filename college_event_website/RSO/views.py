@@ -42,7 +42,7 @@ def add_rso(response):
 
         sign_admin(RSOForm.data['admin_email'])
 
-        if (check_university(response, students, university_name) == True and 
+        if (check_university(students, university_name) == True and 
             check_admin(response, RSOForm.data['admin_email'], university_name) == True):
             if RSOForm.is_valid():
                 RSOForm.save(students, university_name)
@@ -110,10 +110,12 @@ def get_emails(response):
             student_emails.append(response.POST.get(html_tag))
     return student_emails
 
-def check_university(response, students, university_name):
+def check_university(students, university_name):
 
     for student in students:
         if student.university.name != university_name:
+            return False
+        if student.is_admin == True:
             return False
 
     return True
