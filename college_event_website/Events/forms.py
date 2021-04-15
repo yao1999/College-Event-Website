@@ -1,5 +1,6 @@
 from django import forms
 from .models import Event, Comment, Locations
+from RSO.models import Rso
 RATINGS = (
     ('1', '1 Star'),
     ('2', '2 Stars'),
@@ -19,8 +20,9 @@ class EventForm(forms.Form):
     email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'email@realemails.com*', 'id': 'event_email*', 'class': 'text-center text-white'}), label="", required=True)
 
     # need to add is_RSO , is_private, and so on
-    def save(self, is_private, is_RSO, make_by_admin, location, user_university, user_rso, current_user):
+    def save(self, is_private, is_RSO, location, user_university, user_rso, current_user):
         data = self.cleaned_data
+        current_rso = Rso.objects.filter(id=user_rso.id).first() if user_rso is not None else None
         current_event = Event(name = data['name'], 
                               date = data['date'],
                               start_time = data['start_time'],
@@ -29,13 +31,13 @@ class EventForm(forms.Form):
                               description = data['description'],
                               phone = data['phone'],
                               email = data['email'],
-                              is_public = True if (is_RSO == '' and is_private == '') else False,
+                              is_public = True if (is_RSO == False and is_private == None) else False,
                               is_RSO = True if is_RSO else False,
                               is_private = True if is_private else False,
-                              is_approved = True if make_by_admin else False,
+                              is_approved = False if is_RSO == False else True,
                               location = location,
                               university = user_university,
-                              rso = user_rso,
+                              rso = current_rso if current_rso is not None else None,
                               admin = current_user)
         current_event.save()
 

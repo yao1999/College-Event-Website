@@ -29,19 +29,27 @@
         <!-- main links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                {% if user.is_admin == True or user.is_super_admin == True %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Events
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/Events/">View Events</a>
+                        {% if user.is_admin == True %}
                         <a class="dropdown-item" href="/Events/create">Create Event</a>
+                        {% endif %}
                         {% if user.is_super_admin == True %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Events/approve">Approve Events</a>
                         {% endif %}
                     </div>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/Events/">View Events</a>
+                </li>
+                {% endif %}
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -139,9 +147,9 @@
                                             <div class="w-100 text-white">
                                                 <form method="POST" class="w-100">
                                                     {% csrf_token %}
-                                                    {% if isInUniveristy == False and user.is_super_admin == False%}
+                                                    {% if isInUniveristy == False and user.is_super_admin == False and user.is_admin == False %}
                                                         <button type="submit" name="join-university-btn" value="join_university" class="btn btn-white float-left">Join University</button>
-                                                    {% elif isInUniveristy and user.is_super_admin == False %}
+                                                    {% elif isInUniveristy and user.is_super_admin == False and user.is_admin == False %}
                                                         <button type="submit" name="leave-university-btn" value="join_university" class="btn btn-white float-left">Leave University</button>
                                                     {% elif user.is_super_admin == True %}
                                                         <button type="submit" name="delete-university-btn" value="join_rso" class="btn btn-white float-left">Delete University</button>

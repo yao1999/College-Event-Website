@@ -28,19 +28,28 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <ul class="navbar-nav mr-auto">
+                    {% if user.is_admin == True or user.is_super_admin == True %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Events
                         </a>
+                        
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item " href="/Events/">View Events</a>
+                            {% if user.is_admin == True %}
                             <a class="dropdown-item" href="/Events/create">Create Event</a>
+                            {% endif %}
                             {% if user.is_super_admin == True %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item active" href="/Events/approve">Approve Events<span class="sr-only">(current)</span></a>
                             {% endif %}
                         </div>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Events/">View Events</a>
+                    </li>
+                    {% endif %}
     
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -92,7 +101,9 @@
                                 <!-- event title -->
                                 <div class="row w-100 bg-gray2 rounded-top">
                                     <div class="col-md-12 w-100">
-                                        <h2 class="font-weight-bold text-md text-orng">{{ event.name }}</a></h2>
+                                        <h2 class="font-weight-bold text-md text-orng">
+                                            {{ event.name|truncatechars:35 }}
+                                        </h2>
                                     </div>                             
                                 </div>
                                 <!-- event details and links -->
@@ -103,12 +114,23 @@
                                             <div class="row mb-2">                  
                                                 <div class="col-md-12">
                                                     <!-- cetegory -->  
-                                                    <div class="row ml-2 mr-2 mb-5">
-                                                        <div class="d-flex w-100 justify-content-left">
-                                                            <div class="text-white font-weight-bold text-left">
-                                                                {{ event.category }}
+                                                    <div class="row m-2">
+                                                        <div class="col-md-6 justify-content-start">
+                                                            <div class="d-flex w-100 justify-content-left">
+                                                                <div class="text-white font-weight-bold text-left">
+                                                                    Category: {{ event.category|truncatechars:15 }}
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        {% if event.university != null %}
+                                                            <div class="col-md-6 justify-content-end">
+                                                                <div class="d-flex w-100 justify-content-end">
+                                                                    <div class="text-white font-weight-bold text-right">
+                                                                        {{ event.university|truncatechars:25 }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
                                                     </div>
                                                     <!-- date -->
                                                     <div class="row m-2">
@@ -119,31 +141,19 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <!-- location -->
-                                                    <div class="row mb-3 ml-3 mr-3">                                
-                                                        <div class="col-md-6">
-                                                            <div class="d-flex w-100 justify-content-start">
-                                                                <div class="text-white font-weight-bold text-start">
-                                                                    {{ event.location }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        {% if event.university != null %}
                                                         <div class="col-md-6">
                                                             <div class="d-flex w-100 justify-content-end">
                                                                 <div class="text-white font-weight-bold text-right">
-                                                                    {{event.university}}
+                                                                    {{ event.location|truncatechars:30 }}
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    {% endif %}
                                                     </div>
                                                     <!-- description -->
-                                                    <div class="row ml-2 mr-2 mb-5">
+                                                    <div class="row ml-2 mr-2 mb-3">
                                                         <div class="d-flex w-100 justify-content-left">
                                                             <div class="text-white text-left ml-3 overflow-hidden">
-                                                                {{ event.description }}
+                                                                {{ event.description|truncatechars:250 }}
                                                             </div>
                                                         </div>
                                                     </div>

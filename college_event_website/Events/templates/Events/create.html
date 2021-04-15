@@ -30,19 +30,28 @@
         <!-- main links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                {% if user.is_admin == True or user.is_super_admin == True %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Events
                     </a>
+                    
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/Events/">View Events</a>
+                        <a class="dropdown-item " href="/Events/">View Events</a>
+                        {% if user.is_admin == True %}
                         <a class="dropdown-item active" href="/Events/create">Create Event<span class="sr-only">(current)</span></a>
+                        {% endif %}
                         {% if user.is_super_admin == True %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Events/approve">Approve Events</a>
                         {% endif %}
                     </div>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/Events/">View Events</a>
+                </li>
+                {% endif %}
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,6 +106,16 @@
                                 <!-- create event form -->
                                 <form method="POST" class="w-100 m-2">
                                     {% csrf_token %}
+                                    <!-- error notifers -->
+                                    {% if messages %}
+                                        <div class="card card0 border-0 gradient-error text-white pt-2 d-flex font-weight-bold">
+                                            <div class="row messages">
+                                                {% for message in messages %}
+                                                    <div class="col-md-12">{{ message }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                     <!-- event details section text -->
                                     <div class="row mb-3">                                
                                         <div class="col-md-12">
@@ -145,12 +164,8 @@
                                         <div class="col-md-12 justify-content-center">
                                             <div class="row justify-items-center">
                                                 {% if user.university != null %}
-                                                    {% if user.is_admin %}
-                                                    <div class="col-md-6">
-                                                    {% else %}
                                                     <div class="col-md-12">
-                                                    {% endif %}
-                                                        <div class="d-flex w-100 justify-content-end">
+                                                        <div class="d-flex w-100 justify-content-center">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox" value = "isUniversityEvent" id="universityEvent" name="universityEvent">
                                                                 <label class="form-check-label text-white" for="universityEvent">University Event</label>
@@ -158,16 +173,24 @@
                                                         </div>
                                                     </div>
                                                 {% endif %}
-                                                {% if user.is_admin == True %}
-                                                    <div class="col-md-6">
-                                                        <div class="d-flex w-100 justify-content-start">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value = "isRsoEvent" id="rsoEvent" name="rsoEvent">
-                                                                <label class="form-check-label text-white" for="rsoEvent">RSO Event</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- rso -->
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-12 justify-content-center">
+                                            <div class="d-flex w-100 justify-content-center">
+                                                <div class="form-group">
+                                                    <label for="pick-rso" class="sr-only">RSO</label>
+                                                    <select id="pick-rso" name="pick-rso"class="form-control bg-transparent">
+                                                        <!-- users' university -->
+                                                        <option selected>No RSO</option>
+                                                        {% for rso in all_rso %}
+                                                            <option>{{ rso }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

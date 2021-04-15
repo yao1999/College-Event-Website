@@ -4,7 +4,6 @@ from .forms import UniversityForm, LocationForm
 from django.http import HttpResponseRedirect, HttpResponse
 from Users.models import User
 from .models import University, Photos, Locations
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
 from django.core.files.storage import FileSystemStorage
@@ -25,7 +24,6 @@ def list_universities(response):
 @login_required(login_url='/Users/login/')
 def add_university(response):
   if response.user.is_super_admin is False:
-    messages.error(response, "Not super admin")
     return HttpResponseRedirect('../../Universities/')
   else:
     if response.method == "POST":
@@ -36,7 +34,6 @@ def add_university(response):
             university_photos = get_photos(response, university_form.data['name'])
             super_admin = response.user.id
             university_form.save(location, university_photos, super_admin)
-            messages.success(response, "University added")
         return HttpResponseRedirect('../../Universities/')
       else:
         return HttpResponseRedirect('../../Universities/create')
@@ -51,14 +48,19 @@ def add_university(response):
 @login_required(login_url='/Users/login/')
 def university_info(response, university_id):
   current_university = University.objects.filter(id = university_id).first()
-  isInUniveristy = User.objects.filter(university=current_university).exists()
+  isInUniveristy = current_university == response.user.university
+  isAdmin = ()
   if current_university is None:
     return HttpResponseRedirect('../../Universities/')
   else:
     if response.method == "POST":
       if response.POST.get("join-university-btn"):
-        current_user = User.objects.filter(id = response.user.id).update(university = current_university)
-        return HttpResponseRedirect('../../Universities/')
+        join_or_leave(response.user.id, current_university, is_join=True)
+      elif response.POST.get("leave-university-btn"):
+        join_or_leave(response.user.id, current_university, is_leave=True)
+      elif response.POST.get("delete-university-btn"):
+          current_university.delete()
+      return HttpResponseRedirect('../../Universities/')
     else:
       all_picture = Photos.objects.filter(university_name = current_university.name)
       return render(response, "Universities/details.html", {
@@ -72,14 +74,6 @@ def university_info(response, university_id):
         'University_Name_For_Photo': current_university.name.replace(' ', ''),
         'all_picture': all_picture
       })
-  
-
-
-def delete_university():
-    pass
-
-def edit_university():
-    pass
 
 
 def get_photos(request, university_name):
@@ -132,8 +126,7 @@ def search_university_by_name(response):
   if len(universities) > 0:
     return universities
   
-  universities = University.objects.all() 
-  return universities
+  return None
 
 def search_university_by_location(response):
   location = response.POST.get("search-form-location-name")
@@ -153,3 +146,14 @@ def search_university_by_location(response):
     return universities
 
   return []
+
+def join_or_leave(user_id, university, is_join=False, is_leave=False):
+    student = User.objects.filter(id = user_id)
+    if len(student) == 1:
+        if is_join is True:
+            student.update(university = university)
+        if is_leave is True:
+            student.update(university = None)
+        return True
+    
+    return False

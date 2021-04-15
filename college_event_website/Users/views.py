@@ -11,7 +11,6 @@ from cryptography.fernet import Fernet
 
 def user_register(response):
   if response.user.is_authenticated is True:
-    messages.error(response, "User Authorized Already")
     return HttpResponseRedirect('../../Events/')
   else:
     if response.method == "POST":
@@ -28,20 +27,24 @@ def user_register(response):
 
 def user_login(response):
   if response.user.is_authenticated is True:
-      messages.error(response, "User Authorized Already")
       return HttpResponseRedirect('../../Events/')
   else:
     if response.method == "POST":
       if response.POST.get("UserLoginButton"):
         current_user = user_check_and_login(response, "user")
+        if current_user is not None:
+          login(response, current_user)
+          return HttpResponseRedirect('../../Users/profile')
+        else:
+          messages.warning(response, "Username or Password incorrect")
+          return HttpResponseRedirect('../../Users/login')
       elif response.POST.get("SuperUserLoginButton"):
         current_user = user_check_and_login(response, "faculty")
         if current_user is not None:
-            login(response, current_user)
-            messages.success(response, "Welcome!!!")
-            return HttpResponseRedirect('../../Users/profile')
+          login(response, current_user)
+          return HttpResponseRedirect('../../Users/profile')
         else:
-          messages.warning(response, "Password incorrect")
+          messages.warning(response, "Username or Password incorrect")
           return HttpResponseRedirect('../../Users/login')
 
       else:
@@ -75,7 +78,7 @@ def user_check_and_register(response, user_type):
     email = email,
     username = username,
     password = password,
-    is_admin = True if user_type == "admin" else False,
+    is_admin = False,
     is_super_admin = True if user_type == "faculty" else False
   )
   current_user.save()
@@ -99,40 +102,25 @@ def user_check_and_login(response, user_type):
 
 
 def auto_login_for_coder(response):
-  username = "testForCoder"
-  is_admin = True
-  is_super_admin = True
-  password = "1234asd"
-  password = encrypt_password(password)
-  try:
-    current_user = User.objects.get(username = username)
-    login(response, current_user)
-  except Exception: 
-    current_user = User(
-      first_name = username,
-      last_name = "Yao",
-      email = "testForCoder@gmail.com",
-      username = username,
-      password = password,
-      is_admin = is_admin,
-      is_super_admin = is_super_admin
-    )
-    current_user.save()
-    login(response, current_user)
+  current_user = User.objects.get(username = "Zefeng")
+  login(response, current_user)
   return HttpResponseRedirect("../../Users/profile")
 
 
 def get_rso(user):
-    all_rso = Rso.objects.all()
+  total_rso = Rso.objects.none()
 
-    rsos = []
+  all_rso = user.rsos.all()
 
-    for rso in all_rso:
-      if rso.students.filter(id=user.id).exists():
-        rsos.append(rso)
-        
-    
-    return rsos
+  if len(all_rso) == 0:
+    return total_rso
+  
+  
+  for current_rso in all_rso:
+    rso_in_db = Rso.objects.filter(id=current_rso.rso)
+    total_rso |= rso_in_db
+
+  return total_rso
 
 def encrypt_password(password):
   key = b'HkLYcD5m5zH9VYNEQt9GpWzxq87SHHbhpxvFR9LgF9Q=' # this is bytes
@@ -146,3 +134,57 @@ def decrypt_password(password_in_db):
   fernet = Fernet(key)
   dec_password = fernet.decrypt(str.encode(password_in_db)).decode()
   return dec_password
+
+# ------------------------------------------------------------------------------------------
+# real data
+# 10 uses, 5 RSOs, 20 events, 10 comments
+
+def insert_users(name, is_super_admin):
+  first_name = name.split(" ")[0]
+  last_name = name.split(" ")[1]
+  username = name.split(" ")[0]
+  password = "123asd"
+  password = encrypt_password(password)
+  email = first_name + "." + last_name + "@gmail.com"
+
+  current_user = User(
+    first_name = first_name,
+    last_name = last_name,
+    email = email,
+    username = username,
+    password = password,
+    is_admin = False,
+    is_super_admin = is_super_admin
+  )
+  current_user.save()
+
+def ten_users(response):
+  names = ["Oliver Ward",
+        "Ryan Kelly",
+        "Luke Patel",
+        "Hayden Cole",
+        "Frederick Booth",
+        "Mason Hendrix",
+        "Crew Bell",
+        "Zander Gilbert",
+        "Camdyn Daniel",
+        "Maurice Haynes",]
+  is_admin = False
+  is_super_admin = False
+
+  for name in names:
+      insert_users(name, is_super_admin)
+  
+  return HttpResponseRedirect("../../")
+
+def three_super_admins(response):
+  names = ["Zefeng Yao",
+          "Alexandra French",
+          "Jialin Zheng",]
+  is_admin = False
+  is_super_admin = True
+
+  for name in names:
+      insert_users(name, is_super_admin)
+
+  return HttpResponseRedirect("../../")

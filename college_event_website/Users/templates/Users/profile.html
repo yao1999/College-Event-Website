@@ -27,19 +27,27 @@
         <!-- main links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                {% if user.is_admin == True or user.is_super_admin == True %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Events
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/Events/">View Events</a>
+                        {% if user.is_admin == True %}
                         <a class="dropdown-item" href="/Events/create">Create Event</a>
+                        {% endif %}
                         {% if user.is_super_admin == True %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Events/approve">Approve Events</a>
                         {% endif %}
                     </div>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/Events/">View Events</a>
+                </li>
+                {% endif %}
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -138,6 +146,16 @@
                 </div>
                 <!-- section separator -->
                 <hr />
+
+                {% if messages %}
+                <div class="card card0 border-0 gradient-error text-white pt-2 d-flex font-weight-bold">
+                    <div class="row messages">
+                        {% for message in messages %}
+                            <div class="col-md-12">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
 
                 <!-- university section -->
                 {% if user.university != null %}
@@ -239,8 +257,7 @@
                                                         <div class="col-md-12 justify-content-start">
                                                             <div class="d-flex w-100 justify-content-start">
                                                                 <div class="text-white font-weight-bold text-left">
-                                                                    <!--  rso.university -->
-                                                                    {{ rso.admin }}
+                                                                    {{ rso.university }}
                                                                 </div>
                                                             </div>
                                                         </div>

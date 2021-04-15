@@ -29,27 +29,35 @@
         <!-- main links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                {% if user.is_admin == True or user.is_super_admin == True %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Events
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/Events/">View Events</a>
+                        {% if user.is_admin == True %}
                         <a class="dropdown-item" href="/Events/create">Create Event</a>
+                        {% endif %}
                         {% if user.is_super_admin == True %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Events/approve">Approve Events</a>
                         {% endif %}
                     </div>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/Events/">View Events</a>
+                </li>
+                {% endif %}
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         RSOs
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item active" href="/RSO/">View RSOs</a>
-                        <a class="dropdown-item active" href="/RSO/inactiveRsos">View Inactive RSOs</a>                        
+                        <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                        <a class="dropdown-item" href="/RSO/inactiveRsos">View Inactive RSOs</a>                        
                         <a class="dropdown-item" href="/RSO/create">Create RSO</a>
                     </div>
                 </li>
@@ -107,10 +115,17 @@
                                 </div>
                                 <!-- number of members -->
                                 <div class="row mb-3 ml-3 mr-3">                                
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-start">
                                                 {{ rso.total_students }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex w-100 justify-content-end">
+                                            <div class="text-white font-weight-bold text-end">
+                                                Status: {% if rso.status %}Active{% else %}Inactive{% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -133,11 +148,11 @@
                                             <div class="w-100 text-white">
                                                 <form method="POST" class="w-100">
                                                     {% csrf_token %}
-                                                    {% if isInRSO == False and user.is_admin == False %}
+                                                    {% if isInRSO == False and user.id != rso.admin.id and same_university == True %}
                                                         <button type="submit" name="join-rso-btn" value="join_rso" class="btn btn-white float-left">Join RSO</button>
-                                                    {% elif isInRSO and user.is_admin == False %}
+                                                    {% elif isInRSO and user.id != rso.admin.id and same_university == True %}
                                                         <button type="submit" name="leave-rso-btn" value="join_rso" class="btn btn-white float-left">Leave RSO</button>
-                                                    {% elif isInRSO and user.is_admin == True %}
+                                                    {% elif isInRSO and user.id == rso.admin.id and same_university == True %}
                                                         <button type="submit" name="delete-rso-btn" value="join_rso" class="btn btn-white float-left">Delete RSO</button>
                                                     {% endif %}
                                                 </form>

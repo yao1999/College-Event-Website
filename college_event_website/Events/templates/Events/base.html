@@ -28,19 +28,28 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <ul class="navbar-nav mr-auto">
+
+                    {% if user.is_admin == True or user.is_super_admin == True %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Events
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item active" href="/Events/">View Events<span class="sr-only">(current)</span></a>
+                            {% if user.is_admin == True %}
                             <a class="dropdown-item" href="/Events/create">Create Event</a>
+                            {% endif %}
                             {% if user.is_super_admin == True %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/Events/approve">Approve Events</a>
                             {% endif %}
                         </div>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/Events/">View Events<span class="sr-only">(current)</span></a>
+                    </li>
+                    {% endif %}
     
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -123,21 +132,10 @@
                                     <label for="search-university" class="sr-only">University</label>
                                     <select id="search-university" name="search-university"class="form-control bg-transparent">
                                         <!-- users' university -->
+                                        <option>No Home University</option>
                                         {% if user.university != null %}
                                             <option selected>{{ user_university }}</option>
-                                        {% else %}
-                                            <option selected>No Home University</option>
                                         {% endif %}
-                                        <option>ALL university</option>
-                                        {% for university in all_university %}
-                                            {% if user.university != null %}
-                                                {% if university != user.university %}
-                                                    <option>{{ university }}</option>
-                                                {% endif %}
-                                            {% elif user.university == null %}
-                                                <option>{{ university }}</option>
-                                            {% endif %}
-                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -154,6 +152,15 @@
                         </div>
                     </div>
                 </form>
+                {% if messages %}
+                <div class="card card0 border-0 gradient-error text-white pt-2 d-flex font-weight-bold">
+                    <div class="row messages">
+                        {% for message in messages %}
+                            <div class="col-md-12">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
                 <!-- list of events -->
                 <div class="row mt-5">
                 {% for event in events  %}
@@ -163,7 +170,13 @@
                             <!-- event title -->
                             <div class="row w-100 bg-gray2 rounded-top">
                                 <div class="col-md-12 w-100">
-                                    <h2 class="font-weight-bold text-md text-orng">{{ event.name }}</a></h2>
+                                    <h2 class="font-weight-bold text-md text-orng">
+                                        {% if event.name|length < 35 %}
+                                        {{ event.name }}
+                                        {% else %}
+                                        {{ event.name|truncatechars:35 }}
+                                        {% endif %}
+                                    </h2>
                                 </div>                             
                             </div>
                             <!-- event details and links -->
@@ -176,7 +189,7 @@
                                                     <div class="col-md-6 justify-content-start">
                                                         <div class="d-flex w-100 justify-content-left">
                                                             <div class="text-white font-weight-bold text-left">
-                                                                Category: {{ event.category }}
+                                                                Category: {{ event.category|truncatechars:15 }}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -184,7 +197,7 @@
                                                         <div class="col-md-6 justify-content-end">
                                                             <div class="d-flex w-100 justify-content-end">
                                                                 <div class="text-white font-weight-bold text-right">
-                                                                    {{event.university}}
+                                                                    {{ event.university|truncatechars:25 }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -201,7 +214,7 @@
                                                     <div class="col-md-6 justify-content-end">
                                                         <div class="d-flex w-100 justify-content-end">
                                                             <div class="text-white font-weight-bold text-right">
-                                                                {{ event.location }}
+                                                                {{ event.location|truncatechars:30 }}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -209,7 +222,7 @@
                                                 <div class="row ml-2 mr-2 mb-3">
                                                     <div class="d-flex w-100 justify-content-left">
                                                         <div class="text-white text-left ml-3 overflow-hidden">
-                                                            {{ event.description }}
+                                                            {{ event.description|truncatechars:250 }}
                                                         </div>
                                                     </div>
                                                 </div>

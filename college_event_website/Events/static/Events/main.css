@@ -149,6 +149,10 @@ hr {
     background-color: #242121;
 }
 
+.gradient-error {
+    background: linear-gradient(to top right, #ff0d00 0%, #ff000d 100%);
+}
+
 .modal-body
 {
     background: #242121;

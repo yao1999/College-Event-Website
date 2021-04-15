@@ -30,19 +30,27 @@
         <!-- main links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                {% if user.is_admin == True or user.is_super_admin == True %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Events
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/Events/">View Events</a>
+                        {% if user.is_admin == True %}
                         <a class="dropdown-item" href="/Events/create">Create Event</a>
+                        {% endif %}
                         {% if user.is_super_admin == True %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Events/approve">Approve Events</a>
                         {% endif %}
                     </div>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/Events/">View Events</a>
+                </li>
+                {% endif %}
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarRSODropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -246,18 +254,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 justify-content-center">
-                                            <div class="d-flex w-100 justify-content-center">
-                                                <div class="w-75">
-                                                    <label class="sr-only" for="rso_email_5">Member email</label>
-                                                    <div id="div_id_admin_email" class="form-group">
-                                                        <div class="">
-                                                            <input type="text" placeholder="Member Email*" class="text-center text-white textinput textInput form-control" id="rso_email_5" name="rso_email_5" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
 
                                     <!-- all other emails -->
@@ -271,7 +267,7 @@
                                                     <!-- add email inputs -->
                                                     <div id="new_email" class="ml-5 w-100 row justify-items-center"></div>
                                                     <!-- number of emails -->
-                                                    <input value="5" id="number_emails" name="number_emails" type="hidden">
+                                                    <input value="4" id="number_emails" name="number_emails" type="hidden">
                                                 </div>
                                             </div>
                                         </div>

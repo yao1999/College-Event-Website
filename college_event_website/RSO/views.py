@@ -2,12 +2,10 @@ from django.shortcuts import render, redirect
 from crispy_forms.helper import FormHelper
 from .forms import RsoForm
 from django.http import HttpResponseRedirect, HttpResponse
-from Users.models import User
+from Users.models import User, RsoNumber
 from .models import Rso
 from Universities.models import University
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-import Users
 
 @login_required(login_url='/Users/login/')
 def list_rsos(response):
@@ -21,11 +19,9 @@ def list_rsos(response):
         if len(rsos) == 0:
             rsos = Rso.objects.all().order_by('id')
         
-    all_university = University.objects.all()
     user_university = University.objects.filter(name = response.user.university).first()
     return render(response, 'RSO/base.html', {
       'rsos': rsos,
-      'all_university': all_university,
       'user_university': user_university
     })
 
@@ -43,56 +39,49 @@ def add_rso(response):
         RSOForm = RsoForm(response.POST)
         university_name = response.POST.get("pick-university")
 
-        sign_admin(RSOForm.data['admin_email'])
-
-        if (check_university(response, students, university_name) == True and 
-            check_admin(response, RSOForm.data['admin_email'], university_name) == True):
+        if (check_university(students, university_name) == True and 
+            check_admin(RSOForm.data['admin_email'], university_name) == True):
             if RSOForm.is_valid():
+                sign_admin(RSOForm.data['admin_email'])
                 RSOForm.save(students, university_name)
-                messages.success(response, "RSO added")
         return HttpResponseRedirect('../../RSO/')
     else:
         RSOForm = RsoForm(None)
         all_university = University.objects.all().order_by('id')
+        user_university = University.objects.filter(name = response.user.university).first()
         return render(response, "RSO/create.html", {
             'form': RSOForm,
-            'all_university': all_university
+            'all_university': all_university,
+            'user_university': user_university
         })
 
 @login_required(login_url='/Users/login/')
 def rso_info(response, rso_id):
     rso = Rso.objects.filter(id = rso_id).first()
     isInRSO = rso.students.filter(id=response.user.id).exists()
+    isSameUniversity = (rso.university == response.user.university) 
     if isInRSO is False:
         isInRSO = True if rso.admin.id == response.user.id else False
     if response.method == 'POST':
         if response.POST.get("join-rso-btn"):
-            if join_or_leave(response.user.id, rso, is_join=True) is True:
-                messages.success(response, "User joined the Rso")
-        if response.POST.get("leave-rso-btn"):
-            if join_or_leave(response.user.id, rso, is_leave=True) is True:
-                messages.success(response, "User leaved the Rso")
-        if response.POST.get("delete-rso-btn"):
+            join_or_leave(response.user.id, rso, is_join=True)
+        elif response.POST.get("leave-rso-btn"):
+            join_or_leave(response.user.id, rso, is_leave=True)
+        elif response.POST.get("delete-rso-btn"):
             rso.delete()
-            messages.success(response, "Admin deleted the Rso")
+            response.user.is_admin = False
+            response.user.save()
         return HttpResponseRedirect('../../RSO/')
     if rso is None:
-        messages.warning(response, "RSO does not exist")
         return HttpResponseRedirect('../../RSO/')
     return render(response, 'RSO/details.html',{
         'rso': rso,
         'isInRSO': isInRSO,
+        'same_university': isSameUniversity
     })
 
-
-def delete_rso():
-    pass
-
-def edit_rso():
-    pass
-
 def check_user(email):
-    current_user = User.objects.filter(email=email, is_admin=False).first()
+    current_user = User.objects.filter(email=email).first()
     if current_user is not None:
         return True, current_user
     
@@ -107,7 +96,7 @@ def get_emails(response):
             student_emails.append(response.POST.get(html_tag))
     return student_emails
 
-def check_university(response, students, university_name):
+def check_university(students, university_name):
 
     for student in students:
         if student.university.name != university_name:
@@ -115,8 +104,8 @@ def check_university(response, students, university_name):
 
     return True
 
-def check_admin(response, admin_email, university_name):
-    admin = User.objects.filter(email=admin_email, is_admin=True).first()
+def check_admin(admin_email, university_name):
+    admin = User.objects.filter(email=admin_email).first()
 
     if admin is None:
         return False
@@ -161,21 +150,29 @@ def join_or_leave(user_id, rso, is_join=False, is_leave=False):
     if student is not None:
         if is_join is True:
             rso.students.add(student)
-            rso.total_students = rso.students.count()
+            rso.total_students = rso.students.count() + 1
             rso.status = False if (rso.total_students < 5) else True
+            current_RsoNumber = RsoNumber(
+                username = student.username,
+                rso = rso.id
+            )
+            current_RsoNumber.save()
+            student.rsos.add(current_RsoNumber)
         if is_leave is True:
             rso.students.remove(student)
-            rso.total_students = rso.students.count()
+            rso.total_students = rso.students.count() + 1
             rso.status = False if (rso.total_students < 5) else True
+            current_RsoNumber = RsoNumber.objects.get(username = student.username, rso=rso.id)
+            student.rsos.remove(current_RsoNumber)
+            
         rso.save()
-        return True
+        student.save()
+        print(student.rsos.count())
     
-    return False
 
 def sign_admin(admin_email):
-    current_admin = Users.objects.filter(email = admin_email).first()
+    current_admin = User.objects.filter(email = admin_email).first()
 
-    if len(current_admin) == 1:
-        current_admin = current_admin[0]
+    if current_admin is not None:
         current_admin.is_admin = True
         current_admin.save()
