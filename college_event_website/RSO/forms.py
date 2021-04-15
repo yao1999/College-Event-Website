@@ -33,8 +33,6 @@ class RsoForm(forms.Form):
                     current_rso.students.add(student)
                     current_rso.save()
                 current_rso.save()
-            else:
-                pass # <-- error message
 
 def find_university(admin, students, university_name):
     current_university = University.objects.filter(name = university_name).first()

@@ -45,7 +45,6 @@ def list_events(response):
 @login_required(login_url='/Users/login/')
 def add_event(response):
   if response.user.is_admin is False:
-    messages.warning(response, "Only RSO admins can make events")
     return HttpResponseRedirect('../../Events/')
   else:
     if response.method == "POST":
@@ -126,7 +125,6 @@ def event_info(response, event_id):
         current_event = Event.objects.filter(id = event_id).first()
         current_user = User.objects.filter(id = response.user.id).first()
         comment_form.save(current_user, current_event)
-        messages.success(response, "Comment added")
     return HttpResponseRedirect('../../Events/' + str(event_id) + '')
   else:
     comment_form = CommentForm(None)

@@ -5,7 +5,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from Users.models import User, RsoNumber
 from .models import Rso
 from Universities.models import University
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/Users/login/')
@@ -45,7 +44,6 @@ def add_rso(response):
             if RSOForm.is_valid():
                 sign_admin(RSOForm.data['admin_email'])
                 RSOForm.save(students, university_name)
-                messages.success(response, "RSO added")
         return HttpResponseRedirect('../../RSO/')
     else:
         RSOForm = RsoForm(None)
@@ -66,19 +64,15 @@ def rso_info(response, rso_id):
         isInRSO = True if rso.admin.id == response.user.id else False
     if response.method == 'POST':
         if response.POST.get("join-rso-btn"):
-            if join_or_leave(response.user.id, rso, is_join=True) is True:
-                messages.success(response, "User joined the Rso")
+            join_or_leave(response.user.id, rso, is_join=True)
         elif response.POST.get("leave-rso-btn"):
-            if join_or_leave(response.user.id, rso, is_leave=True) is True:
-                messages.success(response, "User leaved the Rso")
+            join_or_leave(response.user.id, rso, is_leave=True)
         elif response.POST.get("delete-rso-btn"):
             rso.delete()
             response.user.is_admin = False
             response.user.save()
-            messages.success(response, "Admin deleted the Rso")
         return HttpResponseRedirect('../../RSO/')
     if rso is None:
-        messages.warning(response, "RSO does not exist")
         return HttpResponseRedirect('../../RSO/')
     return render(response, 'RSO/details.html',{
         'rso': rso,
@@ -86,15 +80,8 @@ def rso_info(response, rso_id):
         'same_university': isSameUniversity
     })
 
-
-def delete_rso():
-    pass
-
-def edit_rso():
-    pass
-
 def check_user(email):
-    current_user = User.objects.filter(email=email, is_admin=False).first()
+    current_user = User.objects.filter(email=email).first()
     if current_user is not None:
         return True, current_user
     
@@ -181,9 +168,7 @@ def join_or_leave(user_id, rso, is_join=False, is_leave=False):
         rso.save()
         student.save()
         print(student.rsos.count())
-        return True
     
-    return False
 
 def sign_admin(admin_email):
     current_admin = User.objects.filter(email = admin_email).first()
