@@ -103,18 +103,21 @@
                         <!-- create event form card-->
                         <div class="row card card0 border-0 shadow-thick bg-black d-flex align-items-center align-content-center align-self-center w-100 rounded-bottom">
                             <div class="row d-flex align-items-center align-content-center align-self-center m-4 w-100">
-                                <!-- error notifers -->
-                                {% if messages %}
-                                <ul class="messages">
-                                    {% for message in messages %}
-                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                                    {% endfor %}
-                                </ul>
-                                {% endif %}
-                                
                                 <!-- create event form -->
                                 <form method="POST" class="w-100 m-2">
                                     {% csrf_token %}
+                                    <!-- error notifers -->
+                                    {% if messages %}
+                                    <div class="row">
+                                        <div class="col-md-12 text-white">
+                                            <ul class="messages">
+                                                {% for message in messages %}
+                                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                     <!-- event details section text -->
                                     <div class="row mb-3">                                
                                         <div class="col-md-12">

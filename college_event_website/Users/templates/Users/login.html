@@ -21,11 +21,15 @@
         <div class="text-center mt-5 mb-5">
             <!-- error notifers -->
             {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
+            <div class="row">
+                <div class="col-md-12 text-white">
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
             {% endif %}
 
             <!--<h1 class="display-4 mb-5 text-orng font-weight-bold text-shadow">College Events</h1>-->
