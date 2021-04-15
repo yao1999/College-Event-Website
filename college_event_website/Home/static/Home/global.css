@@ -154,6 +154,10 @@ hr {
     background-color: #242121;
 }
 
+.gradient-error {
+    background: linear-gradient(to top right, #ff0d00 0%, #ff000d 100%);
+}
+
 .btn-white {
     background: linear-gradient(to top right, #ffffff 0%, #8b8b8b 100%);
     color: black;
