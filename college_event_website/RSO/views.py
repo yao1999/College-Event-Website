@@ -163,7 +163,7 @@ def join_or_leave(user_id, rso, is_join=False, is_leave=False):
     if student is not None:
         if is_join is True:
             rso.students.add(student)
-            rso.total_students = rso.students.count()
+            rso.total_students = rso.students.count() + 1
             rso.status = False if (rso.total_students < 5) else True
             current_RsoNumber = RsoNumber(
                 username = student.username,
@@ -173,7 +173,7 @@ def join_or_leave(user_id, rso, is_join=False, is_leave=False):
             student.rsos.add(current_RsoNumber)
         if is_leave is True:
             rso.students.remove(student)
-            rso.total_students = rso.students.count()
+            rso.total_students = rso.students.count() + 1
             rso.status = False if (rso.total_students < 5) else True
             current_RsoNumber = RsoNumber.objects.get(username = student.username, rso=rso.id)
             student.rsos.remove(current_RsoNumber)

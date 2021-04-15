@@ -78,15 +78,16 @@ def add_event(response):
               is_RSO = True
             else:
               is_RSO = False
-            if check_location_time(event_form.data['date_year'], 
+            conflicting_event = check_location_time(event_form.data['date_year'], 
                                   event_form.data['date_month'], 
                                   event_form.data['date_day'], 
                                   event_form.data['start_time'], 
                                   event_form.data['end_time'], 
-                                  location) == True:
+                                  location)
+            if conflicting_event == None:
               event_form.save(is_private, is_RSO, location, user_university, user_rso, response.user)
             else:
-              messages.warning(response, "Same location and overlap time")
+              messages.warning(response, ("Same location: "+conflicting_event.location.location_name+" and overlapping time: "+str(conflicting_event.start_time)+" with event: "+conflicting_event.name))
         return HttpResponseRedirect('../../Events/create')
       else:
         return HttpResponseRedirect('../../Events/create')
@@ -289,7 +290,4 @@ def check_location_time(year, month, day, start_time, end_time, location):
   date = datetime.strptime(year + "-" + month + "-" + day ,'%Y-%m-%d')
   event_in_db = Event.objects.filter(date = date, start_time = start_time, end_time = end_time, location = location).first()
 
-  if event_in_db is not None:
-    return False
-  
-  return True
+  return event_in_db
