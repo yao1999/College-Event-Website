@@ -45,7 +45,7 @@ def list_events(response):
 @login_required(login_url='/Users/login/')
 def add_event(response):
   if response.user.is_admin is False:
-    messages.error(response, "Only RSO admins can make events")
+    messages.warning(response, "Only RSO admins can make events")
     return HttpResponseRedirect('../../Events/')
   else:
     if response.method == "POST":
@@ -78,10 +78,9 @@ def add_event(response):
               is_RSO = True
             if check_location_time(event_form.data['start_time'], location) == True:
               event_form.save(is_private, is_RSO, location, user_university, user_rso, response.user)
-              messages.success(response, "Event added")
             else:
-              messages.warnign(response, "Same location and overlap time")
-        return HttpResponseRedirect('../../Events/')
+              messages.warning(response, "Same location and overlap time")
+        return HttpResponseRedirect('../../Events/create')
       else:
         return HttpResponseRedirect('../../Events/create')
     event_form = EventForm(None)

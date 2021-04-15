@@ -34,19 +34,17 @@ def user_login(response):
         current_user = user_check_and_login(response, "user")
         if current_user is not None:
           login(response, current_user)
-          messages.success(response, "Welcome!!!")
           return HttpResponseRedirect('../../Users/profile')
         else:
-          messages.warning(response, "Password incorrect")
+          messages.warning(response, "Username or Password incorrect")
           return HttpResponseRedirect('../../Users/login')
       elif response.POST.get("SuperUserLoginButton"):
         current_user = user_check_and_login(response, "faculty")
         if current_user is not None:
           login(response, current_user)
-          messages.success(response, "Welcome!!!")
           return HttpResponseRedirect('../../Users/profile')
         else:
-          messages.warning(response, "Password incorrect")
+          messages.warning(response, "Username or Password incorrect")
           return HttpResponseRedirect('../../Users/login')
 
       else:
@@ -110,17 +108,19 @@ def auto_login_for_coder(response):
 
 
 def get_rso(user):
-    all_rso = Rso.objects.all()
+  total_rso = Rso.objects.none()
 
-    rsos = []
+  all_rso = user.rsos.all()
 
-    for rso in all_rso:
-      if rso.students.filter(id=user.id).exists():
-        rsos.append(rso)
-      elif rso.admin.id == user.id:
-        rsos.append(rso)
-    
-    return rsos
+  if len(all_rso) == 0:
+    return total_rso
+  
+  
+  for current_rso in all_rso:
+    rso_in_db = Rso.objects.filter(id=current_rso.rso)
+    total_rso |= rso_in_db
+
+  return total_rso
 
 def encrypt_password(password):
   key = b'HkLYcD5m5zH9VYNEQt9GpWzxq87SHHbhpxvFR9LgF9Q=' # this is bytes
