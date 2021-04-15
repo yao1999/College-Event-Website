@@ -40,11 +40,10 @@ def add_rso(response):
         RSOForm = RsoForm(response.POST)
         university_name = response.POST.get("pick-university")
 
-        sign_admin(RSOForm.data['admin_email'])
-
         if (check_university(students, university_name) == True and 
             check_admin(RSOForm.data['admin_email'], university_name) == True):
             if RSOForm.is_valid():
+                sign_admin(RSOForm.data['admin_email'])
                 RSOForm.save(students, university_name)
                 messages.success(response, "RSO added")
         return HttpResponseRedirect('../../RSO/')
