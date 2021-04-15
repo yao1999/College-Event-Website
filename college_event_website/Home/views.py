@@ -8,7 +8,4 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 # Create your views here.
 def home(request):
-  try: 
-    return render(request, 'Home/base.html')
-  except:
-    traceback.print_exc() 
+  return HttpResponseRedirect("../../Users/login")
