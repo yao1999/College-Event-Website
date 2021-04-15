@@ -20,9 +20,11 @@
     <div class="d-flex container" >
         <div class="text-center mt-5 mb-5">
             <!-- error notifers -->
-            {% if error_message %}
+            {% if messages %}
             <ul class="messages">
-                <li{% if error_message.tags %} class="{{ error_message.tags }}"{% endif %}>{{ error_message }}</li>
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
             </ul>
             {% endif %}
 

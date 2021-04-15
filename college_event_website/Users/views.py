@@ -11,7 +11,6 @@ from cryptography.fernet import Fernet
 
 def user_register(response):
   if response.user.is_authenticated is True:
-    messages.error(response, "User Authorized Already")
     return HttpResponseRedirect('../../Events/')
   else:
     if response.method == "POST":
@@ -28,7 +27,6 @@ def user_register(response):
 
 def user_login(response):
   if response.user.is_authenticated is True:
-      messages.error(response, "User Authorized Already")
       return HttpResponseRedirect('../../Events/')
   else:
     if response.method == "POST":
