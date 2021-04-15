@@ -108,7 +108,6 @@
                                     {% csrf_token %}
                                     <!-- error notifers -->
                                     {% if messages %}
-                                        {% comment %} {% if message.tags == 'warning' %} {% endcomment %}
                                         <div class="card card0 border-0 gradient-error text-white pt-2 d-flex font-weight-bold">
                                             <div class="row messages">
                                                 {% for message in messages %}
@@ -116,7 +115,6 @@
                                                 {% endfor %}
                                             </div>
                                         </div>
-                                        {% comment %} {% endif %} {% endcomment %}
                                     {% endif %}
                                     <!-- event details section text -->
                                     <div class="row mb-3">                                
