@@ -70,19 +70,27 @@ def add_event(response):
             if response.POST.get("universityEvent"):
               is_private = response.POST.get("universityEvent")
               user_university = response.user.university
-            if response.POST.get("rsoEvent"):
-              is_RSO = response.POST.get("rsoEvent")
-              user_rso = get_rso(response.user)
-            event_form.save(is_private, is_RSO, location, user_university, user_rso, response.user)
-            messages.success(response, "Event added")
+            if response.POST.get("pick-rso") != "No RSO":
+              user_rso = get_rso(response)
+              if user_rso is None:
+                messages.warning(response, "Not your Rso")
+                return HttpResponseRedirect('../../Events/create') 
+              is_RSO = True
+            if check_location_time(event_form.data['start_time'], location) == True:
+              event_form.save(is_private, is_RSO, location, user_university, user_rso, response.user)
+              messages.success(response, "Event added")
+            else:
+              messages.warnign(response, "Same location and overlap time")
         return HttpResponseRedirect('../../Events/')
       else:
         return HttpResponseRedirect('../../Events/create')
     event_form = EventForm(None)
     location_form = LocationForm(None)
+    all_rso = Rso.objects.all().order_by('id')
     return render(response, "Events/create.html", { 
       'form' : event_form,
-      'location_form': location_form
+      'location_form': location_form,
+      'all_rso': all_rso
     })
 
 
@@ -228,13 +236,16 @@ def search_by_location(response):
   return False, None
 
 
-def get_rso(user):
-    all_rso = user.rsos.all()
+def get_rso(response):
+    picked_rso_name = response.POST.get("pick-rso")
 
-    if all_rso.count() == 1:
-      return all_rso[0]
+    picked_rso = Rso.objects.filter(name=picked_rso_name).first()
+
+    if picked_rso is not None:
+      if picked_rso.admin != response.user:
+        return None
     
-    return None
+    return picked_rso
   
 def check_timestamp(year, month, day, start_time, end_time):
   today = datetime.now()
@@ -267,3 +278,11 @@ def find_rso_event(user_rsos):
     rso_event |= new_rso_event
 
   return rso_event
+
+def check_location_time(start_time, location):
+  event_in_db = Event.objects.filter(start_time = start_time, location = location).first()
+
+  if event_in_db is not None:
+    return False
+  
+  return True
