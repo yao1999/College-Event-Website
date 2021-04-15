@@ -119,7 +119,8 @@ def get_rso(user):
     for rso in all_rso:
       if rso.students.filter(id=user.id).exists():
         rsos.append(rso)
-        
+      elif rso.admin.id == user.id:
+        rsos.append(rso)
     
     return rsos
 

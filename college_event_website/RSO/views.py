@@ -114,13 +114,11 @@ def check_university(students, university_name):
     for student in students:
         if student.university.name != university_name:
             return False
-        if student.is_admin == True:
-            return False
 
     return True
 
 def check_admin(admin_email, university_name):
-    admin = User.objects.filter(email=admin_email, is_admin=True).first()
+    admin = User.objects.filter(email=admin_email).first()
 
     if admin is None:
         return False

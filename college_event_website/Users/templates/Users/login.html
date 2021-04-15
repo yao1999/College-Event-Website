@@ -19,6 +19,13 @@
 <body class="d-flex align-items-center align-content-center align-self-center">
     <div class="d-flex container" >
         <div class="text-center mt-5 mb-5">
+            <!-- error notifers -->
+            {% if error_message %}
+            <ul class="messages">
+                <li{% if error_message.tags %} class="{{ error_message.tags }}"{% endif %}>{{ error_message }}</li>
+            </ul>
+            {% endif %}
+
             <!--<h1 class="display-4 mb-5 text-orng font-weight-bold text-shadow">College Events</h1>-->
             <div class="card card0 border-0 shadow-thick gradient-orange d-flex align-items-center align-content-center align-self-center">
 

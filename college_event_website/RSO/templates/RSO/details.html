@@ -56,8 +56,8 @@
                         RSOs
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item active" href="/RSO/">View RSOs</a>
-                        <a class="dropdown-item active" href="/RSO/inactiveRsos">View Inactive RSOs</a>                        
+                        <a class="dropdown-item" href="/RSO/">View RSOs</a>
+                        <a class="dropdown-item" href="/RSO/inactiveRsos">View Inactive RSOs</a>                        
                         <a class="dropdown-item" href="/RSO/create">Create RSO</a>
                     </div>
                 </li>
@@ -115,10 +115,17 @@
                                 </div>
                                 <!-- number of members -->
                                 <div class="row mb-3 ml-3 mr-3">                                
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="d-flex w-100 justify-content-start">
                                             <div class="text-white font-weight-bold text-start">
                                                 {{ rso.total_students }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex w-100 justify-content-end">
+                                            <div class="text-white font-weight-bold text-end">
+                                                Status: {% if rso.status %}Active{% else %}Inactive{% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -141,11 +148,11 @@
                                             <div class="w-100 text-white">
                                                 <form method="POST" class="w-100">
                                                     {% csrf_token %}
-                                                    {% if isInRSO == False and user.is_admin == False and same_university == True %}
+                                                    {% if isInRSO == False and user.id != rso.admin.id and same_university == True %}
                                                         <button type="submit" name="join-rso-btn" value="join_rso" class="btn btn-white float-left">Join RSO</button>
-                                                    {% elif isInRSO and user.is_admin == False and same_university == True %}
+                                                    {% elif isInRSO and user.id != rso.admin.id and same_university == True %}
                                                         <button type="submit" name="leave-rso-btn" value="join_rso" class="btn btn-white float-left">Leave RSO</button>
-                                                    {% elif isInRSO and user.is_admin == True and same_university == True %}
+                                                    {% elif isInRSO and user.id == rso.admin.id and same_university == True %}
                                                         <button type="submit" name="delete-rso-btn" value="join_rso" class="btn btn-white float-left">Delete RSO</button>
                                                     {% endif %}
                                                 </form>
