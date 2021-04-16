@@ -43,7 +43,7 @@ class Comment(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   content = models.TextField()
   rating = models.IntegerField()
-  timestamp = models.DateTimeField(auto_now_add=True)
+  timestamp = models.DateTimeField(default=datetime.now(), null=True)
 
   event = models.ForeignKey(Event, on_delete=models.CASCADE) 
   
