@@ -12,6 +12,6 @@ INSERT INTO university_rsonumber(
 
 VALUES(
     1,	
-    Oliver,	
+    "Oliver",	
     2
 ) 
