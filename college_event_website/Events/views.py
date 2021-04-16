@@ -87,7 +87,7 @@ def add_event(response):
               event_form.save(is_private, is_RSO, location, user_university, user_rso, response.user)
             else:
               messages.warning(response, ("Same location: "+conflicting_event.location.location_name+" and overlapping time: "+str(conflicting_event.start_time)+" with event: "+conflicting_event.name))
-        return HttpResponseRedirect('../../Events/create')
+        return HttpResponseRedirect('../../Events/')
       else:
         return HttpResponseRedirect('../../Events/create')
     event_form = EventForm(None)
