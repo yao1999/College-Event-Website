@@ -16,8 +16,6 @@ def list_rsos(response):
                 rsos = search_rso_by_university(response)
     else:
         rsos = Rso.objects.filter(status=True).order_by('id')
-        if len(rsos) == 0:
-            rsos = Rso.objects.all().order_by('id')
         
     user_university = University.objects.filter(name = response.user.university).first()
     return render(response, 'RSO/base.html', {
@@ -136,14 +134,14 @@ def search_rso_by_name(response):
 
 def search_rso_by_university(response):
     university_name = response.POST.get("search-university")
-    university = University.objects.filter(name = university_name, status =True).first()
+    university = University.objects.filter(name = university_name).first()
 
     if university is None:
-        rsos = Rso.objects.all().order_by('id')
+        rsos = Rso.objects.filter(status = True).order_by('id')
         return rsos
     
-    rsos = Rso.objects.filter(university = university)
-    return university
+    rsos = Rso.objects.filter(university = university, status = True).order_by('id')
+    return rsos
 
 def join_or_leave(user_id, rso, is_join=False, is_leave=False):
     student = User.objects.filter(id = user_id).first()
