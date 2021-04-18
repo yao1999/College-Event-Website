@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from crispy_forms.helper import FormHelper
 from .forms import UniversityForm, LocationForm
 from django.http import HttpResponseRedirect, HttpResponse
 from Users.models import User

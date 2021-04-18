@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from rest_framework import generics
 from .models import User
 from django.http import HttpResponseRedirect
-import traceback 
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from RSO.models import Rso

@@ -1,5 +1,4 @@
 from django.shortcuts import render
-import traceback 
 
 # Create your views here.
   

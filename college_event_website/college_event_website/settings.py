@@ -14,7 +14,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -66,7 +65,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,14 +131,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_ROOT = "../Universities/images/"
-# MEDIA_URL = '/media/'
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-# LOGIN_REDIRECT_URL = 'events-home'
-# LOGIN_URL = 'login'
 

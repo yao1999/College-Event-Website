@@ -1,14 +1,13 @@
 from django.shortcuts import render
-from crispy_forms.helper import FormHelper
 from .forms import EventForm, CommentForm, LocationForm
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from .models import Event, Comment, Locations
 from Universities.models import University
 from Users.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from RSO.models import Rso
-from datetime import datetime, date, time
+from datetime import datetime
 
 # Create your views here.
 

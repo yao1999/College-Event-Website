@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse 
-from datetime import datetime, date, time
+from datetime import datetime, date
 from phone_field import PhoneField
 from Users.models import User
 from Universities.models import University
