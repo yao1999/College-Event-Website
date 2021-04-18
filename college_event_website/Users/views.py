@@ -16,10 +16,12 @@ def user_register(response):
   else:
     if response.method == "POST":
       if response.POST.get("UserRegisterButton"):
-        user_check_and_register(response, "user")
+        if user_check_and_register(response, "user") is False:
+          return HttpResponseRedirect('../../Users/register')
 
       elif response.POST.get("SuperUserRegisterButton"):
-        user_check_and_register(response, "faculty")
+        if user_check_and_register(response, "faculty") is False:
+          return HttpResponseRedirect('../../Users/register')
 
       return HttpResponseRedirect('../../Users/login')
     else:
@@ -73,6 +75,11 @@ def user_check_and_register(response, user_type):
   username = response.POST.get(user_type + "Username")
   password = response.POST.get(user_type + "Password")
 
+  user_db = User.objects.filter(username=username).exists()
+
+  if user_db is True:
+    return False
+
   password = encrypt_password(password) 
   current_user = User(
     first_name = first_name,
@@ -84,6 +91,8 @@ def user_check_and_register(response, user_type):
     is_super_admin = True if user_type == "faculty" else False
   )
   current_user.save()
+
+  return True
 
 def user_check_and_login(response, user_type):
   username = response.POST.get(user_type + "Username")
