@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-18T19:04:47.194Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36" etag="25eiDtBqMGdKyYdJQN8r" version="14.6.1" type="github">
+<mxfile host="app.diagrams.net" modified="2021-04-18T19:11:12.476Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36" etag="0BqMbqP_kFCpkw3i8rOO" version="14.6.1" type="github">
   <diagram id="n__AT01gdNv5Tcwq3zgV" name="Page-1">
     <mxGraphModel dx="1673" dy="867" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -16,7 +16,7 @@
         <mxCell id="HFHnMpVE2H_I2ADA_7cu-4" value="Public Event" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="520" y="1044.94" width="90" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="HFHnMpVE2H_I2ADA_7cu-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#001933;" parent="1" source="HFHnMpVE2H_I2ADA_7cu-6" target="HFHnMpVE2H_I2ADA_7cu-21" edge="1">
+        <mxCell id="HFHnMpVE2H_I2ADA_7cu-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#001933;strokeWidth=3;" parent="1" source="HFHnMpVE2H_I2ADA_7cu-6" target="HFHnMpVE2H_I2ADA_7cu-21" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="HFHnMpVE2H_I2ADA_7cu-6" value="RSO Event" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -46,10 +46,10 @@
         <mxCell id="HFHnMpVE2H_I2ADA_7cu-15" value="University" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="580" y="700" width="90" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="HFHnMpVE2H_I2ADA_7cu-16" value="ISA" style="triangle;whiteSpace=wrap;html=1;direction=north;" parent="1" vertex="1">
+        <mxCell id="HFHnMpVE2H_I2ADA_7cu-16" value="ISA" style="triangle;whiteSpace=wrap;html=1;direction=north;strokeWidth=3;" parent="1" vertex="1">
           <mxGeometry x="350" y="924.94" width="90" height="60.06" as="geometry" />
         </mxCell>
-        <mxCell id="HFHnMpVE2H_I2ADA_7cu-17" value="ISA" style="triangle;whiteSpace=wrap;html=1;direction=north;" parent="1" vertex="1">
+        <mxCell id="HFHnMpVE2H_I2ADA_7cu-17" value="ISA" style="triangle;whiteSpace=wrap;html=1;direction=north;strokeWidth=3;" parent="1" vertex="1">
           <mxGeometry x="920" y="567.5" width="70" height="60" as="geometry" />
         </mxCell>
         <mxCell id="HFHnMpVE2H_I2ADA_7cu-18" value="Host at" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -276,7 +276,7 @@
             <mxPoint x="895" y="729.94" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="vq5s8mBlksLQqWaTSrM9-12" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="HFHnMpVE2H_I2ADA_7cu-9" target="HFHnMpVE2H_I2ADA_7cu-20" edge="1">
+        <mxCell id="vq5s8mBlksLQqWaTSrM9-12" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="HFHnMpVE2H_I2ADA_7cu-9" target="HFHnMpVE2H_I2ADA_7cu-20" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="725" y="964.94" as="sourcePoint" />
             <mxPoint x="775" y="914.94" as="targetPoint" />
