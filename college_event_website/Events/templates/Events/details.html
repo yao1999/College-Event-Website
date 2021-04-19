@@ -11,7 +11,7 @@
     <title>Event Details</title>
 
     <!-- fb open graphs -->
-    <meta property="og:url"           content="localhost://Events/{{ event.id }}" />
+    <meta property="og:url"           content="https://localhost://Events/{{ event.id }}" />
     <meta property="og:type"          content="website" />
     <meta property="og:title"         content="College Event: {{ event.name }}" />
     <meta property="og:description"   content="{{ event.description }}" />
@@ -119,7 +119,7 @@
                                     </div>
                                     <!-- share to facebook -->
                                     <div class="ml-3">
-                                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flocalhost%2FEvents%2F{{ event.id }}%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+                                        <div class="fb-share-button" data-href="https://localhost:/Events/{{ event.id }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flocalhost%2FEvents%2F{{ event.id }}%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
                                     </div>
                                 </div>
                                 <!-- /.share post section -->
