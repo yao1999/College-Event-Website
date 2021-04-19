@@ -1,6 +1,8 @@
 # College-Event-Website
+All of our project code is stored in the folder "college_event_website". This folder also contains EXAMPLE SQL code and inserts. These are example only for the purpose of the report, as we use SQLite with Django framework. Our database is stored in the file "db.sqlite3" in the folder "college_event_website". The other folders are code for the website. The file "manage.py" is used to run the server, as below:
 
-1. You must have python installed on your computer first, and it is better to have version 3.6 or higher
+
+1. You must have python installed on your computer first, and it is necessary to have version 3.6 or higher
 
 2. libraries and packages:
     pip install django
@@ -10,6 +12,13 @@
     pip install Pillow
     pip install cryptography
     pip install urllib3
+
+	If you encounter any issues with error code 1, the most common fix is to upgrade your pip version, as it is probably out of date. If you need this, the command is:
+	(linux)
+	python -m pip install -U pip
+	(windows)
+	py -m pip install -U pip
+	Alternatively, ensure that you are in fact using python version 3.6 or higher and not python 2.
 
 3. run the program:
 go to folder college_event_website
