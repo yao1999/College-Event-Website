@@ -1,3 +1,5 @@
+CREATE DATABASE sqldatabase;
+
 CREATE TABLE Users_user (
     id INT PRIMARY KEY NOTNULL,
     password VARCHAR(128) NOTNULL,
