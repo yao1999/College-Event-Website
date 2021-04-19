@@ -9,4 +9,6 @@
     pip install cryptography
     pip install urllib3
 
-3. run the program: python manage.py runserver
+3. to run the program:
+go to folder college_event_website
+run command: python manage.py runserver
