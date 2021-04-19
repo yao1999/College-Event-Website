@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse 
-from datetime import datetime, date, time
+from datetime import datetime, date
 from phone_field import PhoneField
 from Users.models import User
 from Universities.models import University
@@ -43,7 +43,7 @@ class Comment(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   content = models.TextField()
   rating = models.IntegerField()
-  timestamp = models.DateTimeField(auto_now_add=True)
+  timestamp = models.DateTimeField(default=datetime.now(), null=True)
 
   event = models.ForeignKey(Event, on_delete=models.CASCADE) 
   

@@ -2,7 +2,6 @@ import urllib.request, json
 import re, html
 from Events.models import Event
 from Events.models import Locations
-from Universities.models import University
 
 def populate_events():
     # get the events in the db

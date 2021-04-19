@@ -1,21 +1,10 @@
 install Django:
 1. I assume you have python install and have pip install too.
 2. pip install django
-3. pip install djangorestframework <-- you don't have to do this, I did it
+3. pip install djangorestframework
 
 
 -------------------------------------------------------------------------
-Only for first making server (Yao):
-Django part (backend):
-make a folder: Django-admin startapp [folder name]
-
--------------------------------------------------------------------------
-1. install django-crispy-forms
-2. install django-location-field
-3. install django-phone-field
-4. install cartography
-5. install database (see below)
-
 make sure you cd to the right folder (the one that has manage.py)
 
 make migration for model: python manage.py makemigrations
@@ -45,14 +34,3 @@ To delete one record in Database:
 2. from xx.models import yy
 3. yy.objects.filter(id=[id]).delete()
 4. quit()
-
---------------------------------------------------------------------------
-For the RSO student email (you can not find in the SQLite database)
->>> from RSO.models import Rso
->>> current_rso = Rso.objects.all()[id-1]
->>> print(current_rso)
-RSO for test different member email
->>> current_students = current_rso.students.all()
->>> print(current_students)
-<QuerySet [<User: usertest1>, <User: usertest2>, <User: usertest3>, <User: Tom>]>
->>> quit() <-- for exit

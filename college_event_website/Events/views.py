@@ -1,14 +1,13 @@
 from django.shortcuts import render
-from crispy_forms.helper import FormHelper
 from .forms import EventForm, CommentForm, LocationForm
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from .models import Event, Comment, Locations
 from Universities.models import University
 from Users.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from RSO.models import Rso
-from datetime import datetime, date, time
+from datetime import datetime
 
 # Create your views here.
 
@@ -17,21 +16,26 @@ def list_events(response):
   if response.method == "POST":
     if response.POST.get("search-button"):
       is_location, location_info = search_by_location(response)
-      university = search_by_university_name(response)
-      if is_location is False:
-        if university is not None:
-          events = Event.objects.filter(university = university)
+      if response.POST.get("search-university") != "No Home University":
+        university = search_by_university_name(response)
+        if is_location is False:
+          if university is not None:
+            events = Event.objects.filter(university = university)
+          else:
+            events = []
         else:
-          events = []
+          if university is not None:
+            events = Event.objects.filter(location = location_info, university = university)
+          else:
+            events = Event.objects.filter(location = location_info)
       else:
-        if university is not None:
-          events = Event.objects.filter(location = location_info, university = university)
-        else:
-          events = Event.objects.filter(location = location_info)
+        events = Event.objects.filter(is_approved = True, is_public = True)
+        university_event = Event.objects.filter(is_private = True)
+        events |= university_event
   else:
     events = Event.objects.filter(is_approved = True, is_public = True)
     university_event = Event.objects.filter(university = response.user.university, is_private = True)
-    events.union(university_event)
+    events |= university_event
     rso_event = find_rso_event(response.user.rsos)
     events |= rso_event
   
@@ -87,7 +91,7 @@ def add_event(response):
               event_form.save(is_private, is_RSO, location, user_university, user_rso, response.user)
             else:
               messages.warning(response, ("Same location: "+conflicting_event.location.location_name+" and overlapping time: "+str(conflicting_event.start_time)+" with event: "+conflicting_event.name))
-        return HttpResponseRedirect('../../Events/create')
+        return HttpResponseRedirect('../../Events/')
       else:
         return HttpResponseRedirect('../../Events/create')
     event_form = EventForm(None)
