@@ -23,3 +23,6 @@ All of our project code is stored in the folder "college_event_website". This fo
 3. run the program:
 go to folder college_event_website
 run command: python manage.py runserver
+
+4. Open your local host in Chrome.
+http://127.0.0.1:8000/
