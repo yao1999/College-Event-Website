@@ -4,7 +4,6 @@ from Universities.models import University
 
 
 class UserForm(forms.Form):
-    pass
 
     def save(self, is_super_admin):
         data = self.cleaned_data
